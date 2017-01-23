@@ -14,3 +14,9 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+
+# Docker
+/docker/docker-compose.env
+/docker/.home-developer
+/docker/conf/nginx_vhost.conf
+
