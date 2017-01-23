@@ -883,7 +883,7 @@
             "source": {
                 "type": "git",
                 "url": "./user-bundle/",
-                "reference": "b5184ce9d93a5847c63c1d19866685fb0662daf5"
+                "reference": "58965ce1b641e0b9541c0b2e0e07aa73b5265d4d"
             },
             "require": {
                 "php": "~7.0"
@@ -922,7 +922,7 @@
                 }
             ],
             "description": "User bundle",
-            "time": "2017-01-23 10:20:48"
+            "time": "2017-01-23 11:07:47"
         },
         {
             "name": "monolog/monolog",
