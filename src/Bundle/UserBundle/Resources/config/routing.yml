@@ -1,0 +1,7 @@
+mmc_user.login:
+    path:     /login
+    defaults: { _controller: mmc_user.component.controller.security:loginAction }
+
+mmc_user.logout:
+    path:     /logout
+    defaults: { _controller: mmc_user.component.controller.security:logoutAction }

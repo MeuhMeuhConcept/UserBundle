@@ -1,7 +1,16 @@
 services:
 
+    #CONTROLLER
+    mmc_user.component.controller.security:
+        class: MMC\User\Component\Controller\SecurityController
+        arguments:
+            - '@router'
+            - '@templating'
+            - '@security.authentication_utils'
+            - '@form.factory'
+
     mmc_user.component.security.login_form_authenticator:
-        class: MMC\User\Component\Security\Guard\LoginFormAuthenticator
+        class: MMC\User\Component\Security\LoginFormAuthenticator
         arguments:
             - '@form.factory'
             - '@mmc_user.repository.login_form_authenticator'
