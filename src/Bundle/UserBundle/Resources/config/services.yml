@@ -1,0 +1,14 @@
+services:
+
+    mmc_user.component.security.login_form_authenticator:
+        class: MMC\User\Component\Security\Guard\LoginFormAuthenticator
+        arguments:
+            - '@form.factory'
+            - '@mmc_user.repository.login_form_authenticator'
+            - '@router'
+
+    mmc_user.repository.login_form_authenticator:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator
