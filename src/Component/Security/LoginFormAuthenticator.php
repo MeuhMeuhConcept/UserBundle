@@ -72,4 +72,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
         return false;
     }
+
+    protected function getLoginUrl()
+    {
+        return $this->router->generate('mmc_user.login');
+    }
+
+    protected function getDefaultSuccessRedirectUrl()
+    {
+        return $this->router->generate('homepage');
+    }
 }
