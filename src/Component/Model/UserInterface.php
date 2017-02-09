@@ -1,6 +1,6 @@
 <?php
 
-namespace MMC\User\Component\User\Model;
+namespace MMC\User\Component\Model;
 
 interface UserInterface
 {
