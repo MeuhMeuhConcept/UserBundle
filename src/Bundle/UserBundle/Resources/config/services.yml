@@ -21,3 +21,10 @@ services:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
             - MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator
+
+    mmc_user.component.security.has_password_listener:
+        class: MMC\User\Component\Doctrine\HashPasswordListener
+        arguments:
+            - '@security.user_password_encoder.generic'
+        tags:
+            - { name: doctrine.event_subscriber }
