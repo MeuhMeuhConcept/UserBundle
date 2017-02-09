@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  {% block title %}
+    <title>{% block title_content %}Login{{ admin_title_suffix|default('MMC') }} | Log in{% endblock title_content %}</title>
+  {% endblock title %}
+
+  {% block favicon %}
+  {% endblock favicon %}
+
+  {% block stylesheets %}
+  {% endblock stylesheets %}
+
+</head>
+<body class="hold-transition login-page">
+    {% block body %}
+        <div class="login-box">
+            <div class="login-logo">
+                <a href="/admin"><b>Login</b>{{ admin_title_suffix|default('MMC') }}</a>
+            </div>
+            <div class="login-box-body">
+                {% block mmc_user_content %}
+                {% endblock mmc_user_content %}
+            </div>
+        </div>
+    {% endblock body %}
+
+    {% block javascripts %}
+    {% endblock javascripts %}
+
+</body>
+</html>
