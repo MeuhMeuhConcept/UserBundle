@@ -15,6 +15,7 @@ services:
             - '@form.factory'
             - '@mmc_user.repository.login_form_authenticator'
             - '@router'
+            - '@security.user_password_encoder.generic'
 
     mmc_user.repository.login_form_authenticator:
         class: Doctrine\ORM\EntityRepository
