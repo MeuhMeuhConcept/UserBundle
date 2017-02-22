@@ -4,15 +4,15 @@ namespace MMC\User\Bundle\UserBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-
 /**
  * This is the class that loads and manages your bundle configuration.
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class MMCUserExtension extends Extension
+class MMCUserExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritdoc}
@@ -25,5 +25,26 @@ class MMCUserExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
         $loader->load('services.yml');
+
+        $container->setParameter('mmc_user.templates.layout', $config['templates']['layout']);
+    }
+
+    public function prepend(ContainerBuilder $container)
+    {
+        $configs = $container->getExtensionConfig($this->getAlias());
+        $config = $this->processConfiguration(new Configuration(), $configs);
+
+        $bundles = $container->getParameter('kernel.bundles');
+
+        if (isset($bundles['TwigBundle'])
+        ) {
+            $twig_global = [
+                'globals' => [
+                    'mmc_user_layout' => $config['templates']['layout'],
+                ],
+            ];
+
+            $container->prependExtensionConfig('twig', $twig_global);
+        }
     }
 }
