@@ -3,6 +3,7 @@
 namespace MMC\User\Component\Model;
 
 use Symfony\Component\Security\Core\User\UserInterface as LoginFormAuthenticatorInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
 {
@@ -13,6 +14,8 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
 
     /**
     * @var string
+    * @Assert\Email()
+    * @Assert\NotBlank()
     */
     protected $email;
 
@@ -23,6 +26,7 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
 
     /**
     * @var string
+    * @Assert\NotBlank(groups={"Registration"})
     */
     protected $plainPassword;
 
