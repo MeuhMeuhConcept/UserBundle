@@ -2,9 +2,17 @@
 
 {% trans_default_domain 'MMCUserBundle' %}
 
-{% block mmc_user_content %}
+{% block title_content %}
+    Register{{ login_title_suffix|default('MMC') }} | Sign in
+{% endblock title_content %}
 
-    <h1>Register!</h1>
+{% block login_logo %}
+    <div class="login-logo">
+        <a href="{{ path('mmc_user.login') }}"><b>Register</b>MMC</a>
+    </div>
+{% endblock login_logo %}
+
+{% block mmc_user_content %}
 
     {{ form_start(form) }}
         <div class="form-group has-feedback">
