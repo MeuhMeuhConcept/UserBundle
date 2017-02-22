@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity
  * @ORM\Table(name="mmc_login_form_authenticator")
+ * @UniqueEntity("email")
  */
 class LoginFormAuthenticator extends BaseLoginFormAuthenticator
 {
