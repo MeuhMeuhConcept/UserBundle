@@ -47,7 +47,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $isLoginSubmit = $request->getPathInfo() == '/login' && $request->isMethod('POST');
 
         if (!$isLoginSubmit) {
-            // skip authentication
             return;
         }
 
