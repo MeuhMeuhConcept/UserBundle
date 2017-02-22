@@ -9,6 +9,21 @@ services:
             - '@security.authentication_utils'
             - '@form.factory'
 
+    mmc_user.component.controller.registration:
+        class: MMC\User\Component\Controller\RegistrationController
+        arguments:
+            - '@router'
+            - '@templating'
+            - '@form.factory'
+            - '@mmc_user.component.doctrine.registration_manager'
+            - '@security.authentication.guard_handler'
+            - '@mmc_user.component.security.login_form_authenticator'
+
+    mmc_user.component.doctrine.registration_manager:
+        class: MMC\User\Component\Doctrine\RegistrationManager
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+
     mmc_user.component.security.login_form_authenticator:
         class: MMC\User\Component\Security\LoginFormAuthenticator
         arguments:

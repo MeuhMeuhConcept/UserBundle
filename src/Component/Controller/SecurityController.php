@@ -3,6 +3,7 @@
 namespace MMC\User\Component\Controller;
 
 use MMC\User\Bundle\UserBundle\Form\LoginFormType;
+use MMC\User\Bundle\UserBundle\Form\UserRegistrationFormType;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;

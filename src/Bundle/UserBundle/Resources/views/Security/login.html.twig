@@ -12,29 +12,32 @@
 
     {{ form_start(form) }}
         <div class="form-group has-feedback">
-            {{ form_widget(form._username, {'attr': {'class': 'form-control' , 'placeholder' : 'Email'}}) }}
+            {{ form_widget(form._username, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.email'|trans }}) }}
             {{ form_errors(form._username) }}
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-            {{ form_widget(form._password, {'attr': {'class': 'form-control' , 'placeholder' : 'Password'}}) }}
+            {{ form_widget(form._password, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.password'|trans }}) }}
             {{ form_errors(form._password) }}
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
 
+        <div class="checkbox icheck">
+            <label>
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans }}
+            </label>
+        </div>
+
         <div class="row">
-            <div class="col-xs-8">
-                <div class="checkbox icheck">
-                    <label>
-                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans }}
-                    </label>
-                </div>
-            </div>
-            <div class="col-xs-4">
+            <div class="col-md-6">
                 <button type="submit" id="_submit" name="_submit" class="btn btn-primary btn-block btn-flat">{{ 'security.login.submit'|trans }}</button>
+            </div>
+            <div class="col-md-6">
+                <a href="{{ path('mmc_user.register') }}" class="btn btn-default btn-block btn-flat">{{ 'security.login.register'|trans }}</a>
             </div>
         </div>
      {{ form_end(form) }}
+
 
      <div class="social-auth-links text-center">
       <p>- OR -</p>
