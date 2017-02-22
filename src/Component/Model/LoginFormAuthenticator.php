@@ -51,6 +51,15 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
     }
 
     /**
+     * @return string
+     * {@inheritdoc}
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
      * @param string $email
      * {@inheritdoc}
      */
