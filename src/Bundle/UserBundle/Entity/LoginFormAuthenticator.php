@@ -38,5 +38,14 @@ class LoginFormAuthenticator extends BaseLoginFormAuthenticator
     /**
      * @ORM\OneToOne(targetEntity="User", cascade={"persist"})
      */
-    private $user;
+    protected $user;
+
+    /**
+     * @param integer $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+        return $this;
+    }
 }
