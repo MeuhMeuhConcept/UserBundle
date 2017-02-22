@@ -24,7 +24,8 @@ class UserRegistrationFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => LoginFormAuthenticator::class
+            'data_class' => LoginFormAuthenticator::class,
+            'validation_groups' => ['Default', 'Registration']
         ]);
     }
 }
