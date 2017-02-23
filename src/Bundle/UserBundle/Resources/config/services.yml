@@ -44,3 +44,8 @@ services:
             - '@security.user_password_encoder.generic'
         tags:
             - { name: doctrine.event_subscriber }
+
+    mmc_user.command.create_login_form_authenticator:
+        class: MMC\User\Bundle\UserBundle\Command\CreateLoginFormAuthenticatorCommand
+        tags:
+            - { name: console.command }
