@@ -4,7 +4,6 @@ namespace MMC\User\Bundle\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use MMC\User\Component\Model\User as BaseUser;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity

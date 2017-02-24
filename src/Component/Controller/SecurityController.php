@@ -3,12 +3,10 @@
 namespace MMC\User\Component\Controller;
 
 use MMC\User\Bundle\UserBundle\Form\LoginFormType;
-use MMC\User\Bundle\UserBundle\Form\UserRegistrationFormType;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Templating\EngineInterface;
-use Symfony\Component\Form\FormFactoryInterface;
 
 class SecurityController
 {
@@ -28,7 +26,6 @@ class SecurityController
         $this->formFactory = $formFactory;
     }
 
-
     public function loginAction()
     {
         $error = $this->authenticationUtils->getLastAuthenticationError();
@@ -43,7 +40,7 @@ class SecurityController
             'MMCUserBundle:Security:login.html.twig',
             [
                 'form' => $form->createView(),
-                'error'         => $error,
+                'error' => $error,
             ]
         );
     }

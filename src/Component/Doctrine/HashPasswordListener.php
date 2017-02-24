@@ -3,7 +3,6 @@
 namespace MMC\User\Component\Doctrine;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -16,7 +15,6 @@ class HashPasswordListener implements EventSubscriber
     {
         $this->passwordEncoder = $passwordEncoder;
     }
-
 
     public function getSubscribedEvents()
     {

@@ -41,11 +41,12 @@ class LoginFormAuthenticator extends BaseLoginFormAuthenticator
     protected $user;
 
     /**
-     * @param integer $user
+     * @param int $user
      */
     public function setUser($user)
     {
         $this->user = $user;
+
         return $this;
     }
 }

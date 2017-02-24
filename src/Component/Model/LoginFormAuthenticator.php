@@ -8,37 +8,36 @@ use Symfony\Component\Validator\Constraints as Assert;
 abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
 {
     /**
-    * @var int
-    */
+     * @var int
+     */
     protected $id;
 
     /**
-    * @var string
-    * @Assert\Email()
-    * @Assert\NotBlank()
-    */
+     * @var string
+     * @Assert\Email()
+     * @Assert\NotBlank()
+     */
     protected $email;
 
     /**
-    * @var string
-    */
+     * @var string
+     */
     protected $password;
 
     /**
-    * @var string
-    * @Assert\NotBlank(groups={"Registration"})
-    */
+     * @var string
+     * @Assert\NotBlank(groups={"Registration"})
+     */
     protected $plainPassword;
 
     /**
-    * @var string
-    */
+     * @var string
+     */
     protected $salt;
-
 
     /**
      * @return int
-     * {@inheritdoc}
+     *             {@inheritdoc}
      */
     public function getId()
     {
@@ -47,7 +46,7 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
 
     /**
      * @return string
-     * {@inheritdoc}
+     *                {@inheritdoc}
      */
     public function getUsername()
     {
@@ -56,7 +55,7 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
 
     /**
      * @return string
-     * {@inheritdoc}
+     *                {@inheritdoc}
      */
     public function getEmail()
     {
@@ -65,17 +64,18 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
 
     /**
      * @param string $email
-     * {@inheritdoc}
+     *                      {@inheritdoc}
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
         return $this;
     }
 
     /**
      * @return string
-     * {@inheritdoc}
+     *                {@inheritdoc}
      */
     public function getPassword()
     {
@@ -84,17 +84,18 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
 
     /**
      * @param string $password
-     * {@inheritdoc}
+     *                         {@inheritdoc}
      */
     public function setPassword($password)
     {
         $this->password = $password;
+
         return $this;
     }
 
     /**
      * @return string
-     * {@inheritdoc}
+     *                {@inheritdoc}
      */
     public function getPlainPassword()
     {
@@ -103,7 +104,7 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
 
     /**
      * @param string $email
-     * {@inheritdoc}
+     *                      {@inheritdoc}
      */
     public function setPlainPassword($plainPassword)
     {
@@ -115,7 +116,7 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
 
     /**
      * @return string
-     * {@inheritdoc}
+     *                {@inheritdoc}
      */
     public function getSalt()
     {
@@ -124,11 +125,12 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
 
     /**
      * @param string $salt
-     * {@inheritdoc}
+     *                     {@inheritdoc}
      */
     public function setSalt($salt)
     {
         $this->salt = $salt;
+
         return $this;
     }
 

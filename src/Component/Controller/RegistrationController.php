@@ -6,7 +6,6 @@ use MMC\User\Bundle\UserBundle\Form\UserRegistrationFormType;
 use MMC\User\Component\Doctrine\RegistrationManager;
 use MMC\User\Component\Security\LoginFormAuthenticator;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
@@ -65,6 +64,8 @@ class RegistrationController
 
     protected function processForm(Request $request, $form)
     {
-        return $this->registrationManager->create($form);
+        $user = $form->getData();
+
+        return $this->registrationManager->create($user);
     }
 }
