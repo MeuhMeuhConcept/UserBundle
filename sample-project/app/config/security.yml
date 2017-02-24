@@ -23,3 +23,7 @@ security:
                     - mmc_user.component.security.login_form_authenticator
             logout:
                 path: /logout
+
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 604800 # 1 week in seconds
