@@ -32,11 +32,13 @@
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
 
-        <div class="checkbox icheck">
-            <label>
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans }}
-            </label>
-        </div>
+        {% if remember_me %}
+            <div class="checkbox icheck">
+                <label>
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans }}
+                </label>
+            </div>
+        {% endif %}
 
         <div class="row">
             <div class="col-md-6">

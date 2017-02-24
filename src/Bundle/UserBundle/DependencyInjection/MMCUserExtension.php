@@ -28,6 +28,7 @@ class MMCUserExtension extends Extension implements PrependExtensionInterface
         $loader->load('services.yml');
 
         $container->setParameter('mmc_user.templates.layout', $config['templates']['layout']);
+        $container->setParameter('mmc_user.templates.remember_me', $config['templates']['remember_me']);
     }
 
     public function prepend(ContainerBuilder $container)
@@ -42,6 +43,7 @@ class MMCUserExtension extends Extension implements PrependExtensionInterface
             $twig_global = [
                 'globals' => [
                     'mmc_user_layout' => $config['templates']['layout'],
+                    'remember_me' => $config['templates']['remember_me'],
                 ],
             ];
 
