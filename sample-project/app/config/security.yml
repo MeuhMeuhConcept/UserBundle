@@ -6,7 +6,7 @@ security:
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        our_users:
+        mmc_user:
             entity: { class: MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator, property: email }
 
     firewalls:
