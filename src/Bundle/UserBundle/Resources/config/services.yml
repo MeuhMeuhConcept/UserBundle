@@ -49,3 +49,6 @@ services:
         class: MMC\User\Bundle\UserBundle\Command\CreateLoginFormAuthenticatorCommand
         tags:
             - { name: console.command }
+
+    mmc_user.component.utils.login_form_authenticator_manipulator:
+        class: MMC\User\Component\Utils\LoginFormAuthenticatorManipulator

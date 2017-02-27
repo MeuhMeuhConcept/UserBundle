@@ -81,9 +81,12 @@ class CreateLoginFormAuthenticatorCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         // access the container using getContainer()
-        $userManager = $this->getContainer()->get('mmc_user.component.doctrine.registration_manager');
+        $loginFormManipulator = $this->getContainer()->get('mmc_user.component.utils.login_form_authenticator_manipulator');
+        $loginForm = $loginFormManipulator->create($input->getArgument('email'), $input->getArgument('password'));
 
-        if ($userManager->createCommand($input->getArgument('email'), $input->getArgument('password'))) {
+        $loginFormManager = $this->getContainer()->get('mmc_user.component.doctrine.registration_manager');
+
+        if ($loginFormManager->create($loginForm)) {
             $output->writeln('User successfully generated!');
         }
     }

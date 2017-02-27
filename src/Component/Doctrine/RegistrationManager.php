@@ -15,11 +15,10 @@ class RegistrationManager
         $this->em = $em;
     }
 
-    public function create($form)
+    public function create($loginFormAuthenticator)
     {
         $user = $this->createUser();
 
-        $loginFormAuthenticator = $form->getData();
         $loginFormAuthenticator->setUser($user);
 
         $this->em->persist($loginFormAuthenticator);
