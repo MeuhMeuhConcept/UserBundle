@@ -26,6 +26,22 @@
                 <source>placeholder.password</source>
                 <target>Mot de passe</target>
             </trans-unit>
+            <trans-unit id="placeholder.repeatPassword">
+                <source>placeholder.repeatPassword</source>
+                <target>Répéter le mot de passe</target>
+            </trans-unit>
+            <trans-unit id="registration.submit">
+                <source>registration.submit</source>
+                <target>S'enregistrer</target>
+            </trans-unit>
+            <trans-unit id="register.title">
+                <source>register.title</source>
+                <target>Enregistrement</target>
+            </trans-unit>
+            <trans-unit id="login.button">
+                <source>login.button</source>
+                <target>Se connecter</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
