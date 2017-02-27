@@ -109,8 +109,7 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
-        // forces the object to look "dirty" to Doctrine. Avoids
-        // Doctrine *not* saving this entity, if only plainPassword changes
+
         $this->password = null;
     }
 
