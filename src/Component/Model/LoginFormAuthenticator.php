@@ -36,6 +36,11 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
     protected $salt;
 
     /**
+     * @var \Ramsey\Uuid\Uuid
+     */
+    protected $confirmationToken;
+
+    /**
      * @return int
      *             {@inheritdoc}
      */
@@ -141,5 +146,22 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
     public function eraseCredentials()
     {
         $this->plainPassword = null;
+    }
+
+    /**
+     * @return \Ramsey\Uuid\Uuid
+     */
+    public function getConfirmationToken()
+    {
+        return $this->confirmationToken;
+    }
+
+    /**
+     * @param \Ramsey\Uuid\Uuid $confirmationToken
+     */
+    public function setConfirmationToken($confirmationToken)
+    {
+        $this->confirmationToken = $confirmationToken;
+        return $this;
     }
 }

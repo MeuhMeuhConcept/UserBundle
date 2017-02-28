@@ -4,6 +4,7 @@ namespace MMC\User\Component\Doctrine;
 
 use Doctrine\ORM\EntityManager;
 use MMC\User\Bundle\UserBundle\Entity\User;
+use Ramsey\Uuid\Uuid;
 
 class RegistrationManager
 {
@@ -19,7 +20,9 @@ class RegistrationManager
     {
         $user = $this->createUser();
 
-        $loginFormAuthenticator->setUser($user);
+        $loginFormAuthenticator->setUser($user)
+            ->setConfirmationToken(Uuid::uuid4())
+        ;
 
         $this->em->persist($loginFormAuthenticator);
         $this->em->flush();
