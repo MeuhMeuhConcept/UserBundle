@@ -9,3 +9,7 @@ mmc_user.logout:
 mmc_user.register:
     path:     /register
     defaults: { _controller: mmc_user.component.controller.registration:registerAction }
+
+mmc_user.registration_confirmation:
+    path:     /confirm/{token}
+    defaults: { _controller: mmc_user.component.controller.registration:confirmAction }

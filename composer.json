@@ -28,7 +28,8 @@
         }
     },
     "require": {
-        "php": "~7.0"
+        "php": "~7.0",
+        "symfony/swiftmailer-bundle": "^2.3"
     },
     "require-dev": {
         "doctrine/annotations": "^1.2",

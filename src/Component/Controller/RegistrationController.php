@@ -4,6 +4,7 @@ namespace MMC\User\Component\Controller;
 
 use MMC\User\Bundle\UserBundle\Form\UserRegistrationFormType;
 use MMC\User\Component\Doctrine\RegistrationManager;
+use MMC\User\Component\Mailer\MailerProcessor;
 use MMC\User\Component\Security\LoginFormAuthenticator;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,7 @@ class RegistrationController
     protected $registrationManager;
     protected $securityAuthenticationGuardHandler;
     protected $loginFormAuthenticator;
+    protected $mailerProcessor;
 
     public function __construct(
         RouterInterface $router,
@@ -26,7 +28,8 @@ class RegistrationController
         FormFactoryInterface $formFactory,
         RegistrationManager $registrationManager,
         GuardAuthenticatorHandler $securityAuthenticationGuardHandler,
-        LoginFormAuthenticator $loginFormAuthenticator
+        LoginFormAuthenticator $loginFormAuthenticator,
+        MailerProcessor $mailerProcessor
     ) {
         $this->router = $router;
         $this->templating = $templating;
@@ -34,6 +37,7 @@ class RegistrationController
         $this->registrationManager = $registrationManager;
         $this->securityAuthenticationGuardHandler = $securityAuthenticationGuardHandler;
         $this->loginFormAuthenticator = $loginFormAuthenticator;
+        $this->mailerProcessor = $mailerProcessor;
     }
 
     public function registerAction(Request $request)
@@ -43,7 +47,9 @@ class RegistrationController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->processForm($request, $form);
+            //$user = $this->processForm($request, $form);
+
+            $this->mailerProcessor->process($form->getData());
 
             return $this->securityAuthenticationGuardHandler
                 ->authenticateUserAndHandleSuccess(
@@ -67,5 +73,10 @@ class RegistrationController
         $user = $form->getData();
 
         return $this->registrationManager->create($user);
+    }
+
+    protected function confirmAction(Request $request)
+    {
+
     }
 }
