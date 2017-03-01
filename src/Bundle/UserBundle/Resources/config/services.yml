@@ -18,7 +18,7 @@ services:
             - '@mmc_user.component.doctrine.registration_manager'
             - '@security.authentication.guard_handler'
             - '@mmc_user.component.security.login_form_authenticator'
-            - '@mmc_user.component.mailer_processor'
+            - '@mmc_user.component.mailer.confirm'
 
     mmc_user.component.doctrine.registration_manager:
         class: MMC\User\Component\Doctrine\RegistrationManager
@@ -54,12 +54,14 @@ services:
     mmc_user.component.utils.login_form_authenticator_manipulator:
         class: MMC\User\Component\Utils\LoginFormAuthenticatorManipulator
 
-    mmc_user.component.mailer_processor:
-        class: MMC\User\Component\Mailer\MailerProcessor
+
+    #MAILER
+    mmc_user.component.mailer.confirm:
+        class: MMC\User\Component\Mailer\ConfirmMailerProcessor
         arguments:
             - '@mailer'
             - '@templating'
             - '@router'
-            - '%mmc_user.mailer.sender%'
-            - '%mmc_user.mailer.template%'
-            - '%mmc_user.mailer.subject%'
+            - '%mmc_user.mailer.confirm.sender%'
+            - '%mmc_user.mailer.confirm.template%'
+            - '%mmc_user.mailer.confirm.subject%'

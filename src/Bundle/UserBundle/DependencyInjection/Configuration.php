@@ -19,6 +19,14 @@ class Configuration implements ConfigurationInterface
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
 
+        $this->addMailer($rootNode);
+        $this->addTemplate($rootNode);
+
+        return $treeBuilder;
+    }
+
+    protected function addTemplate($rootNode)
+    {
         $rootNode
             ->children()
                 ->arrayNode('templates')
@@ -32,23 +40,48 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+            ->end()
+        ;
+    }
+
+    protected function addMailer($rootNode)
+    {
+        $rootNode
+            ->children()
                 ->arrayNode('mailer')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('sender')
-                            ->defaultValue('no-reply@server.com')
+                        ->arrayNode('confirm')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('sender')
+                                    ->defaultValue('no-reply@server.com')
+                                ->end()
+                                ->scalarNode('template')
+                                    ->defaultValue('MMCUserBundle:Registration:email.html.twig')
+                                ->end()
+                                ->scalarNode('subject')
+                                    ->defaultValue('Confirmation')
+                                ->end()
+                            ->end()
                         ->end()
-                        ->scalarNode('template')
-                            ->defaultValue('MMCUserBundle:Registration:email.html.twig')
-                        ->end()
-                        ->scalarNode('subject')
-                            ->defaultValue('Confirmation')
+                        ->arrayNode('resetting')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                              ->scalarNode('sender')
+                                    ->defaultValue('no-reply@server.com')
+                                ->end()
+                                ->scalarNode('template')
+                                    ->defaultValue('MMCUserBundle:Resetting:email.html.twig')
+                                ->end()
+                                ->scalarNode('subject')
+                                    ->defaultValue('Resetting')
+                                ->end()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()
             ->end()
         ;
-
-        return $treeBuilder;
     }
 }

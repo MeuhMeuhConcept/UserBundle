@@ -30,11 +30,16 @@ class MMCUserExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('mmc_user.templates.layout', $config['templates']['layout']);
         $container->setParameter('mmc_user.templates.remember_me', $config['templates']['remember_me']);
 
-        //Mailer
-        foreach ($config['mailer'] as $name => $value) {
-            $this->addParameter('mailer', $name, $config, $container);
-        }
+        #Mailer
+        $container->setParameter('mmc_user.mailer.confirm.sender', $config['mailer']['confirm']['sender']);
+        $container->setParameter('mmc_user.mailer.confirm.template', $config['mailer']['confirm']['template']);
+        $container->setParameter('mmc_user.mailer.confirm.subject', $config['mailer']['confirm']['subject']);
+
+        $container->setParameter('mmc_user.mailer.resetting.sender', $config['mailer']['resetting']['sender']);
+        $container->setParameter('mmc_user.mailer.resetting.template', $config['mailer']['resetting']['template']);
+        $container->setParameter('mmc_user.mailer.resetting.subject', $config['mailer']['resetting']['subject']);
     }
+
 
     protected function addParameter($group, $key, $config, ContainerBuilder $container)
     {

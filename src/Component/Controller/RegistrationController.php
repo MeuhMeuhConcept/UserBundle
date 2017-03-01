@@ -47,17 +47,19 @@ class RegistrationController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //$user = $this->processForm($request, $form);
+            $user = $this->processForm($form->getData());
 
-            $this->mailerProcessor->process($form->getData());
+            $this->mailerProcessor->sendConfirmationEmailMessage($user);
 
-            return $this->securityAuthenticationGuardHandler
-                ->authenticateUserAndHandleSuccess(
-                    $user,
-                    $request,
-                    $this->loginFormAuthenticator,
-                    'main'
-                );
+            return $this->templating->renderResponse('MMCUserBundle:Registration:check_email.html.twig');
+
+            // return $this->securityAuthenticationGuardHandler
+            //     ->authenticateUserAndHandleSuccess(
+            //         $user,
+            //         $request,
+            //         $this->loginFormAuthenticator,
+            //         'main'
+            //     );
         }
 
         return $this->templating->renderResponse(
@@ -68,15 +70,13 @@ class RegistrationController
         );
     }
 
-    protected function processForm(Request $request, $form)
+    public function confirmAction(Request $request)
     {
-        $user = $form->getData();
-
-        return $this->registrationManager->create($user);
+        return $this->templating->renderResponse('MMCUserBundle:Registration:confirmed.html.twig');
     }
 
-    protected function confirmAction(Request $request)
+    protected function processForm($user)
     {
-
+        return $this->registrationManager->create($user);
     }
 }
