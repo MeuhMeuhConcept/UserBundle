@@ -2,9 +2,9 @@
 
 namespace MMC\User\Component\Mailer;
 
-use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\User\UserInterface as LoginFormAuthenticatorInterface;
+use Symfony\Component\Templating\EngineInterface;
 
 class ConfirmMailerProcessor extends MailerProcessor
 {
@@ -37,7 +37,7 @@ class ConfirmMailerProcessor extends MailerProcessor
 
         $this->body = $this->templating->render($this->template, [
             'form' => $loginForm,
-            'url' => $url
+            'url' => $url,
         ]);
 
         $this->receiver = $loginForm->getEmail();

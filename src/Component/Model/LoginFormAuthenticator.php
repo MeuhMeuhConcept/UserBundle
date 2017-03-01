@@ -162,6 +162,7 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
     public function setConfirmationToken($confirmationToken)
     {
         $this->confirmationToken = $confirmationToken;
+
         return $this;
     }
 }

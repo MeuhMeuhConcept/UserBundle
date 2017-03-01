@@ -2,10 +2,6 @@
 
 namespace MMC\User\Component\Mailer;
 
-use Symfony\Component\Templating\EngineInterface;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\User\UserInterface as LoginFormAuthenticatorInterface;
-
 class MailerProcessor
 {
     protected $mailer;
