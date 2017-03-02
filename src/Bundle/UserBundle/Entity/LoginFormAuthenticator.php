@@ -51,6 +51,11 @@ class LoginFormAuthenticator extends BaseLoginFormAuthenticator
     protected $confirmationToken;
 
     /**
+     * @ORM\Column(type="uuid", nullable=true)
+     */
+    protected $passwordRequestToken;
+
+    /**
      * @param int $user
      */
     public function setUser($user)

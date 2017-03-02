@@ -32,13 +32,23 @@
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
 
-        {% if remember_me %}
-            <div class="checkbox icheck">
-                <label>
-                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans }}
-                </label>
+        <div class="row">
+            <div class="col-md-6">
+                {% if remember_me %}
+                    <div class="checkbox icheck">
+                        <label>
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans }}
+                        </label>
+                    </div>
+                {% endif %}
             </div>
-        {% endif %}
+            <div class="col-md-6">
+                <a href="{{ path('mmc_user.forgot_password') }}">{{ 'resetting.forgot_password'|trans }}</a>
+            </div>
+        </div>
+
+
+
 
         <div class="row">
             <div class="col-md-6">

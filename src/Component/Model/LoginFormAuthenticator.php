@@ -46,6 +46,11 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
     protected $confirmationToken;
 
     /**
+     * @var \Ramsey\Uuid\Uuid
+     */
+    protected $passwordRequestToken;
+
+    /**
      * @return int
      *             {@inheritdoc}
      */
@@ -185,6 +190,24 @@ abstract class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
     public function setConfirmationToken($confirmationToken)
     {
         $this->confirmationToken = $confirmationToken;
+
+        return $this;
+    }
+
+    /**
+     * @return \Ramsey\Uuid\Uuid
+     */
+    public function getPasswordRequestToken()
+    {
+        return $this->passwordRequestToken;
+    }
+
+    /**
+     * @param \Ramsey\Uuid\Uuid $passwordRequestToken
+     */
+    public function setPasswordRequestToken($passwordRequestToken)
+    {
+        $this->passwordRequestToken = $passwordRequestToken;
 
         return $this;
     }

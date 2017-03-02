@@ -8,6 +8,7 @@ use MMC\User\Component\Mailer\MailerProcessor;
 use MMC\User\Component\Security\LoginFormAuthenticator;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Templating\EngineInterface;
@@ -47,7 +48,7 @@ class RegistrationController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->processForm($form->getData());
+            $user = $this->registrationManager->create($form->getData());
 
             $this->mailerProcessor->sendConfirmationEmailMessage($user);
 

@@ -20,10 +20,28 @@ services:
             - '@mmc_user.component.security.login_form_authenticator'
             - '@mmc_user.component.mailer.confirm'
 
+    mmc_user.component.controller.resetting:
+        class: MMC\User\Component\Controller\ResettingController
+        arguments:
+            - '@router'
+            - '@templating'
+            - '@form.factory'
+            - '@mmc_user.component.doctrine.resetting_manager'
+            - '@security.authentication.guard_handler'
+            - '@mmc_user.component.security.login_form_authenticator'
+            - '@mmc_user.component.mailer.resetting'
+
     mmc_user.component.doctrine.registration_manager:
         class: MMC\User\Component\Doctrine\RegistrationManager
         arguments:
             - '@doctrine.orm.default_entity_manager'
+            - '@mmc_user.component.security.token_generator'
+
+    mmc_user.component.doctrine.resetting_manager:
+        class: MMC\User\Component\Doctrine\ResettingManager
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@mmc_user.component.security.token_generator'
 
     mmc_user.component.security.login_form_authenticator:
         class: MMC\User\Component\Security\LoginFormAuthenticator
@@ -68,3 +86,13 @@ services:
             - '%mmc_user.mailer.confirm.sender%'
             - '%mmc_user.mailer.confirm.template%'
             - '%mmc_user.mailer.confirm.subject%'
+
+    mmc_user.component.mailer.resetting:
+        class: MMC\User\Component\Mailer\ResettingMailerProcessor
+        arguments:
+            - '@mailer'
+            - '@templating'
+            - '@router'
+            - '%mmc_user.mailer.resetting.sender%'
+            - '%mmc_user.mailer.resetting.template%'
+            - '%mmc_user.mailer.resetting.subject%'

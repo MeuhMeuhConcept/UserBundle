@@ -46,6 +46,14 @@
                 <source>login.button</source>
                 <target>Se connecter</target>
             </trans-unit>
+            <trans-unit id="resetting.forgot.submit">
+                <source>resetting.forgot.submit</source>
+                <target>Envoyer</target>
+            </trans-unit>
+            <trans-unit id="resetting.forgot.title">
+                <source>resetting.forgot.title</source>
+                <target>MotDePasseOublié</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

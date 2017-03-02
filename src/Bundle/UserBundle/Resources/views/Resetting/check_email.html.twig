@@ -1,0 +1,20 @@
+{% extends mmc_user_layout %}
+
+{% trans_default_domain 'MMCUserBundle' %}
+
+{% block title_content %}
+    Register{{ login_title_suffix|default('MMC') }} | Sign in
+{% endblock title_content %}
+
+{% block login_logo %}
+    <div class="login-logo">
+        <a href="{{ path('mmc_user.login') }}"><b>{{ 'register.title'|trans }}</b>MMC</a>
+    </div>
+{% endblock login_logo %}
+
+{% block mmc_user_content %}
+
+    <p>Thanks !</p>
+    <p>Check your emails for reset your password</p>
+
+{% endblock mmc_user_content %}
