@@ -4,24 +4,30 @@ namespace MMC\User\Component\Doctrine;
 
 use Doctrine\ORM\EntityManager;
 use MMC\User\Bundle\UserBundle\Entity\User;
-use Ramsey\Uuid\Uuid;
+use MMC\User\Component\Security\TokenGenerator;
 
 class RegistrationManager
 {
     protected $em;
+    protected $tokenGenerator;
 
     public function __construct(
-        EntityManager $em
+        EntityManager $em,
+        TokenGenerator $tokenGenerator
     ) {
         $this->em = $em;
+        $this->tokenGenerator = $tokenGenerator;
     }
 
     public function create($loginFormAuthenticator)
     {
         $user = $this->createUser();
 
+        $token = $this->tokenGenerator->generateUuidToken();
+
         $loginFormAuthenticator->setUser($user)
-            ->setConfirmationToken(Uuid::uuid4())
+            ->setConfirmationToken($token)
+            ->setEnabled(false)
         ;
 
         $this->em->persist($loginFormAuthenticator);
@@ -33,6 +39,28 @@ class RegistrationManager
     public function createUser()
     {
         $user = new User();
+
+        $this->em->persist($user);
+        $this->em->flush();
+
+        return $user;
+    }
+
+    public function findUserBy(array $criteria)
+    {
+        return $this->em->getRepository('MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator')->findOneBy($criteria);
+    }
+
+    public function findUserByConfirmationToken($token)
+    {
+        return $this->findUserBy(['confirmationToken' => $token]);
+    }
+
+    public function activateUser($user)
+    {
+        $user->setConfirmationToken(null)
+            ->setEnabled(true)
+        ;
 
         $this->em->persist($user);
         $this->em->flush();

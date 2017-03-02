@@ -71,13 +71,16 @@ class RegistrationController
         );
     }
 
-    public function confirmAction(Request $request)
+    public function confirmAction(Request $request, $token)
     {
-        return $this->templating->renderResponse('MMCUserBundle:Registration:confirmed.html.twig');
-    }
+        $user = $this->registrationManager->findUserByConfirmationToken($token);
 
-    protected function processForm($user)
-    {
-        return $this->registrationManager->create($user);
+        if ($user != null) {
+            $this->registrationManager->activateUser($user);
+        } else {
+            throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
+        }
+
+        return $this->templating->renderResponse('MMCUserBundle:Registration:confirmed.html.twig');
     }
 }
