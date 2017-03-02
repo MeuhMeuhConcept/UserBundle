@@ -55,6 +55,9 @@ services:
         class: MMC\User\Component\Utils\LoginFormAuthenticatorManipulator
 
 
+    mmc_user.component.security.token_generator:
+        class: MMC\User\Component\Security\TokenGenerator
+
     #MAILER
     mmc_user.component.mailer.confirm:
         class: MMC\User\Component\Mailer\ConfirmMailerProcessor
