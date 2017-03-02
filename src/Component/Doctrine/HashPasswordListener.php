@@ -25,7 +25,7 @@ class HashPasswordListener implements EventSubscriber
     {
         $entity = $args->getEntity();
 
-        if (!$entity instanceof User) {
+        if (!$entity instanceof LoginFormAuthenticator) {
             return;
         }
 
