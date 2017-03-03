@@ -38,6 +38,14 @@ class MMCUserExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('mmc_user.mailer.resetting.sender', $config['mailer']['resetting']['sender']);
         $container->setParameter('mmc_user.mailer.resetting.template', $config['mailer']['resetting']['template']);
         $container->setParameter('mmc_user.mailer.resetting.subject', $config['mailer']['resetting']['subject']);
+
+
+        $container->setParameter('mmc_user.registration.condition', $config['registration']);
+
+        //Carousels
+        foreach ($config['login_form'] as $name => $value) {
+            $this->addParameter('login_form', $name, $config, $container);
+        }
     }
 
     protected function addParameter($group, $key, $config, ContainerBuilder $container)
@@ -54,12 +62,16 @@ class MMCUserExtension extends Extension implements PrependExtensionInterface
 
         $bundles = $container->getParameter('kernel.bundles');
 
+        //var_dump($container->getExtensionConfig('security'));die;
+
         if (isset($bundles['TwigBundle'])
         ) {
             $twig_global = [
                 'globals' => [
                     'mmc_user_layout' => $config['templates']['layout'],
                     'remember_me' => $config['templates']['remember_me'],
+                    'registration' => $config['registration'],
+                    'forgot_password' => $config['login_form']['forgot_password'],
                 ],
             ];
 

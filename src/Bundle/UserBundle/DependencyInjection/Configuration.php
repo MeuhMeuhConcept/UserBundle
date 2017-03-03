@@ -21,6 +21,7 @@ class Configuration implements ConfigurationInterface
 
         $this->addMailer($rootNode);
         $this->addTemplate($rootNode);
+        $this->addBaseConfiguration($rootNode);
 
         return $treeBuilder;
     }
@@ -78,6 +79,25 @@ class Configuration implements ConfigurationInterface
                                     ->defaultValue('Resetting')
                                 ->end()
                             ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    protected function addBaseConfiguration($rootNode)
+    {
+        $rootNode
+            ->children()
+                ->scalarNode('registration')
+                    ->defaultValue(false)
+                ->end()
+                ->arrayNode('login_form')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('forgot_password')
+                            ->defaultValue(false)
                         ->end()
                     ->end()
                 ->end()
