@@ -54,6 +54,10 @@
                 <source>resetting.forgot.title</source>
                 <target>MotDePasseOublié</target>
             </trans-unit>
+            <trans-unit id="resetting.forgot.link">
+                <source>resetting.forgot.link</source>
+                <target>Mot de passe oublié ?</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -96,3 +96,19 @@ services:
             - '%mmc_user.mailer.resetting.sender%'
             - '%mmc_user.mailer.resetting.template%'
             - '%mmc_user.mailer.resetting.subject%'
+
+    mmc_user.component.routing.extra_loader.registration:
+        class: MMC\User\Component\Routing\ExtraLoader
+        arguments:
+            - '%mmc_user.routing.routeName.registration%'
+            - '%mmc_user.routing.pattern.registration%'
+            - '%mmc_user.routing.controllerAction.registration%'
+            - '%mmc_user.registration.condition%'
+        tags:
+            - { name: routing.loader }
+
+
+parameters:
+    mmc_user.routing.routeName.registration: 'mmc_user.registration'
+    mmc_user.routing.pattern.registration: '/register'
+    mmc_user.routing.controllerAction.registration: 'mmc_user.component.controller.registration:registerAction'

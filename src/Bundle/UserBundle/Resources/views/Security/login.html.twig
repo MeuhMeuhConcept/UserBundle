@@ -42,21 +42,21 @@
                     </div>
                 {% endif %}
             </div>
-            <div class="col-md-6">
-                <a href="{{ path('mmc_user.forgot_password') }}">{{ 'resetting.forgot_password'|trans }}</a>
-            </div>
+            {% if forgot_password %}
+                <div class="col-md-6">
+                    <a href="{{ path('mmc_user.forgot_password') }}" class="btn btn-block">{{ 'resetting.forgot.link'|trans }}</a>
+                </div>
+            {% endif %}
         </div>
-
-
-
-
         <div class="row">
             <div class="col-md-6">
                 <button type="submit" id="_submit" name="_submit" class="btn btn-primary btn-block btn-flat">{{ 'security.login.submit'|trans }}</button>
             </div>
-            <div class="col-md-6">
-                <a href="{{ path('mmc_user.register') }}" class="btn btn-default btn-block btn-flat">{{ 'security.login.register'|trans }}</a>
-            </div>
+            {% if registration %}
+                <div class="col-md-6">
+                    <a href="{{ path('mmc_user.registration') }}" class="btn btn-default btn-block btn-flat">{{ 'security.login.register'|trans }}</a>
+                </div>
+            {% endif %}
         </div>
      {{ form_end(form) }}
 

@@ -6,9 +6,9 @@ mmc_user.logout:
     path:     /logout
     defaults: { _controller: mmc_user.component.controller.security:logoutAction }
 
-mmc_user.register:
-    path:     /register
-    defaults: { _controller: mmc_user.component.controller.registration:registerAction }
+mmc_user.registration:
+    resource: .
+    type:   extra
 
 mmc_user.registration_confirmation:
     path:     /confirm/{token}
