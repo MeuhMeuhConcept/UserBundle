@@ -82,8 +82,7 @@ class ResettingController
             if ($form->isSubmitted() && $form->isValid()) {
                 $password = ($form->getData()->getPlainPassword());
                 $this->resettingManager->updatePassword($user, $password);
-            //Faire un email pour confirmer le changement de mdp
-           //this->mailerProcessor->sendResettingEmailMessage($user);
+
                 return $this->templating->renderResponse('MMCUserBundle:Resetting:confirmed.html.twig');
             }
 

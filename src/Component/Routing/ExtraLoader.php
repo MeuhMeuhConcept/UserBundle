@@ -36,9 +36,9 @@ class ExtraLoader implements LoaderInterface
         $routes = new RouteCollection();
 
         if ($this->condition) {
-            $defaults = array(
+            $defaults = [
                 '_controller' => $this->controllerAction,
-            );
+            ];
 
             $route = new Route($this->pattern, $defaults);
             $routes->add($this->routeName, $route);
