@@ -28,7 +28,6 @@ class MMCUserExtension extends Extension implements PrependExtensionInterface
         $loader->load('services.yml');
 
         $container->setParameter('mmc_user.templates.layout', $config['templates']['layout']);
-        $container->setParameter('mmc_user.templates.remember_me', $config['templates']['remember_me']);
 
         //Mailer
         $container->setParameter('mmc_user.mailer.confirm.sender', $config['mailer']['confirm']['sender']);
@@ -39,8 +38,8 @@ class MMCUserExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('mmc_user.mailer.resetting.template', $config['mailer']['resetting']['template']);
         $container->setParameter('mmc_user.mailer.resetting.subject', $config['mailer']['resetting']['subject']);
 
-
         $container->setParameter('mmc_user.registration.condition', $config['registration']);
+        $container->setParameter('mmc_user.main_firewall', $config['main_firewall']);
 
         //Carousels
         foreach ($config['login_form'] as $name => $value) {
@@ -62,20 +61,35 @@ class MMCUserExtension extends Extension implements PrependExtensionInterface
 
         $bundles = $container->getParameter('kernel.bundles');
 
-        //var_dump($container->getExtensionConfig('security'));die;
-
         if (isset($bundles['TwigBundle'])
         ) {
             $twig_global = [
                 'globals' => [
                     'mmc_user_layout' => $config['templates']['layout'],
-                    'remember_me' => $config['templates']['remember_me'],
                     'registration' => $config['registration'],
                     'forgot_password' => $config['login_form']['forgot_password'],
                 ],
             ];
 
             $container->prependExtensionConfig('twig', $twig_global);
+        }
+
+        if (isset($bundles['SecurityBundle'])
+            && isset($bundles['TwigBundle'])
+        ) {
+            $securityConfig = $container->getExtensionConfig('security');
+
+            foreach ($securityConfig as $key => $value) {
+                if (isset($value['firewalls'][$config['main_firewall']]['remember_me'])) {
+                    $twig_global = [
+                        'globals' => [
+                            'remember_me' => true,
+                        ],
+                    ];
+
+                    $container->prependExtensionConfig('twig', $twig_global);
+                }
+            }
         }
     }
 }

@@ -33,7 +33,7 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                {% if remember_me %}
+                {% if remember_me is defined %}
                     <div class="checkbox icheck">
                         <label>
                             <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans }}

@@ -36,9 +36,6 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('layout')
                             ->defaultValue('MMCUserBundle::layout.html.twig')
                         ->end()
-                        ->scalarNode('remember_me')
-                            ->defaultValue(false)
-                        ->end()
                     ->end()
                 ->end()
             ->end()
@@ -90,6 +87,9 @@ class Configuration implements ConfigurationInterface
     {
         $rootNode
             ->children()
+                ->scalarNode('main_firewall')
+                    ->defaultValue('main')
+                ->end()
                 ->scalarNode('registration')
                     ->defaultValue(false)
                 ->end()
