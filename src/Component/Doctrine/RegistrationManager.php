@@ -3,6 +3,7 @@
 namespace MMC\User\Component\Doctrine;
 
 use Doctrine\ORM\EntityManager;
+use MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator;
 use MMC\User\Bundle\UserBundle\Entity\User;
 use MMC\User\Component\Security\TokenGenerator;
 
@@ -48,7 +49,7 @@ class RegistrationManager
 
     public function findUserBy(array $criteria)
     {
-        return $this->em->getRepository('MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator')->findOneBy($criteria);
+        return $this->em->getRepository(LoginFormAuthenticator::class)->findOneBy($criteria);
     }
 
     public function findUserByConfirmationToken($token)

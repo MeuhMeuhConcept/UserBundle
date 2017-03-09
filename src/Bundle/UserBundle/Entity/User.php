@@ -33,6 +33,7 @@ class User implements UserInterface
     public function setLoginForm($loginForm)
     {
         $this->loginForm = $loginForm;
+
         return $this;
     }
 }
