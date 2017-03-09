@@ -7,10 +7,12 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% if is_granted('ROLE_USER') %}
-            <li><a href="{{ path('mmc_user.logout') }}">Logout</a></li>
-        {% else %}
-            <li><a href="{{ path('mmc_user.login') }}">Login</a></li>
+        {% if login_form is defined %}
+            {% if is_granted('ROLE_USER') %}
+                <li><a href="{{ path('mmc_user.logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ path('mmc_user.login') }}">Login</a></li>
+            {% endif %}
         {% endif %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}

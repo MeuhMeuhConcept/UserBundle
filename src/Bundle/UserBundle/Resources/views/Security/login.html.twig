@@ -12,7 +12,7 @@
     </div>
 {% endblock login_logo %}
 
-{% block mmc_user_content %}
+{% block mmc_user_login_form %}
     {% if error %}
         <div class="alert alert-danger">
             {{ error.messageKey|trans(error.messageData, 'security') }}
@@ -22,7 +22,7 @@
 
     {{ form_start(form) }}
         <div class="form-group has-feedback">
-            {{ form_widget(form._username, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.email'|trans }}) }}
+            {{ form_widget(form._username, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.login'|trans }}) }}
             {{ form_errors(form._username) }}
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
@@ -58,8 +58,10 @@
             {% endif %}
         </div>
     {{ form_end(form) }}
+{% endblock mmc_user_login_form %}
 
-    <div class="social-auth-links text-center">
+{% block mmc_user_resource_owners %}
+   <div class="social-auth-links text-center">
         <p>- OR -</p>
         <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i>
             Sign in using Facebook
@@ -68,5 +70,4 @@
             Sign in using Google+
         </a>
     </div>
-
-{% endblock mmc_user_content %}
+{% endblock mmc_user_resource_owners %}

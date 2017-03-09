@@ -1,0 +1,11 @@
+mmc_user.registration_confirmation:
+    path:     /confirm/{token}
+    defaults: { _controller: mmc_user.component.controller.registration:confirmAction }
+
+mmc_user.forgot_password:
+    path:     /forgot_password
+    defaults: { _controller: mmc_user.component.controller.resetting:forgotPasswordAction }
+
+mmc_user.resetting:
+    path:     /resetting/{token}
+    defaults: { _controller: mmc_user.component.controller.resetting:resettingAction }

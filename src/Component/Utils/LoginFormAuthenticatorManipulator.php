@@ -2,14 +2,14 @@
 
 namespace MMC\User\Component\Utils;
 
-use MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator;
+use MMC\User\Bundle\LoginBundle\Entity\LoginFormAuthenticator;
 
 class LoginFormAuthenticatorManipulator
 {
-    public function create($email, $password)
+    public function create($login, $password)
     {
         $loginFormAuthenticator = new LoginFormAuthenticator();
-        $loginFormAuthenticator->setEmail($email)
+        $loginFormAuthenticator->setLogin($login)
             ->setPlainPassword($password)
         ;
 

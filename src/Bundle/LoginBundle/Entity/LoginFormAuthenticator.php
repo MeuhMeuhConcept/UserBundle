@@ -1,10 +1,14 @@
 <?php
 
-namespace MMC\User\Bundle\UserBundle\Entity;
+namespace MMC\User\Bundle\LoginBundle\Entity;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface as LoginFormAuthenticatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @UniqueEntity(fields="login", message="Cet identifiant est déjà utilisé.")
+ */
 class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
 {
     /**
@@ -14,10 +18,9 @@ class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
 
     /**
      * @var string
-     * @Assert\Email()
      * @Assert\NotBlank()
      */
-    protected $email;
+    protected $login;
 
     /**
      * @var string
@@ -70,25 +73,25 @@ class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
      */
     public function getUsername()
     {
-        return $this->email;
+        return $this->login;
     }
 
     /**
      * @return string
      *                {@inheritdoc}
      */
-    public function getEmail()
+    public function getLogin()
     {
-        return $this->email;
+        return $this->login;
     }
 
     /**
-     * @param string $email
+     * @param string $login
      *                      {@inheritdoc}
      */
-    public function setEmail($email)
+    public function setLogin($login)
     {
-        $this->email = $email;
+        $this->login = $login;
 
         return $this;
     }
@@ -123,7 +126,7 @@ class LoginFormAuthenticator implements LoginFormAuthenticatorInterface
     }
 
     /**
-     * @param string $email
+     * @param string $login
      *                      {@inheritdoc}
      */
     public function setPlainPassword($plainPassword)

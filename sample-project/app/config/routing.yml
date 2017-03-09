@@ -2,5 +2,5 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-mmc_user:
-    resource: "@MMCUserBundle/Resources/config/routing.yml"
+mmc_user_login:
+   resource: "@MMCUserBundle/Resources/config/routing.yml"

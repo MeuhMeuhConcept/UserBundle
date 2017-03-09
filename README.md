@@ -28,35 +28,6 @@ public function registerBundles()
 }
 ```
 
-Add mmc user security configuration :
-```yaml
-# app/config/security.yml
-    encoders:
-        MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator: bcrypt
-
-    providers:
-        mmc_user:
-            entity: { class: MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator, property: email }
-
-    firewalls:
-        main:
-            guard:
-                authenticators:
-                    - mmc_user.component.security.login_form_authenticator
-            
-            anonymous: ~
-
-            logout:
-                path: /logout
-```
-
-Add mmc user route :
-```yaml
-# app/config/routing.yml
-mmc_user:
-    resource: "@MMCUserBundle/Resources/config/routing.yml"
-```
-
 ## Customization
 
 If you need a design layout, you should use the default design layout :
@@ -75,25 +46,10 @@ You can use your custom layout, for that replace mmc default layout by your cust
             layout: AppBundle:Default:myCustomLayout.html.twig
 ```
 
-For implement remember me in the template :
+You can change main firewall (default : 'main') :
 ```yaml
 # app/config/config.yml
     mmc_user:
-        templates:
-            remember_me: true
-```
+        main_firewall: myFirewall
 
-Add remember me functionnality in security configuration:
-```yaml
-# app/config/security.yml
-    firewalls:
-        main:
-            
-            #/----
-            
-            remember_me:
-                secret:   '%secret%'
-                lifetime: 604800 # 1 week in seconds
-
-            #/----
 ```

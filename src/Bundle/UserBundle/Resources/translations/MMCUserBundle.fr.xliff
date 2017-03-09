@@ -22,9 +22,9 @@
                 <source>security.login.register</source>
                 <target>S'enregistrer</target>
             </trans-unit>
-            <trans-unit id="placeholder.email">
-                <source>placeholder.email</source>
-                <target>Email</target>
+            <trans-unit id="placeholder.login">
+                <source>placeholder.login</source>
+                <target>Identifiant</target>
             </trans-unit>
             <trans-unit id="placeholder.password">
                 <source>placeholder.password</source>

@@ -20,7 +20,7 @@ class ResettingManager
 
     public function findUserBy(array $criteria)
     {
-        return $this->em->getRepository('MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator')->findOneBy($criteria);
+        return $this->em->getRepository('MMC\User\Bundle\LoginBundle\Entity\LoginFormAuthenticator')->findOneBy($criteria);
     }
 
     public function findUserByEmail($email)

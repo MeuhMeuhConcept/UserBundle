@@ -1,6 +1,6 @@
 <?php
 
-namespace MMC\User\Bundle\UserBundle\Command;
+namespace MMC\User\Bundle\LoginBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -19,7 +19,7 @@ class CreateLoginFormAuthenticatorCommand extends ContainerAwareCommand
             ->setName('mmc:user:create')
             ->setDescription('Create a user.')
             ->setDefinition([
-                new InputArgument('email', InputArgument::REQUIRED, 'The email'),
+                new InputArgument('login', InputArgument::REQUIRED, 'The login'),
                 new InputArgument('password', InputArgument::REQUIRED, 'The password'),
             ])
             ->setHelp('This command allows you to create users...')
@@ -33,27 +33,24 @@ class CreateLoginFormAuthenticatorCommand extends ContainerAwareCommand
     {
         $output->writeln([
             '<comment>',
-            ' ===========================',
-            ' Welcome to MMC User Creator',
-            ' ===========================',
+            ' =====================================',
+            ' Welcome to MMC LoginForm User Creator',
+            ' =====================================',
             '</comment>',
         ]);
 
         $questions = [];
 
-        if (!$input->getArgument('email')) {
-            $question = new Question('<info>Please choose an email:</info>');
-            $question->setValidator(function ($email) {
-                if (empty($email)) {
-                    throw new \Exception('Email can not be empty');
-                }
-                if (!$this->validEmail($email)) {
-                    throw new \Exception('Email not valid');
+        if (!$input->getArgument('login')) {
+            $question = new Question('<info>Please choose an login:</info>');
+            $question->setValidator(function ($login) {
+                if (empty($login)) {
+                    throw new \Exception('Login can not be empty');
                 }
 
-                return $email;
+                return $login;
             });
-            $questions['email'] = $question;
+            $questions['login'] = $question;
         }
 
         if (!$input->getArgument('password')) {
@@ -82,7 +79,7 @@ class CreateLoginFormAuthenticatorCommand extends ContainerAwareCommand
     {
         // access the container using getContainer()
         $loginFormManipulator = $this->getContainer()->get('mmc_user.component.utils.login_form_authenticator_manipulator');
-        $loginForm = $loginFormManipulator->create($input->getArgument('email'), $input->getArgument('password'));
+        $loginForm = $loginFormManipulator->create($input->getArgument('login'), $input->getArgument('password'));
 
         $loginFormManager = $this->getContainer()->get('mmc_user.component.doctrine.registration_manager');
 

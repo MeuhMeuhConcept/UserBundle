@@ -1,0 +1,48 @@
+services:
+
+    #CONTROLLER
+    mmc_user.component.controller.registration:
+        class: MMC\User\Component\Controller\RegistrationController
+        arguments:
+            - '@router'
+            - '@templating'
+            - '@form.factory'
+            - '@mmc_user.component.doctrine.registration_manager'
+            - '@security.authentication.guard_handler'
+            - '@mmc_user.component.security.login_form_authenticator'
+
+    mmc_user.component.doctrine.registration_manager:
+        class: MMC\User\Component\Doctrine\RegistrationManager
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@mmc_user.component.security.token_generator'
+
+    mmc_user.component.security.login_form_authenticator:
+        class: MMC\User\Component\Security\LoginFormAuthenticator
+        arguments:
+            - '@form.factory'
+            - '@mmc_user.repository.login_form_authenticator'
+            - '@router'
+            - '@security.user_password_encoder.generic'
+
+    mmc_user.repository.login_form_authenticator:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - MMC\User\Bundle\LoginBundle\Entity\LoginFormAuthenticator
+
+    mmc_user.component.security.has_password_listener:
+        class: MMC\User\Component\Doctrine\HashPasswordListener
+        arguments:
+            - '@security.user_password_encoder.generic'
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    mmc_user.command.create_login_form_authenticator:
+        class: MMC\User\Bundle\LoginBundle\Command\CreateLoginFormAuthenticatorCommand
+        tags:
+            - { name: console.command }
+
+    mmc_user.component.utils.login_form_authenticator_manipulator:
+        class: MMC\User\Component\Utils\LoginFormAuthenticatorManipulator
+

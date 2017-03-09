@@ -76,6 +76,6 @@ swiftmailer:
 mmc_user:
     templates:
         layout: MMCUserBundle:Default:layout.html.twig
+
+mmc_login:
     registration: true
-    login_form:
-        forgot_password: true

@@ -1,6 +1,6 @@
 <?php
 
-namespace MMC\User\Bundle\UserBundle\DependencyInjection;
+namespace MMC\User\Bundle\LoginBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class MMCUserExtension extends Extension implements PrependExtensionInterface
+class MMCLoginExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritdoc}
@@ -27,8 +27,8 @@ class MMCUserExtension extends Extension implements PrependExtensionInterface
 
         $loader->load('services.yml');
 
-        $container->setParameter('mmc_user.templates.layout', $config['templates']['layout']);
-        $container->setParameter('mmc_user.main_firewall', $config['main_firewall']);
+        $container->setParameter('mmc_login.registration.condition', $config['registration']);
+        $container->setParameter('mmc_login.forgot_password', $config['forgot_password']);
     }
 
     protected function addParameter($group, $key, $config, ContainerBuilder $container)
@@ -49,43 +49,12 @@ class MMCUserExtension extends Extension implements PrependExtensionInterface
         ) {
             $twig_global = [
                 'globals' => [
-                    'mmc_user_layout' => $config['templates']['layout'],
+                    'registration' => $config['registration'],
+                    'forgot_password' => $config['forgot_password'],
                 ],
             ];
 
             $container->prependExtensionConfig('twig', $twig_global);
-        }
-
-        //MMCLoginBundle
-        if (isset($bundles['MMCLoginBundle'])
-            && isset($bundles['TwigBundle'])
-        ) {
-            $twig_global = [
-                'globals' => [
-                    'login_form' => true,
-                ],
-            ];
-
-            $container->prependExtensionConfig('twig', $twig_global);
-        }
-
-        //RememberMe
-        if (isset($bundles['SecurityBundle'])
-            && isset($bundles['TwigBundle'])
-        ) {
-            $securityConfig = $container->getExtensionConfig('security');
-
-            foreach ($securityConfig as $key => $value) {
-                if (isset($value['firewalls'][$config['main_firewall']]['remember_me'])) {
-                    $twig_global = [
-                        'globals' => [
-                            'remember_me' => true,
-                        ],
-                    ];
-
-                    $container->prependExtensionConfig('twig', $twig_global);
-                }
-            }
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator as BaseLoginFormAuthenticator;
+use MMC\User\Bundle\LoginBundle\Entity\LoginFormAuthenticator as BaseLoginFormAuthenticator;
 
 /**
  * @ORM\Entity

@@ -1,6 +1,6 @@
 <?php
 
-namespace MMC\User\Bundle\UserBundle\Form;
+namespace MMC\User\Bundle\LoginBundle\Form;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -47,8 +47,8 @@ class Resetting
     }
 
     /**
-     * @param string $email
-     *                      {@inheritdoc}
+     * @param string $password
+     *                         {@inheritdoc}
      */
     public function setPlainPassword($plainPassword)
     {

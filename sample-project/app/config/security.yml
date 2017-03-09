@@ -2,12 +2,12 @@
 # http://symfony.com/doc/current/security.html
 security:
     encoders:
-        MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator: bcrypt
+        MMC\User\Bundle\LoginBundle\Entity\LoginFormAuthenticator: bcrypt
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         mmc_user:
-            entity: { class: MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator, property: email }
+            entity: { class: MMC\User\Bundle\LoginBundle\Entity\LoginFormAuthenticator, property: login }
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -24,6 +24,6 @@ security:
             logout:
                 path: /logout
 
-            remember_me:
-                secret:   '%secret%'
-                lifetime: 604800 # 1 week in seconds
+            # remember_me:
+            #     secret:   '%secret%'
+            #     lifetime: 604800 # 1 week in seconds

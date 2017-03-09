@@ -10,7 +10,7 @@
 namespace MMC\User\Component\Security;
 
 use Doctrine\ORM\EntityRepository;
-use MMC\User\Bundle\UserBundle\Form\LoginFormType;
+use MMC\User\Bundle\LoginBundle\Form\LoginFormType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -68,8 +68,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
         return $this->repository->findOneBy(
             [
-                'email' => $username,
-                'enabled' => true,
+                'login' => $username,
             ]
         );
     }

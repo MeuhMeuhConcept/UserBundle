@@ -1,6 +1,6 @@
 {% extends mmc_user_layout %}
 
-{% trans_default_domain 'MMCUserBundle' %}
+{% trans_default_domain 'MMCLoginBundle' %}
 
 {% block title_content %}
     Register{{ login_title_suffix|default('MMC') }} | Sign in
@@ -16,8 +16,8 @@
 
     {{ form_start(form) }}
         <div class="form-group has-feedback">
-            {{ form_widget(form.email, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.email'|trans }}) }}
-            {{ form_errors(form.email) }}
+            {{ form_widget(form.login, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.login'|trans }}) }}
+            {{ form_errors(form.login) }}
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">

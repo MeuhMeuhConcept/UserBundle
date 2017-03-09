@@ -1,8 +1,8 @@
 <?php
 
-namespace MMC\User\Component\Controller;
+namespace MMC\User\Bundle\UserBundle\Controller;
 
-use MMC\User\Bundle\UserBundle\Form\LoginFormType;
+use MMC\User\Bundle\LoginBundle\Form\LoginFormType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
