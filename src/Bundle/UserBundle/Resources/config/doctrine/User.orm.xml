@@ -9,7 +9,7 @@
             <generator strategy="AUTO" />
         </id>
 
-        <one-to-one field="loginForm" target-entity="LoginFormAuthenticator" mapped-by="user" />
+        <one-to-one field="loginFormAuthenticator" target-entity="LoginFormAuthenticator" mapped-by="user" />
     </mapped-superclass>
 
 </doctrine-mapping>

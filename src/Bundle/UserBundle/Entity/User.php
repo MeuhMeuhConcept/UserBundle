@@ -9,7 +9,7 @@ class User implements UserInterface
      */
     protected $id;
 
-    protected $loginForm;
+    protected $loginFormAuthenticator;
 
     /**
      * {@inheritdoc}
@@ -22,17 +22,17 @@ class User implements UserInterface
     /**
      * @return LoginFormAuthenticator
      */
-    public function getLoginForm()
+    public function getLoginFormAuthenticator()
     {
-        return $this->loginForm;
+        return $this->loginFormAuthenticator;
     }
 
     /**
-     * @param LoginFormAuthenticator $loginForm
+     * @param LoginFormAuthenticator $loginFormAuthenticator
      */
-    public function setLoginForm($loginForm)
+    public function setLoginFormAuthenticator($loginFormAuthenticator)
     {
-        $this->loginForm = $loginForm;
+        $this->loginFormAuthenticator = $loginFormAuthenticator;
 
         return $this;
     }
