@@ -2,19 +2,37 @@
 
 namespace MMC\User\Bundle\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use MMC\User\Component\Model\User as BaseUser;
-
-/**
- * @ORM\Entity
- * @ORM\Table(name="mmc_user")
- */
-class User extends BaseUser
+class User implements UserInterface
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var int
      */
     protected $id;
+
+    protected $loginForm;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return LoginFormAuthenticator
+     */
+    public function getLoginForm()
+    {
+        return $this->loginForm;
+    }
+
+    /**
+     * @param LoginFormAuthenticator $loginForm
+     */
+    public function setLoginForm($loginForm)
+    {
+        $this->loginForm = $loginForm;
+        return $this;
+    }
 }

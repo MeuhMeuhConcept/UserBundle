@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="email" column="email" type="string" unique="true" />
+
+        <field name="password" column="password" type="string" />
+
+        <field name="salt" column="salt" type="string" nullable="true" />
+
+        <field name="enabled" column="enabled" type="boolean" />
+
+        <field name="confirmationToken" column="confirmation_token" type="uuid" />
+
+        <field name="passwordRequestToken" column="password_request_token" type="uuid" nullable="true" />
+
+        <one-to-one field="user" target-entity="User" inversed-by="loginForm">
+          <join-column name="user_id" referenced-column-name="id" />
+        </one-to-one>
+
+    </mapped-superclass> 
+                                                                                                   
+</doctrine-mapping>
