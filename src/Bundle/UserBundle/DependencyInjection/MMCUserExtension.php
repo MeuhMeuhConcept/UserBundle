@@ -69,6 +69,19 @@ class MMCUserExtension extends Extension implements PrependExtensionInterface
             $container->prependExtensionConfig('twig', $twig_global);
         }
 
+        //MMCResourceOwnersBundle
+        if (isset($bundles['MMCResourceOwnersBundle'])
+            && isset($bundles['TwigBundle'])
+        ) {
+            $twig_global = [
+                'globals' => [
+                    'resource_owners' => true,
+                ],
+            ];
+
+            $container->prependExtensionConfig('twig', $twig_global);
+        }
+
         //RememberMe
         if (isset($bundles['SecurityBundle'])
             && isset($bundles['TwigBundle'])

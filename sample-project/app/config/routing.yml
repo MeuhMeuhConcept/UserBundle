@@ -4,3 +4,7 @@ app:
 
 mmc_user_login:
    resource: "@MMCUserBundle/Resources/config/routing.yml"
+
+mmc_user_resources_owners:
+   resource: "@MMCResourceOwnersBundle/Resources/config/routing.yml"
+

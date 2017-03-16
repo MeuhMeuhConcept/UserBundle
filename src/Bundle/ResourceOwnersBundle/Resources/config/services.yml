@@ -1,0 +1,4 @@
+services:
+    mmc_ro_user_provider:
+        class: AppBundle\Security\Core\User\FOSUBUserProvider
+        arguments: ['@doctrine.orm.default_entity_manager', {trello: trello_id}]

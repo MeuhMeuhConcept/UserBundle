@@ -79,3 +79,20 @@ mmc_user:
 
 mmc_login:
     registration: true
+
+hwi_oauth:
+    # list of names of the firewalls in which this bundle is active, this setting MUST be set
+    firewall_names: [main]
+
+    connect:
+        confirmation: true
+        #account_connector: hwi_oauth.user.provider.fosub_bridge
+        #registration_form_handler: hwi_oauth.registration.form.handler.fosub_bridge
+        #registration_form: fos_user.registration.form
+
+    resource_owners:
+        trello:
+            type:                trello
+            client_id:           bb951d1b2d1813329c6e77e7d6cbeebd
+            client_secret:       202b1ceb0cbc5a61ecd7b53935a7d8ed5f897197470ba3eb12c6125be6ba5326
+            scope:               "read"
