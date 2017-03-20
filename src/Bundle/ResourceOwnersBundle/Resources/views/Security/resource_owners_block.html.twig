@@ -1,0 +1,9 @@
+<br>
+<form action="{{ path("trello_login") }}" method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    <div class="row">
+        <div class="col-xs-12">
+            <button type="submit" id="_submit" name="_submit" class="btn btn-success btn-block btn-flat">Connexion avec Trello</button>
+        </div>
+    </div>
+</form>

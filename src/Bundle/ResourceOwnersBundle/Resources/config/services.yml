@@ -2,3 +2,16 @@ services:
     mmc_ro_user_provider:
         class: AppBundle\Security\Core\User\FOSUBUserProvider
         arguments: ['@doctrine.orm.default_entity_manager', {trello: trello_id}]
+
+    mmc_user.authenticator_block.resource_owners:
+        class: MMC\User\Bundle\ResourceOwnersBundle\Services\ResourceOwnersAuthenticatorBlock
+        arguments:
+            - '%mmc_user.main.authenticator_block.resource_owners%'
+            - '@templating'
+            - '@security.csrf.token_manager'
+        tags:
+            - { name: mmc_user.chain.authenticator_block }
+
+parameters:
+    mmc_user.template.authenticator_block.resource_owners: 'MMCResourceOwnersBundle:Security:resource_owners_block.html.twig'
+    mmc_user.main.authenticator_block.resource_owners: false
