@@ -12,70 +12,12 @@
     </div>
 {% endblock login_logo %}
 
-{% block mmc_user_login_form %}
-    {% if error %}
-        <div class="alert alert-danger">
-            {{ error.messageKey|trans(error.messageData, 'security') }}
-        </div>
-    {% endif %}
+{% block mmc_user_content %}
+
     <p class="login-box-msg">{{ 'security.login.sign_in_title'|trans }}</p>
 
-    {{ form_start(form) }}
-        <div class="form-group has-feedback">
-            {{ form_widget(form._username, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.login'|trans }}) }}
-            {{ form_errors(form._username) }}
-            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-        </div>
-        <div class="form-group has-feedback">
-            {{ form_widget(form._password, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.password'|trans }}) }}
-            {{ form_errors(form._password) }}
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                {% if remember_me is defined %}
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans }}
-                        </label>
-                    </div>
-                {% endif %}
-            </div>
-            {% if forgot_password %}
-                <div class="col-md-6">
-                    <a href="{{ path('mmc_user.forgot_password') }}" class="btn btn-block">{{ 'resetting.forgot.link'|trans }}</a>
-                </div>
-            {% endif %}
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <button type="submit" id="_submit" name="_submit" class="btn btn-primary btn-block btn-flat">{{ 'security.login.submit'|trans }}</button>
-            </div>
-            {% if registration %}
-                <div class="col-md-6">
-                    <a href="{{ path('mmc_user.registration') }}" class="btn btn-default btn-block btn-flat">{{ 'security.login.register'|trans }}</a>
-                </div>
-            {% endif %}
-        </div>
-    {{ form_end(form) }}
-{% endblock mmc_user_login_form %}
+    {% for authenticatorBlock in chainAuthenticatorBlocks.authenticatorBlocks %}
+        {{ authenticatorBlock.render|raw }}
+    {% endfor %}
 
-{% block mmc_user_resource_owners %}
-   <div class="social-auth-links text-center">
-        <p>- OR -</p>
-        <form action="{{ path("trello_login") }}" method="post">
-            <input type="hidden" name="_csrf_token" value="#" />
-            <div class="row">
-                <div class="col-xs-12">
-                    <button type="submit" id="_submit" name="_submit" class="btn btn-success btn-block btn-flat">Connexion avec Trello</button>
-                </div>
-            </div>
-        </form>
-{#         <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i>
-            Sign in using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i>
-            Sign in using Google+
-        </a> #}
-    </div>
-{% endblock mmc_user_resource_owners %}
+{% endblock mmc_user_content %}

@@ -23,17 +23,6 @@
 
             <div class="login-box-body">
                 {% block mmc_user_content %}
-
-                    {% if login_form is defined and login_form %}
-                        {% block mmc_user_login_form %}
-                        {% endblock mmc_user_login_form %}
-                    {% endif %}
-
-                    {% if resource_owners is defined and resource_owners %}
-                        {% block mmc_user_resource_owners %}
-                        {% endblock mmc_user_resource_owners %}
-                    {% endif %}
-
                 {% endblock mmc_user_content %}
             </div>
         </div>

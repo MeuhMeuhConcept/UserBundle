@@ -46,3 +46,17 @@ services:
     mmc_user.component.utils.login_form_authenticator_manipulator:
         class: MMC\User\Component\Utils\LoginFormAuthenticatorManipulator
 
+    mmc_user.authenticator_block.login:
+        class: MMC\User\Bundle\LoginBundle\Services\LoginAuthenticatorBlock
+        arguments:
+            - '%mmc_user.main.authenticator_block.login%'
+            - '@templating'
+            - '@security.authentication_utils'
+            - '@form.factory'
+        tags:
+            - { name: mmc_user.chain.authenticator_block }
+
+parameters:
+    mmc_user.template.authenticator_block.login: 'MMCLoginBundle:Security:login_block.html.twig'
+    mmc_user.main.authenticator_block.login: false
+

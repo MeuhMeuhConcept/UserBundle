@@ -2,45 +2,28 @@
 
 namespace MMC\User\Bundle\UserBundle\Controller;
 
-use MMC\User\Bundle\LoginBundle\Form\LoginFormType;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use MMC\User\Bundle\UserBundle\Services\AuthenticatorBlock\ChainAuthenticatorBlock;
 use Symfony\Component\Templating\EngineInterface;
 
 class SecurityController
 {
-    protected $router;
     protected $templating;
-    protected $authenticationUtils;
+    protected $chainAuthenticatorBlocks;
 
     public function __construct(
-        RouterInterface $router,
         EngineInterface $templating,
-        AuthenticationUtils $authenticationUtils,
-        FormFactoryInterface $formFactory
+        ChainAuthenticatorBlock $chainAuthenticatorBlocks
     ) {
-        $this->router = $router;
         $this->templating = $templating;
-        $this->authenticationUtils = $authenticationUtils;
-        $this->formFactory = $formFactory;
+        $this->chainAuthenticatorBlocks = $chainAuthenticatorBlocks;
     }
 
     public function loginAction()
     {
-        $error = $this->authenticationUtils->getLastAuthenticationError();
-
-        $lastUsername = $this->authenticationUtils->getLastUsername();
-
-        $form = $this->formFactory->create(LoginFormType::class, [
-            '_username' => $lastUsername,
-        ]);
-
         return $this->templating->renderResponse(
             'MMCUserBundle:Security:login.html.twig',
             [
-                'form' => $form->createView(),
-                'error' => $error,
+                'chainAuthenticatorBlocks' => $this->chainAuthenticatorBlocks,
             ]
         );
     }

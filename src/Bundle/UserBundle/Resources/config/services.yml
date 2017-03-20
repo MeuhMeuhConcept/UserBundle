@@ -6,10 +6,8 @@ services:
     mmc_user.component.controller.security:
         class: MMC\User\Bundle\UserBundle\Controller\SecurityController
         arguments:
-            - '@router'
             - '@templating'
-            - '@security.authentication_utils'
-            - '@form.factory'
+            - '@mmc_user.chain.authenticator_block'
 
     mmc_user.component.routing.extra_loader.registration:
         class: MMC\User\Component\Routing\ExtraLoader
