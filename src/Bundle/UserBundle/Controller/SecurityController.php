@@ -27,9 +27,4 @@ class SecurityController
             ]
         );
     }
-
-    public function logoutAction()
-    {
-        throw new \Exception('this should not be reached!');
-    }
 }
