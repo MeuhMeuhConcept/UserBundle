@@ -11,15 +11,18 @@ class ResourceOwnersAuthenticatorBlock implements AuthenticatorBlock
     protected $isMain;
     protected $templating;
     protected $tokenManager;
+    protected $resourceOwners;
 
     public function __construct(
         bool $isMain,
         EngineInterface $templating,
-        CsrfTokenManagerInterface $tokenManager
+        CsrfTokenManagerInterface $tokenManager,
+        array $resourceOwners
     ) {
         $this->isMain = $isMain;
         $this->templating = $templating;
         $this->tokenManager = $tokenManager;
+        $this->resourceOwners = $resourceOwners;
     }
 
     public function render()
@@ -28,6 +31,7 @@ class ResourceOwnersAuthenticatorBlock implements AuthenticatorBlock
             'MMCResourceOwnersBundle:Security:resource_owners_block.html.twig',
             [
                 'csrf_token' => $this->tokenManager->getToken('authenticate')->getValue(),
+                'resourceOwners' => $this->resourceOwners,
             ]
         );
     }

@@ -10,6 +10,7 @@ use MMC\User\Component\Security\TokenGenerator;
 class RegistrationManager
 {
     protected $em;
+
     protected $tokenGenerator;
 
     public function __construct(

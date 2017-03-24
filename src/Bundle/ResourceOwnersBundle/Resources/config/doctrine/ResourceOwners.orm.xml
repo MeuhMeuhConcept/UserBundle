@@ -10,9 +10,11 @@
             <generator strategy="AUTO" />
         </id>
 
-        <field name="resourceOwnersId" column="resource_owners_id" type="string" nullable="true" />
+        <field name="resourceOwnerName" column="resource_owner_name" type="string" nullable="true" />
 
-        <field name="resourceOwnersIdType" column="resource_owners_id_type" type="string" nullable="true" />
+        <field name="resourceOwnerId" column="resource_owner_id" type="string" nullable="true" />
+
+        <field name="resourceOwnerAccessToken" column="resource_owner_access_token" type="string" nullable="true" />
 
         <many-to-one field="user" target-entity="MMC\User\Bundle\UserBundle\Entity\User">
             <join-column name="user_id" referenced-column-name="id" />

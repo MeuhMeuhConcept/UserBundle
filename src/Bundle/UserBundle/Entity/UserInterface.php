@@ -2,7 +2,9 @@
 
 namespace MMC\User\Bundle\UserBundle\Entity;
 
-interface UserInterface
+use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
+
+interface UserInterface extends BaseUserInterface
 {
     /**
      * Get id.

@@ -34,5 +34,20 @@ class MMCResourceOwnersExtension extends Extension implements PrependExtensionIn
         $config = $this->processConfiguration(new Configuration(), $configs);
 
         $bundles = $container->getParameter('kernel.bundles');
+
+        //ResourceOwners
+        if (isset($bundles['HWIOAuthBundle'])
+        ) {
+            $hwiOAuthConfig = $container->getExtensionConfig('hwi_oauth');
+            $resourceOwners = [];
+
+            foreach ($hwiOAuthConfig as $key => $value) {
+                foreach ($value['resource_owners'] as $keys) {
+                    $resourceOwners[] = $keys['type'];
+                }
+            }
+
+            $container->setParameter('mmc_ro.resource_owners', $resourceOwners);
+        }
     }
 }

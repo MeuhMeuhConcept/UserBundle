@@ -1,6 +1,6 @@
 <?php
 
-namespace MMCUserBundle\Component\Utils;
+namespace MMC\User\Bundle\ResourceOwnersBundle\Services;
 
 interface OAuthUserProviderInterface
 {

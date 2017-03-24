@@ -10,5 +10,6 @@ hwi_oauth_login:
     resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
     prefix:   /login
 
-trello_login:
-    path: /login/check-trello
+mmc_ro.resource_owners:
+    resource: .
+    type:   resource_owners

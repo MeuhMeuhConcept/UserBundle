@@ -11,12 +11,35 @@ class User implements UserInterface
 
     protected $loginFormAuthenticator;
 
+    protected $resourceOwnerAuthenticator;
+
     /**
      * {@inheritdoc}
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getPassword()
+    {
+    }
+
+    public function getSalt()
+    {
+    }
+
+    public function getUsername()
+    {
+    }
+
+    public function eraseCredentials()
+    {
     }
 
     /**
@@ -33,6 +56,24 @@ class User implements UserInterface
     public function setLoginFormAuthenticator($loginFormAuthenticator)
     {
         $this->loginFormAuthenticator = $loginFormAuthenticator;
+
+        return $this;
+    }
+
+    /**
+     * @return LoginFormAuthenticator
+     */
+    public function getResourceOwnerAuthenticator()
+    {
+        return $this->resourceOwnerAuthenticator;
+    }
+
+    /**
+     * @param ResourceOwnerAuthenticator $resourceOwnerAuthenticator
+     */
+    public function setResourceOwnerAuthenticator($resourceOwnerAuthenticator)
+    {
+        $this->resourceOwnerAuthenticator = $resourceOwnerAuthenticator;
 
         return $this;
     }

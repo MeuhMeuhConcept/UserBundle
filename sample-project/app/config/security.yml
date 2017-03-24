@@ -7,6 +7,8 @@ security:
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         mmc_user_provider:
+            entity: { class: MMC\User\Bundle\UserBundle\Entity\User }
+        mmc_login_provider:
             entity: { class: MMC\User\Bundle\LoginBundle\Entity\LoginFormAuthenticator, property: login }
 
     firewalls:
@@ -32,7 +34,7 @@ security:
                 resource_owners:
                     trello: "/login/check-trello"
                 oauth_user_provider:
-                    orm: { class: MMC\User\Bundle\LoginBundle\Entity\LoginFormAuthenticator, properties: { name: login } }
+                    service: mmc_ro_user_provider
                 failure_path: /login
                 login_path: /login
 

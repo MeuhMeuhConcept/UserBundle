@@ -3,7 +3,7 @@ mmc_user.registration:
     type:   extra
 
 mmc_user.login:
-    path:     /login
+    path:     /login_check
     defaults: { _controller: mmc_user.component.controller.security:loginAction }
 
 mmc_user.logout:

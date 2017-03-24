@@ -1,7 +1,8 @@
 services:
     mmc_ro_user_provider:
-        class: AppBundle\Security\Core\User\FOSUBUserProvider
-        arguments: ['@doctrine.orm.default_entity_manager', {trello: trello_id}]
+        class: MMC\User\Bundle\ResourceOwnersBundle\Services\OAuthUserProvider
+        arguments: ['@doctrine.orm.default_entity_manager', {trello: resourceOwnerId}, '@mmc_resource_owners.manager']
+
 
     mmc_user.authenticator_block.resource_owners:
         class: MMC\User\Bundle\ResourceOwnersBundle\Services\ResourceOwnersAuthenticatorBlock
@@ -9,8 +10,21 @@ services:
             - '%mmc_user.main.authenticator_block.resource_owners%'
             - '@templating'
             - '@security.csrf.token_manager'
+            - '%mmc_ro.resource_owners%'
         tags:
             - { name: mmc_user.chain.authenticator_block }
+
+    mmc_resource_owners.manager:
+        class: MMC\User\Bundle\ResourceOwnersBundle\Services\ResourceOwnersManager
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+
+    mmc_resource_owners.routing.loader:
+        class: MMC\User\Bundle\ResourceOwnersBundle\Services\Routing\ResourceOwnersLoader
+        arguments:
+            - '%mmc_ro.resource_owners%'
+        tags:
+            - { name: routing.loader }
 
 parameters:
     mmc_user.template.authenticator_block.resource_owners: 'MMCResourceOwnersBundle:Security:resource_owners_block.html.twig'

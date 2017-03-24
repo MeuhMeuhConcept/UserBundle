@@ -17,17 +17,17 @@ class ResourceOwners
     /**
      * @var string
      */
-    protected $resourceOwnersId;
+    protected $resourceOwnerName;
+
+    /**
+     * @var int
+     */
+    protected $resourceOwnerId;
 
     /**
      * @var string
      */
-    protected $resourceOwnersIdType = 'trello';
-
-    /**
-     * @var string
-     */
-    protected $resourceOwnersAccessToken;
+    protected $resourceOwnerAccessToken;
 
     /**
      * @return int
@@ -59,17 +59,32 @@ class ResourceOwners
     /**
      * @return string
      */
-    public function getResourceOwnersId()
+    public function getResourceOwnerName()
     {
-        return $this->resourceOwnersId;
+        return $this->resourceOwnerName;
     }
 
     /**
      * @param string $trelloId
      */
-    public function setResourceOwnersId($resourceOwnersId)
+    public function setResourceOwnerName($resourceOwnerName)
     {
-        $this->resourceOwnersId = $resourceOwnersId;
+        $this->resourceOwnerName = $resourceOwnerName;
+
+        return $this;
+    }
+
+    public function getResourceOwnerId()
+    {
+        return $this->resourceOwnerId;
+    }
+
+    /**
+     * @param type $resourceOwnerId
+     */
+    public function setResourceOwnerId($resourceOwnerId)
+    {
+        $this->resourceOwnerId = $resourceOwnerId;
 
         return $this;
     }
@@ -77,35 +92,17 @@ class ResourceOwners
     /**
      * @return string
      */
-    public function getResourceOwnersIdType()
+    public function getResourceOwnerAccessToken()
     {
-        return $this->resourceOwnersIdType;
+        return $this->resourceOwnerAccessToken;
     }
 
     /**
-     * @param string $trelloId
+     * @param string $resourceOwnerAccessToken
      */
-    public function setResourceOwnersIdType($resourceOwnersIdType)
+    public function setResourceOwnerAccessToken($resourceOwnerAccessToken)
     {
-        $this->resourceOwnersIdType = $resourceOwnersIdType;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTrelloAccessToken()
-    {
-        return $this->trelloAccessToken;
-    }
-
-    /**
-     * @param string $trelloAccessToken
-     */
-    public function setTrelloAccessToken($trelloAccessToken)
-    {
-        $this->trelloAccessToken = $trelloAccessToken;
+        $this->resourceOwnerAccessToken = $resourceOwnerAccessToken;
 
         return $this;
     }
