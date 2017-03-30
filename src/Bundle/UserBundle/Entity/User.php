@@ -11,6 +11,8 @@ class User implements UserInterface
 
     protected $loginFormAuthenticator;
 
+    protected $emailFormAuthenticator;
+
     protected $resourceOwnerAuthenticator;
 
     /**
@@ -56,6 +58,24 @@ class User implements UserInterface
     public function setLoginFormAuthenticator($loginFormAuthenticator)
     {
         $this->loginFormAuthenticator = $loginFormAuthenticator;
+
+        return $this;
+    }
+
+    /**
+     * @return EmailFormAuthenticator
+     */
+    public function getEmailFormAuthenticator()
+    {
+        return $this->emailFormAuthenticator;
+    }
+
+    /**
+     * @param EmailFormAuthenticator $emailFormaAuthenticator
+     */
+    public function setEmailFormaAuthenticator($emailFormaAuthenticator)
+    {
+        $this->emailFormaAuthenticator = $emailFormaAuthenticator;
 
         return $this;
     }

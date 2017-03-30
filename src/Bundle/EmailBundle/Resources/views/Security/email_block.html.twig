@@ -1,0 +1,23 @@
+{% trans_default_domain 'MMCEmailBundle' %}
+
+{% block mmc_user_email_form %}
+    <br>
+    <form action="{{ path('mmc_user.email_form.code') }}" method="POST">
+        {{ form_widget(form_email._token) }}
+        <div class="form-group has-feedback">
+            {{ form_widget(form_email.email, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.email'|trans }}) }}
+            {{ form_errors(form_email.email) }}
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <button type="submit" id="_submit_email" name="_submit_email" class="btn btn-primary btn-block btn-flat">{{ 'security.email.submit'|trans }}</button>
+            </div>
+            {% if registration is defined %}
+                <div class="col-xs-6">
+                    <a href="{{ path('mmc_user.email_form.registration') }}" class="btn btn-default btn-block btn-flat">{{ 'security.email.registration'|trans }}</a>
+                </div>
+            {% endif %}
+        </div>
+    </form>
+{% endblock mmc_user_email_form %}

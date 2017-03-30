@@ -35,6 +35,10 @@ class MMCEmailExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('mmc_user.mailer.resetting.sender', $config['mailer']['resetting']['sender']);
         $container->setParameter('mmc_user.mailer.resetting.template', $config['mailer']['resetting']['template']);
         $container->setParameter('mmc_user.mailer.resetting.subject', $config['mailer']['resetting']['subject']);
+
+        $container->setParameter('mmc_user.mailer.email_form.sender', $config['mailer']['email_form']['sender']);
+        $container->setParameter('mmc_user.mailer.email_form.template', $config['mailer']['email_form']['template']);
+        $container->setParameter('mmc_user.mailer.email_form.subject', $config['mailer']['email_form']['subject']);
     }
 
     protected function addParameter($group, $key, $config, ContainerBuilder $container)

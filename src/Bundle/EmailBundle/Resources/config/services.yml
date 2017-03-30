@@ -1,39 +1,64 @@
 services:
 
-    mmc_user.component.controller.resetting:
-        class: MMC\User\Component\Controller\ResettingController
+    #AUTHENTICATOR_BLOCK
+    mmc_user.email.authenticator_block:
+        class: MMC\User\Bundle\EmailBundle\Services\EmailAuthenticatorBlock
+        arguments:
+            - '%mmc_user.main.authenticator_block.email%'
+            - '@templating'
+            - '@form.factory'
+        tags:
+            - { name: mmc_user.chain.authenticator_block }
+
+    #GUARD
+    mmc_user.email.guard.email_form_authenticator.post:
+        class: MMC\User\Bundle\EmailBundle\Services\Guard\EmailFormAuthenticatorPost
+        arguments:
+            - '@form.factory'
+            - '@router'
+            - '@mmc_user.provider'
+            - '@mmc_user.email.manager.authenticator_code'
+
+    mmc_user.email.guard.email_form_authenticator.get:
+        class: MMC\User\Bundle\EmailBundle\Services\Guard\EmailFormAuthenticatorGet
+        arguments:
+            - '@form.factory'
+            - '@router'
+            - '@mmc_user.provider'
+            - '@mmc_user.email.manager.authenticator_code'
+
+    #CONTROLLER
+    mmc_user.email_form.controller:
+        class: MMC\User\Bundle\EmailBundle\Controller\EmailFormController
         arguments:
             - '@router'
             - '@templating'
             - '@form.factory'
-            - '@mmc_user.component.doctrine.resetting_manager'
-            - '@security.authentication.guard_handler'
-            - '@mmc_user.component.security.login_form_authenticator'
-            - '@mmc_user.component.mailer.resetting'
-
-    mmc_user.component.doctrine.resetting_manager:
-        class: MMC\User\Component\Doctrine\ResettingManager
-        arguments:
-            - '@doctrine.orm.default_entity_manager'
-            - '@mmc_user.component.security.token_generator'
+            - '@mmc_user.email.manager.authenticator_code'
+            - '@mmc_user.component.mailer.email_form'
+            - '@mmc_user.provider'
 
     #MAILER
-    mmc_user.component.mailer.confirm:
-        class: MMC\User\Component\Mailer\ConfirmMailerProcessor
+    mmc_user.component.mailer.email_form:
+        class: MMC\User\Component\Mailer\EmailFormMailerProcessor
         arguments:
             - '@mailer'
             - '@templating'
             - '@router'
-            - '%mmc_user.mailer.confirm.sender%'
-            - '%mmc_user.mailer.confirm.template%'
-            - '%mmc_user.mailer.confirm.subject%'
+            - '%mmc_user.mailer.email_form.sender%'
+            - '%mmc_user.mailer.email_form.template%'
+            - '%mmc_user.mailer.email_form.subject%'
 
-    mmc_user.component.mailer.resetting:
-        class: MMC\User\Component\Mailer\ResettingMailerProcessor
+    #MANAGER
+    mmc_user.email.manager.authenticator_code:
+        class: MMC\User\Bundle\EmailBundle\Services\AuthenticationCodeManager
         arguments:
-            - '@mailer'
-            - '@templating'
-            - '@router'
-            - '%mmc_user.mailer.resetting.sender%'
-            - '%mmc_user.mailer.resetting.template%'
-            - '%mmc_user.mailer.resetting.subject%'
+            - '@doctrine.orm.default_entity_manager'
+            - '@mmc_user.component.simple_code_generator'
+
+    #CODE_GENERATOR
+    mmc_user.component.simple_code_generator:
+        class: MMC\User\Component\Security\CodeGenerator\SimpleCodeGenerator
+
+parameters:
+    mmc_user.main.authenticator_block.email: false

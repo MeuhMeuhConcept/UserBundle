@@ -1,6 +1,6 @@
 <?php
 
-namespace MMC\User\Bundle\LoginBundle\Form;
+namespace MMC\User\Bundle\EmailBundle\Form;
 
 use Symfony\Component\Validator\Constraints as Assert;
 

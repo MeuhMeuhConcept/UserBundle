@@ -9,3 +9,15 @@ mmc_user.forgot_password:
 mmc_user.resetting:
     path:     /resetting/{token}
     defaults: { _controller: mmc_user.component.controller.resetting:resettingAction }
+
+mmc_user.email_form.code:
+    path:     /email_code
+    defaults: { _controller: mmc_user.email_form.controller:sendCodeAction }
+
+mmc_user.email_form:
+    path:     /email_check
+    defaults: { _controller: mmc_user.component.controller.security:loginAction }
+
+mmc_user.email_form.registration:
+    path:     /registration/email
+    defaults: { _controller: mmc_user.email_form.controller:registrationAction }

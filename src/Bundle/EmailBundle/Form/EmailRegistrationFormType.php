@@ -2,26 +2,27 @@
 
 namespace MMC\User\Bundle\EmailBundle\Form;
 
+use MMC\User\Bundle\EmailBundle\Entity\EmailFormAuthenticator;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ResettingFormType extends AbstractType
+class EmailRegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
+            ->add('email', RepeatedType::class, [
+                'type' => EmailType::class,
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Resetting::class,
+            'data_class' => EmailFormAuthenticator::class,
             'validation_groups' => ['Default', 'Registration'],
         ]);
     }

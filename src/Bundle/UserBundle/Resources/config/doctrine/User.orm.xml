@@ -8,6 +8,10 @@
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
         </id>
+
+        <one-to-one field="emailFormAuthenticator" target-entity="MMC\User\Bundle\EmailBundle\Entity\EmailFormAuthentication">
+            <join-column name="email_form_authentication_id" referenced-column-name="id" />
+        </one-to-one>
     </mapped-superclass>
 
 </doctrine-mapping>

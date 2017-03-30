@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="placeholder.email">
+                <source>placeholder.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="placeholder.repeatEmail">
+                <source>placeholder.repeatEmail</source>
+                <target>Répéter l'email</target>
+            </trans-unit>
+            <trans-unit id="registration.submit">
+                <source>registration.submit</source>
+                <target>S'enregistrer</target>
+            </trans-unit>
+            <trans-unit id="security.email.submit">
+                <source>security.email.submit</source>
+                <target>Connexion</target>
+            </trans-unit>
+            <trans-unit id="placeholder.enterCode">
+                <source>placeholder.enterCode</source>
+                <target>Saisir le code</target>
+            </trans-unit>
+            <trans-unit id="security.email.registration">
+                <source>security.email.registration</source>
+                <target>S'enregistrer</target>
+            </trans-unit>
+            <trans-unit id="email.registration.title">
+                <source>email.registration.title</source>
+                <target>Enregistrement</target>
+            </trans-unit>
+            <trans-unit id="login.button">
+                <source>login.button</source>
+                <target>Se connecter</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
