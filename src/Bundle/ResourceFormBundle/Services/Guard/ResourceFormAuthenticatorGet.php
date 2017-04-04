@@ -1,15 +1,15 @@
 <?php
 
-namespace MMC\User\Bundle\EmailBundle\Services\Guard;
+namespace MMC\User\Bundle\ResourceFormBundle\Services\Guard;
 
-use MMC\User\Bundle\EmailBundle\Services\AuthenticationCodeManager;
+use MMC\User\Bundle\ResourceFormBundle\Services\AuthenticationCodeManager;
 use MMC\User\Bundle\UserBundle\Services\UserProvider\UserProvider;
 use MMC\User\Component\Security\AuthenticationParametersConverter\AuthenticationParametersConverterInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 
-class EmailFormAuthenticatorGet extends AbstractEmailFormAuthenticator
+class ResourceFormAuthenticatorGet extends AbstractResourceFormAuthenticator
 {
     protected $formFactory;
 

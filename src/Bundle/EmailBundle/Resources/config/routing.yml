@@ -14,6 +14,10 @@ mmc_user.email_form.code:
     path:     /email_code
     defaults: { _controller: mmc_user.email_form.controller:sendCodeAction }
 
+mmc_user.email_form.url:
+    path:     /email_url
+    defaults: { _controller: mmc_user.email_form.controller:sendUrlAction }
+
 mmc_user.email_form:
     path:     /email_check
     defaults: { _controller: mmc_user.component.controller.security:loginAction }

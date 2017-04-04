@@ -1,15 +1,16 @@
 <?php
 
-namespace MMC\User\Bundle\EmailBundle\Services\Guard;
+namespace MMC\User\Bundle\ResourceFormBundle\Services\Guard;
 
-use MMC\User\Bundle\EmailBundle\Services\AuthenticationCodeManager;
+use MMC\User\Bundle\ResourceFormBundle\Form\CodeConfirmationFormType;
+use MMC\User\Bundle\ResourceFormBundle\Services\AuthenticationCodeManager;
 use MMC\User\Bundle\UserBundle\Services\UserProvider\UserProvider;
-use MMC\User\Component\Security\AuthenticationParametersConverter\AuthenticationParametersConverterInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Security;
 
-class EmailFormAuthenticatorGet extends AbstractEmailFormAuthenticator
+class ResourceFormAuthenticatorPost extends AbstractResourceFormAuthenticator
 {
     protected $formFactory;
 
@@ -19,31 +20,34 @@ class EmailFormAuthenticatorGet extends AbstractEmailFormAuthenticator
 
     protected $authenticationCodeManager;
 
-    protected $authenticationParametersConverter;
-
     public function __construct(
         FormFactoryInterface $formFactory,
         RouterInterface $router,
         UserProvider $userProvider,
-        AuthenticationCodeManager $authenticationCodeManager,
-        AuthenticationParametersConverterInterface $authenticationParametersConverter
+        AuthenticationCodeManager $authenticationCodeManager
     ) {
         $this->formFactory = $formFactory;
         $this->router = $router;
         $this->userProvider = $userProvider;
         $this->authenticationCodeManager = $authenticationCodeManager;
-        $this->authenticationParametersConverter = $authenticationParametersConverter;
     }
 
     public function getCredentials(Request $request)
     {
-        $isLoginSubmit = $request->getPathInfo() == '/email_check' && $request->isMethod('GET');
+        $isLoginSubmit = $request->getPathInfo() == '/email_check' && $request->isMethod('POST');
 
         if (!$isLoginSubmit) {
             return;
         }
+        $form = $this->formFactory->create(CodeConfirmationFormType::class);
+        $form->handleRequest($request);
 
-        $data = $this->authenticationParametersConverter->revert($request->query->get('token'));
+        $data = $form->getData();
+
+        $request->getSession()->set(
+            Security::LAST_USERNAME,
+            $data['email']
+        );
 
         return $data;
     }

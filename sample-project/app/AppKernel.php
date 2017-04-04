@@ -17,9 +17,10 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
             new MMC\User\Bundle\UserBundle\MMCUserBundle(),
-            new MMC\User\Bundle\LoginBundle\MMCLoginBundle(),
+            //new MMC\User\Bundle\LoginBundle\MMCLoginBundle(),
             new MMC\User\Bundle\ResourceOwnersBundle\MMCResourceOwnersBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+            new MMC\User\Bundle\ResourceFormBundle\MMCResourceFormBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

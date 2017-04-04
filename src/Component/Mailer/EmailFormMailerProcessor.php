@@ -2,11 +2,10 @@
 
 namespace MMC\User\Component\Mailer;
 
-use MMC\User\Bundle\EmailBundle\Entity\EmailFormAuthentication;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\EngineInterface;
 
-class EmailFormMailerProcessor extends MailerProcessor
+class EmailFormMailerProcessor implements CodeSender
 {
     protected $templating;
     protected $router;
@@ -27,33 +26,33 @@ class EmailFormMailerProcessor extends MailerProcessor
         $this->subject = $subject;
     }
 
-    public function sendEmailWithCode(EmailFormAuthentication $emailForm, $code)
+    public function sendCode($user, $code)
     {
-        $this->body = $this->templating->render($this->template, [
-            'form' => $emailForm,
-            'code' => $code,
-        ]);
+        $mail = \Swift_Message::newInstance();
 
-        $this->receiver = $emailForm->getEmail();
-
-        return $this->sendMessage();
-    }
-
-    public function sendTokenEmailMessage(EmailFormAuthenticator $emailForm)
-    {
         $url = $this->router->generate(
-            'mmc_user.email.login',
-            ['token' => $emailForm->getEmailRequestToken()],
+            'mmc_user.email_form',
+            ['token' => $code],
             routerInterface::ABSOLUTE_URL
         );
 
-        $this->body = $this->templating->render($this->template, [
-            'form' => $emailForm,
+        $body = $this->templating->render($this->template, [
+            'form' => $user,
+            'code' => $code,
             'url' => $url,
+
         ]);
 
-        $this->receiver = $emailForm->getEmail();
+        $receiver = $user->getEmail();
 
-        return $this->sendMessage();
+        $mail
+            ->setFrom($this->sender)
+            ->setReplyTo($this->sender)
+            ->setTo($receiver)
+            ->setSubject($this->subject)
+            ->setBody($body)
+            ->setContentType('text/html');
+
+        return $this->mailer->send($mail);
     }
 }

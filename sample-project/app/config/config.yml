@@ -77,8 +77,13 @@ mmc_user:
     templates:
         layout: MMCUserBundle:Default:layout.html.twig
 
-mmc_login:
-    registration: true
+mmc_resource_form:
+    modes:
+        email_form_code:
+            sender: mmc_user.component.mailer.email_form
+            form_type : mmc_user.resource_form.form.type
+            form_template : MMCLoginBundle:Registration:email.html.twig
+            type: email
 
 hwi_oauth:
     # list of names of the firewalls in which this bundle is active, this setting MUST be set

@@ -36,9 +36,15 @@ class MMCEmailExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('mmc_user.mailer.resetting.template', $config['mailer']['resetting']['template']);
         $container->setParameter('mmc_user.mailer.resetting.subject', $config['mailer']['resetting']['subject']);
 
-        $container->setParameter('mmc_user.mailer.email_form.sender', $config['mailer']['email_form']['sender']);
-        $container->setParameter('mmc_user.mailer.email_form.template', $config['mailer']['email_form']['template']);
-        $container->setParameter('mmc_user.mailer.email_form.subject', $config['mailer']['email_form']['subject']);
+        if ($config['mode'] == 'code') {
+            $container->setParameter('mmc_user.mailer.email_form_code.sender', $config['mailer']['email_form_code']['sender']);
+            $container->setParameter('mmc_user.mailer.email_form_code.template', $config['mailer']['email_form_code']['template']);
+            $container->setParameter('mmc_user.mailer.email_form_code.subject', $config['mailer']['email_form_code']['subject']);
+        } else {
+            $container->setParameter('mmc_user.mailer.email_form_url.sender', $config['mailer']['email_form_url']['sender']);
+            $container->setParameter('mmc_user.mailer.email_form_url.template', $config['mailer']['email_form_url']['template']);
+            $container->setParameter('mmc_user.mailer.email_form_url.subject', $config['mailer']['email_form_url']['subject']);
+        }
     }
 
     protected function addParameter($group, $key, $config, ContainerBuilder $container)
@@ -54,5 +60,16 @@ class MMCEmailExtension extends Extension implements PrependExtensionInterface
         $config = $this->processConfiguration(new Configuration(), $configs);
 
         $bundles = $container->getParameter('kernel.bundles');
+
+        if (isset($bundles['TwigBundle'])
+        ) {
+            $twig_global = [
+                'globals' => [
+                    'email_form_route' => 'mmc_user.email_form.url',
+                ],
+            ];
+
+            $container->prependExtensionConfig('twig', $twig_global);
+        }
     }
 }
