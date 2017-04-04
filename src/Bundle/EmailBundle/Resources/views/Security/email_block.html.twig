@@ -2,7 +2,14 @@
 
 {% block mmc_user_email_form %}
     <br>
-    <form action="{{ path('mmc_user.email_form.code') }}" method="POST">
+
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+    {% endif %}
+
+    <form action="{{ path(email_form_route) }}" method="POST">
         {{ form_widget(form_email._token) }}
         <div class="form-group has-feedback">
             {{ form_widget(form_email.email, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.email'|trans }}) }}

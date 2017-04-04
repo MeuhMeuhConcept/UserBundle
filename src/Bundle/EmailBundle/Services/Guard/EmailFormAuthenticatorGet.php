@@ -2,13 +2,12 @@
 
 namespace MMC\User\Bundle\EmailBundle\Services\Guard;
 
-use MMC\User\Bundle\EmailBundle\Form\CodeConfirmationFormType;
 use MMC\User\Bundle\EmailBundle\Services\AuthenticationCodeManager;
 use MMC\User\Bundle\UserBundle\Services\UserProvider\UserProvider;
+use MMC\User\Component\Security\AuthenticationParametersConverter\AuthenticationParametersConverterInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Security;
 
 class EmailFormAuthenticatorGet extends AbstractEmailFormAuthenticator
 {
@@ -20,16 +19,20 @@ class EmailFormAuthenticatorGet extends AbstractEmailFormAuthenticator
 
     protected $authenticationCodeManager;
 
+    protected $authenticationParametersConverter;
+
     public function __construct(
         FormFactoryInterface $formFactory,
         RouterInterface $router,
         UserProvider $userProvider,
-        AuthenticationCodeManager $authenticationCodeManager
+        AuthenticationCodeManager $authenticationCodeManager,
+        AuthenticationParametersConverterInterface $authenticationParametersConverter
     ) {
         $this->formFactory = $formFactory;
         $this->router = $router;
         $this->userProvider = $userProvider;
         $this->authenticationCodeManager = $authenticationCodeManager;
+        $this->authenticationParametersConverter = $authenticationParametersConverter;
     }
 
     public function getCredentials(Request $request)
@@ -39,15 +42,8 @@ class EmailFormAuthenticatorGet extends AbstractEmailFormAuthenticator
         if (!$isLoginSubmit) {
             return;
         }
-        $form = $this->formFactory->create(CodeConfirmationFormType::class);
-        $form->handleRequest($request);
 
-        $data = $form->getData();
-
-        $request->getSession()->set(
-            Security::LAST_USERNAME,
-            $data['email']
-        );
+        $data = $this->authenticationParametersConverter->revert($request->query->get('token'));
 
         return $data;
     }

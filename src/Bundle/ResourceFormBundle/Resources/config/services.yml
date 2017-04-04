@@ -1,0 +1,81 @@
+services:
+
+    #AUTHENTICATOR_BLOCK
+    mmc_user.email.authenticator_block:
+        class: MMC\User\Bundle\ResourceFormBundle\Services\ResourceFormAuthenticatorBlock
+        arguments:
+            - '%mmc_user.main.authenticator_block.email%'
+            - '@templating'
+            - '@form.factory'
+            - '@security.authentication_utils'
+            - '%mmc_resource_form.resource_forms%'
+        tags:
+            - { name: mmc_user.chain.authenticator_block }
+
+    #GUARD
+    mmc_user.email.guard.resource_form_authenticator.post:
+        class: MMC\User\Bundle\ResourceFormBundle\Services\Guard\ResourceFormAuthenticatorPost
+        arguments:
+            - '@form.factory'
+            - '@router'
+            - '@mmc_user.provider'
+            - '@mmc_user.email.manager.authenticator_code'
+
+    mmc_user.email.guard.resource_form_authenticator.get:
+        class: MMC\User\Bundle\ResourceFormBundle\Services\Guard\ResourceFormAuthenticatorGet
+        arguments:
+            - '@form.factory'
+            - '@router'
+            - '@mmc_user.provider'
+            - '@mmc_user.email.manager.authenticator_code'
+            - '@mmc_user.component.authentication_parameters_converter'
+
+    #CONTROLLER
+    mmc_user.resource_form.controller:
+        class: MMC\User\Bundle\ResourceFormBundle\Controller\ResourceFormController
+        arguments:
+            - '@router'
+            - '@templating'
+            - '@form.factory'
+            - '@mmc_user.email.manager.authenticator_code'
+            - '@mmc_user.component.mailer.email_form'
+            - '@mmc_user.resource_form.provider'
+            - '@mmc_user.component.authentication_parameters_converter'
+            - '%mmc_user.resource_form.form_type%'
+            - '%mmc_user.resource_form.form_template%'
+            - '%mmc_user.resource_form.render_template%'
+
+    #MAILER
+    mmc_user.component.mailer.email_form:
+        class: MMC\User\Component\Mailer\EmailFormMailerProcessor
+        arguments:
+            - '@mailer'
+            - '@templating'
+            - '@router'
+            - '%mmc_user.mailer.resource_form.sender%'
+            - '%mmc_user.mailer.resource_form.template%'
+            - '%mmc_user.mailer.resource_form.subject%'
+
+    #MANAGER
+    mmc_user.email.manager.authenticator_code:
+        class: MMC\User\Bundle\ResourceFormBundle\Services\AuthenticationCodeManager
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@mmc_user.component.simple_code_generator'
+
+    #CODE_GENERATOR
+    mmc_user.component.simple_code_generator:
+        class: MMC\User\Component\Security\CodeGenerator\SimpleCodeGenerator
+
+    #AUTHENTICATION_PARAMETERS_CONVERTER
+    mmc_user.component.authentication_parameters_converter:
+        class: MMC\User\Component\Security\AuthenticationParametersConverter\AuthenticationParametersConverter
+
+    #PROVIDER
+    mmc_user.resource_form.provider:
+        class: 'MMC\User\Bundle\ResourceFormBundle\Services\ResourceFormProvider\ResourceFormProvider'
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+
+parameters:
+    mmc_user.main.authenticator_block.email: false

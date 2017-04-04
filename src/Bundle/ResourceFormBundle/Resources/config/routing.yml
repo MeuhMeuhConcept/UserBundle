@@ -1,0 +1,11 @@
+mmc_user.resource_form.code:
+    path:     /resource_code
+    defaults: { _controller: mmc_user.resource_form.controller:sendCodeAction }
+
+mmc_user.email_form.url:
+    path:     /email_url
+    defaults: { _controller: mmc_user.email_form.controller:sendUrlAction }
+
+mmc_user.resource_form:
+    path:     /resource_check
+    defaults: { _controller: mmc_user.component.controller.security:loginAction }

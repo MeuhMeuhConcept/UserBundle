@@ -11,7 +11,7 @@ class User implements UserInterface
 
     protected $loginFormAuthenticator;
 
-    protected $emailFormAuthenticator;
+    protected $resourceFormAuthenticator;
 
     protected $resourceOwnerAuthenticator;
 
@@ -63,19 +63,19 @@ class User implements UserInterface
     }
 
     /**
-     * @return EmailFormAuthenticator
+     * @return resourceFormAuthenticator
      */
-    public function getEmailFormAuthenticator()
+    public function getResourceFormAuthenticator()
     {
-        return $this->emailFormAuthenticator;
+        return $this->resourceFormAuthenticator;
     }
 
     /**
-     * @param EmailFormAuthenticator $emailFormaAuthenticator
+     * @param resourceFormAuthenticator $resourceFormAuthenticator
      */
-    public function setEmailFormaAuthenticator($emailFormaAuthenticator)
+    public function setResourceFormAuthenticator($resourceFormAuthenticator)
     {
-        $this->emailFormaAuthenticator = $emailFormaAuthenticator;
+        $this->resourceFormAuthenticator = $resourceFormAuthenticator;
 
         return $this;
     }

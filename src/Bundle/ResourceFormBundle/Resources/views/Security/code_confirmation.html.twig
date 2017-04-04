@@ -1,0 +1,31 @@
+{% extends mmc_user_layout %}
+
+{% trans_default_domain 'MMCEmailBundle' %}
+
+{% block title_content %}
+    Register{{ login_title_suffix|default('MMC') }} | Sign in
+{% endblock title_content %}
+
+{% block login_logo %}
+    <div class="login-logo">
+        <a href="{{ path('mmc_user.login') }}"><b>{{ 'register.title'|trans }}</b>MMC</a>
+    </div>
+{% endblock login_logo %}
+
+{% block mmc_user_content %}
+
+    <form method="POST" action="{{ path('mmc_user.resource_form') }}">
+        {{ form_widget(form.user, {'attr': {'value': user }}) }}
+        <div class="form-group has-feedback">
+            {{ form_widget(form.code, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.enterCode'|trans }}) }}
+            {{ form_errors(form.code) }}
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <button type="submit" id="_submit" name="_submit" class="btn btn-primary btn-block btn-flat">{{ 'security.email.submit'|trans }}</button>
+            </div>
+        </div>
+    </form>
+
+{% endblock mmc_user_content %}

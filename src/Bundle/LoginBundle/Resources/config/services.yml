@@ -15,7 +15,7 @@ services:
         class: MMC\User\Component\Doctrine\RegistrationManager
         arguments:
             - '@doctrine.orm.default_entity_manager'
-            - '@mmc_user.component.security.token_generator'
+            - '@mmc_user.component.security.code_generator'
 
     mmc_user.component.security.login_form_authenticator:
         class: MMC\User\Component\Security\LoginFormAuthenticator

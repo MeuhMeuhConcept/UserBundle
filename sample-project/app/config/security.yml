@@ -8,8 +8,10 @@ security:
     providers:
         mmc_user_provider:
             entity: { class: MMC\User\Bundle\UserBundle\Entity\User }
-        mmc_login_provider:
-            entity: { class: MMC\User\Bundle\LoginBundle\Entity\LoginFormAuthenticator, property: login }
+        # mmc_login_provider:
+        #     entity: { class: MMC\User\Bundle\LoginBundle\Entity\LoginFormAuthenticator, property: login }
+        mmc_email_provider:
+            entity: { class: MMC\User\Bundle\EmailBundle\Entity\EmailFormAuthenticator, property: email }
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -22,7 +24,10 @@ security:
 
             guard:
                 authenticators:
-                    - mmc_user.component.security.login_form_authenticator
+                    # - mmc_user.component.security.login_form_authenticator
+                    - mmc_user.email.guard.resource_form_authenticator.post
+                    - mmc_user.email.guard.resource_form_authenticator.get
+                entry_point: mmc_user.component.security.login_form_authenticator
             logout:
                 path: /logout
 

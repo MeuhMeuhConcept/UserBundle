@@ -2,11 +2,12 @@
 
 namespace MMC\User\Bundle\EmailBundle\Services;
 
+use MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthenticationInterface
 use Symfony\Component\Security\Core\User\UserInterface;
 
 interface AuthenticationCodeManagerInterface
 {
-    public function generate(UserInterface $user);
+    public function generate(ResourceFormAuthenticationInterface $resourceForm);
 
     public function check(UserInterface $user, $code, $test = false);
 }

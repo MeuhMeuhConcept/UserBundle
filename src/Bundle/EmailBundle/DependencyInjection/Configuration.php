@@ -13,7 +13,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('mmc_email');
+        $rootNode = $treeBuilder->root('mmc_email_form');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
@@ -59,7 +59,7 @@ class Configuration implements ConfigurationInterface
                                 ->end()
                             ->end()
                         ->end()
-                        ->arrayNode('email_form')
+                        ->arrayNode('email_form_code')
                             ->addDefaultsIfNotSet()
                             ->children()
                               ->scalarNode('sender')
@@ -69,7 +69,21 @@ class Configuration implements ConfigurationInterface
                                     ->defaultValue('MMCEmailBundle:Security:email_code.html.twig')
                                 ->end()
                                 ->scalarNode('subject')
-                                    ->defaultValue('Login')
+                                    ->defaultValue('email_form_code.subject.text')
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('email_form_url')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                              ->scalarNode('sender')
+                                    ->defaultValue('no-reply@server.com')
+                                ->end()
+                                ->scalarNode('template')
+                                    ->defaultValue('MMCEmailBundle:Security:email_url.html.twig')
+                                ->end()
+                                ->scalarNode('subject')
+                                    ->defaultValue('email_form_url.subject.text')
                                 ->end()
                             ->end()
                         ->end()

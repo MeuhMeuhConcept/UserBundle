@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "642a09ecf8d8703b99540791c575d967",
-    "content-hash": "e96bae7a2915a56b9b800f731cf2ba27",
+    "hash": "a5246f233735b62d8abd270adaeb342a",
+    "content-hash": "0a44c19fb8b24d16a03d95b2a9346be3",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1081,9 +1081,10 @@
             "source": {
                 "type": "git",
                 "url": "./user-bundle/",
-                "reference": "f4a057d8f4ee0baf0d8ea5298bd51d06337279a3"
+                "reference": "af2686aad70e7dbc2760f7d36013aff7c955b6eb"
             },
             "require": {
+                "hwi/oauth-bundle": "^0.5.3",
                 "php": "~7.0",
                 "ramsey/uuid": "3.5.2",
                 "ramsey/uuid-doctrine": "1.2.0",
@@ -1123,7 +1124,7 @@
                 }
             ],
             "description": "User bundle",
-            "time": "2017-03-13 14:41:57"
+            "time": "2017-04-04 15:25:56"
         },
         {
             "name": "monolog/monolog",

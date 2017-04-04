@@ -7,7 +7,8 @@ use MMC\User\Bundle\EmailBundle\Form\EmailFormType;
 use MMC\User\Bundle\EmailBundle\Form\EmailRegistrationFormType;
 use MMC\User\Bundle\EmailBundle\Services\AuthenticationCodeManager;
 use MMC\User\Bundle\UserBundle\Services\UserProvider\UserProvider;
-use MMC\User\Component\Mailer\MailerProcessor;
+use MMC\User\Component\Mailer\CodeSender;
+use MMC\User\Component\Security\AuthenticationParametersConverter\AuthenticationParametersConverterInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,7 @@ class EmailFormController
 
     protected $authenticationCodeManager;
 
-    protected $mailerProcessor;
+    protected $codeSender;
 
     protected $userProvider;
 
@@ -32,20 +33,26 @@ class EmailFormController
 
     protected $emailFormAuthenticator;
 
+    protected $renderTemplate;
+
     public function __construct(
         RouterInterface $router,
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         AuthenticationCodeManager $authenticationCodeManager,
-        MailerProcessor $mailerProcessor,
-        UserProvider $userProvider
+        CodeSender $codeSender,
+        UserProvider $userProvider,
+        AuthenticationParametersConverterInterface $authenticationParametersConverter,
+        $renderTemplate
     ) {
         $this->router = $router;
         $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->authenticationCodeManager = $authenticationCodeManager;
-        $this->mailerProcessor = $mailerProcessor;
+        $this->codeSender = $codeSender;
         $this->userProvider = $userProvider;
+        $this->authenticationParametersConverter = $authenticationParametersConverter;
+        $this->renderTemplate = $renderTemplate;
     }
 
     public function sendCodeAction(Request $request)
@@ -60,25 +67,49 @@ class EmailFormController
             if ($user != null) {
                 $code = $this->authenticationCodeManager->generate($user);
 
-                $this->mailerProcessor->sendEmailWithCode($user, $code);
+                //$codeConvert = $this->authenticationParametersConverter->convert($user->getUser()->getId(), $code);
+
+                $this->codeSender->sendCode($user, $code);
 
                 $codeConfirmationForm = $this->formFactory->create(CodeConfirmationFormType::class);
 
                 return $this->templating->renderResponse(
-                    'MMCEmailBundle:Security:code_confirmation.html.twig',
+                    $this->renderTemplate,
                     [
                         'form' => $codeConfirmationForm->createView(),
                         'user' => $user->getUser()->getId(),
                         'email' => $user->getEmail(),
                     ]
                 );
+            }
+        }
+
+        return new RedirectResponse($this->router->generate('mmc_user.login'), 302);
+    }
+
+    /*public function sendUrlAction(Request $request)
+    {
+        $form = $this->formFactory->create(EmailFormType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->userProvider->findUserByEmail($form->getData());
+
+            if ($user != null) {
+                $code = $this->authenticationCodeManager->generate($user);
+                $codeConvert = $this->authenticationParametersConverter->convert($user->getUser()->getId(), $code);
+
+                $this->messageSenderWithUrl->sendCode($user, $codeConvert);
+
+                return new RedirectResponse($this->router->generate('mmc_user.login'), 302);
             } else {
                 return new RedirectResponse($this->router->generate('mmc_user.login'), 302);
             }
         }
 
         return new RedirectResponse($this->router->generate('mmc_user.login'), 302);
-    }
+    }*/
 
     public function registrationAction(Request $request)
     {
