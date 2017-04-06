@@ -3,10 +3,11 @@
 namespace MMC\User\Bundle\ResourceFormBundle\Services;
 
 use MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthenticationInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 interface AuthenticationCodeManagerInterface
 {
-    public function generate(ResourceFormAuthenticationInterface $user);
+    public function generate(ResourceFormAuthenticationInterface $resourceForm);
 
-    public function check(ResourceFormAuthenticationInterface $user, $code, $test = false);
+    public function check(UserInterface $user, $code, $test = false);
 }

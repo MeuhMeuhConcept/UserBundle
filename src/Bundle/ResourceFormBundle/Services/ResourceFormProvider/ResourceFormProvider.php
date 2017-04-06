@@ -3,6 +3,7 @@
 namespace MMC\User\Bundle\ResourceFormBundle\Services\ResourceFormProvider;
 
 use Doctrine\ORM\EntityManager;
+use MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthentication;
 
 class ResourceFormProvider implements ResourceFormProviderByResourceInterface
 {
@@ -16,6 +17,6 @@ class ResourceFormProvider implements ResourceFormProviderByResourceInterface
 
     public function findUserByResource($resource)
     {
-        return $this->em->getRepository(EmailFormAuthentication::class)->findOneByResource($resource);
+        return $this->em->getRepository(ResourceFormAuthentication::class)->findOneByResource($resource);
     }
 }

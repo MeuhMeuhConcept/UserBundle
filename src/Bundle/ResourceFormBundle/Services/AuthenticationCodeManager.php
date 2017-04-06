@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthentication;
 use MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthenticationInterface;
 use MMC\User\Component\Security\CodeGenerator\CodeGeneratorInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class AuthenticationCodeManager implements AuthenticationCodeManagerInterface
 {
@@ -17,22 +18,22 @@ class AuthenticationCodeManager implements AuthenticationCodeManagerInterface
         $this->codeGenerator = $codeGenerator;
     }
 
-    public function generate(ResourceFormAuthenticationInterface $user)
+    public function generate(ResourceFormAuthenticationInterface $resourceForm)
     {
         $code = $this->codeGenerator->generate();
 
-        $user->setCode($code);
+        $resourceForm->setCode($code);
 
-        $this->em->persist($user);
+        $this->em->persist($resourceForm);
         $this->em->flush();
 
         return $code;
     }
 
-    public function check(ResourceFormAuthenticationInterface $user, $code, $test = false)
+    public function check(UserInterface $user, $code, $test = false)
     {
         if ($this->em->getRepository(ResourceFormAuthentication::class)->findOneBy(['user' => $user, 'code' => $code])) {
-            $user->getEmailFormAuthenticator()->setIsChecked(true)
+            $user->getResourceFormAuthenticator()->setIsChecked(true)
                 ->setCode(null)
             ;
 

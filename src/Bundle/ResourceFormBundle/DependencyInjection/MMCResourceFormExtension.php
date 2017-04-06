@@ -27,19 +27,16 @@ class MMCResourceFormExtension extends Extension implements PrependExtensionInte
 
         $loader->load('services.yml');
 
-        $modes = [];
-
-        foreach ($config['modes'] as $name => $options) {
-            //var_dump($options);
-            $modes[$name] = $options;
-            //$this->createResourceOwnerService($container, $name, $options);
+        foreach ($config['modes'] as $options => $option) {
+            foreach ($option as $key => $value) {
+                $container->setParameter('mmc_user.resource_form.'.$key, $config['modes'][$options][$key]);
+            }
         }
-        $container->setParameter('mmc_resource_form.modes', $modes);
 
         //Mailer
-        $container->setParameter('mmc_user.mailer.email_form.sender', $config['mailer']['email_form_code']['sender']);
-        $container->setParameter('mmc_user.mailer.email_form.template', $config['mailer']['email_form_code']['template']);
-        $container->setParameter('mmc_user.mailer.email_form.subject', $config['mailer']['email_form_code']['subject']);
+        $container->setParameter('mmc_user.mailer.resource_form.sender', $config['mailer']['email_form_code']['sender']);
+        $container->setParameter('mmc_user.mailer.resource_form.template', $config['mailer']['email_form_code']['template']);
+        $container->setParameter('mmc_user.mailer.resource_form.subject', $config['mailer']['email_form_code']['subject']);
     }
 
     public function prepend(ContainerBuilder $container)

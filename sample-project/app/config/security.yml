@@ -25,8 +25,8 @@ security:
             guard:
                 authenticators:
                     # - mmc_user.component.security.login_form_authenticator
-                    - mmc_user.email.guard.email_form_authenticator.post
-                    - mmc_user.email.guard.email_form_authenticator.get
+                    - mmc_user.email.guard.resource_form_authenticator.post
+                    - mmc_user.email.guard.resource_form_authenticator.get
                 entry_point: mmc_user.component.security.login_form_authenticator
             logout:
                 path: /logout

@@ -81,8 +81,7 @@ mmc_resource_form:
     modes:
         email_form_code:
             sender: mmc_user.component.mailer.email_form
-            form_type : mmc_user.resource_form.form.type
-            form_template : MMCLoginBundle:Registration:email.html.twig
+            render_template: 'MMCResourceFormBundle:Security:code_confirmation.html.twig'
             type: email
 
 hwi_oauth:

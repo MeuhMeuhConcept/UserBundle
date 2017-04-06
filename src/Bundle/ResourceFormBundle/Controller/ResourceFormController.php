@@ -40,7 +40,9 @@ class ResourceFormController
         CodeSender $codeSender,
         ResourceFormProviderByResourceInterface $resourceFormProvider,
         AuthenticationParametersConverterInterface $authenticationParametersConverter,
-        array $formModes
+        string $formType,
+        string $formTemplate,
+        $renderTemplate
     ) {
         $this->router = $router;
         $this->templating = $templating;
@@ -49,36 +51,38 @@ class ResourceFormController
         $this->codeSender = $codeSender;
         $this->resourceFormProvider = $resourceFormProvider;
         $this->authenticationParametersConverter = $authenticationParametersConverter;
-        $this->formModes = $formModes;
+        $this->formType = $formType;
+        $this->formTemplate = $formTemplate;
+        $this->renderTemplate = $renderTemplate;
     }
 
     public function sendCodeAction(Request $request)
     {
-        $form = $this->formFactory->create(EmailFormType::class);
+        $form = $this->formFactory->create($this->formType);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->resourceFormProvider->findUserByEmail($form->getData());
+            $resourceForm = $this->resourceFormProvider->findUserByResource($form->getData());
 
-            if ($user != null) {
-                $code = $this->authenticationCodeManager->generate($user);
+            if ($resourceForm != null) {
+                $code = $this->authenticationCodeManager->generate($resourceForm);
 
                 //$codeConvert = $this->authenticationParametersConverter->convert($user->getUser()->getId(), $code);
 
-                $this->codeSender->sendCode($user, $code);
+                $this->codeSender->sendCode($resourceForm, $code);
 
-                $codeConfirmationForm = $this->formFactory->create(CodeConfirmationFormType::class);
+                $codeConfirmationForm = $this->formFactory->create($this->formTemplate);
 
                 return $this->templating->renderResponse(
                     $this->renderTemplate,
                     [
                         'form' => $codeConfirmationForm->createView(),
-                        'user' => $user->getUser()->getId(),
-                        'email' => $user->getEmail(),
+                        'user' => $resourceForm->getUser()->getId(),
                     ]
                 );
             }
+            return new RedirectResponse($this->router->generate('mmc_user.login'), 302);
         }
 
         return new RedirectResponse($this->router->generate('mmc_user.login'), 302);

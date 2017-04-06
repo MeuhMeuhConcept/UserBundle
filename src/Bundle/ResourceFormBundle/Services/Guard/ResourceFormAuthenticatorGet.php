@@ -37,7 +37,7 @@ class ResourceFormAuthenticatorGet extends AbstractResourceFormAuthenticator
 
     public function getCredentials(Request $request)
     {
-        $isLoginSubmit = $request->getPathInfo() == '/email_check' && $request->isMethod('GET');
+        $isLoginSubmit = $request->getPathInfo() == '/resource_check' && $request->isMethod('GET');
 
         if (!$isLoginSubmit) {
             return;
