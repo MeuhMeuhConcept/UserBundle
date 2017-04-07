@@ -1,6 +1,6 @@
 {% extends mmc_user_layout %}
 
-{% trans_default_domain 'MMCEmailBundle' %}
+{% trans_default_domain 'MMCResourceFormBundle' %}
 
 {% block title_content %}
     Register{{ login_title_suffix|default('MMC') }} | Sign in
@@ -14,8 +14,8 @@
 
 {% block mmc_user_content %}
 
-    <form method="POST" action="{{ path('mmc_user.resource_form') }}">
-        {{ form_widget(form.user, {'attr': {'value': user }}) }}
+    <form method="POST" action="{{ path('mmc_user.resource_form.authenticator') }}">
+        {{ form_widget(form.user, {'attr': {'value': id }}) }}
         <div class="form-group has-feedback">
             {{ form_widget(form.code, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.enterCode'|trans }}) }}
             {{ form_errors(form.code) }}

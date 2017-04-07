@@ -2,7 +2,7 @@
 
 namespace MMC\User\Bundle\ResourceFormBundle\Services;
 
-use MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthenticationInterface;
+use MMC\User\Component\ResourceForm\Model\ResourceFormAuthenticationInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 interface AuthenticationCodeManagerInterface

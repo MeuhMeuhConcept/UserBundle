@@ -4,7 +4,7 @@ namespace MMC\User\Bundle\ResourceFormBundle\Services;
 
 use Doctrine\ORM\EntityManager;
 use MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthentication;
-use MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthenticationInterface;
+use MMC\User\Component\ResourceForm\Model\ResourceFormAuthenticationInterface;
 use MMC\User\Component\Security\CodeGenerator\CodeGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 

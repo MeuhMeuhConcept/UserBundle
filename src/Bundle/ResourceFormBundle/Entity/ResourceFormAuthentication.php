@@ -2,6 +2,7 @@
 
 namespace MMC\User\Bundle\ResourceFormBundle\Entity;
 
+use MMC\User\Component\ResourceForm\Model\ResourceFormAuthenticationInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;

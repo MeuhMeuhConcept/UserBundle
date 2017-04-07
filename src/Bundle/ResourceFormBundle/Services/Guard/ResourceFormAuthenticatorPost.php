@@ -34,19 +34,20 @@ class ResourceFormAuthenticatorPost extends AbstractResourceFormAuthenticator
 
     public function getCredentials(Request $request)
     {
+        $isLoginSubmit = $request->getPathInfo() == '/resource_check' && $request->isMethod('POST');
+
         if (!$isLoginSubmit) {
             return;
         }
-
         $form = $this->formFactory->create(CodeConfirmationFormType::class);
         $form->handleRequest($request);
 
         $data = $form->getData();
 
-        /*$request->getSession()->set(
-            Security::LAST_USERNAME,
-            $data['email']
-        );*/
+        // $request->getSession()->set(
+        //     Security::LAST_USERNAME,
+        //     $data['resource']
+        // );
 
         return $data;
     }

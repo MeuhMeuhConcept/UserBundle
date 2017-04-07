@@ -19,7 +19,7 @@ services:
             - '@form.factory'
             - '@router'
             - '@mmc_user.provider'
-            - '@mmc_user.email.manager.authenticator_code'
+            - '@mmc_user.resource_form.manager.authenticator_code'
 
     mmc_user.email.guard.resource_form_authenticator.get:
         class: MMC\User\Bundle\ResourceFormBundle\Services\Guard\ResourceFormAuthenticatorGet
@@ -27,7 +27,7 @@ services:
             - '@form.factory'
             - '@router'
             - '@mmc_user.provider'
-            - '@mmc_user.email.manager.authenticator_code'
+            - '@mmc_user.resource_form.manager.authenticator_code'
             - '@mmc_user.component.authentication_parameters_converter'
 
     #CONTROLLER
@@ -37,13 +37,24 @@ services:
             - '@router'
             - '@templating'
             - '@form.factory'
-            - '@mmc_user.email.manager.authenticator_code'
-            - '@mmc_user.component.mailer.email_form'
+            - '@mmc_user.resource_form.manager.authenticator_code'
+            - '@mmc_user.resource_form.chain_processor.sender'
             - '@mmc_user.resource_form.provider'
             - '@mmc_user.component.authentication_parameters_converter'
-            - '%mmc_user.resource_form.form_type%'
-            - '%mmc_user.resource_form.form_template%'
-            - '%mmc_user.resource_form.render_template%'
+            - '@translator'
+            - '@security.authentication_utils'
+            - '@session'
+
+    mmc_user.resource_form.controller.render:
+        class: MMC\User\Bundle\ResourceFormBundle\Controller\RenderFormController
+        arguments:
+            - '@router'
+            - '@templating'
+            - '@form.factory'
+            - '@mmc_user.resource_form.manager.authenticator_code'
+            - '@mmc_user.resource_form.chain_processor.sender'
+            - '@mmc_user.resource_form.provider'
+            - '@mmc_user.component.authentication_parameters_converter'
 
     #MAILER
     mmc_user.component.mailer.email_form:
@@ -57,7 +68,7 @@ services:
             - '%mmc_user.mailer.resource_form.subject%'
 
     #MANAGER
-    mmc_user.email.manager.authenticator_code:
+    mmc_user.resource_form.manager.authenticator_code:
         class: MMC\User\Bundle\ResourceFormBundle\Services\AuthenticationCodeManager
         arguments:
             - '@doctrine.orm.default_entity_manager'
@@ -76,6 +87,20 @@ services:
         class: 'MMC\User\Bundle\ResourceFormBundle\Services\ResourceFormProvider\ResourceFormProvider'
         arguments:
             - '@doctrine.orm.default_entity_manager'
+
+    #PROCESSOR
+    mmc_user.resource_form.chain_processor.sender:
+        class: Mmc\Processor\Component\ChainProcessor
+        tags:
+            - { name: 'mmc.processor.chain' }
+
+    mmc_user.resource_form.sender.mailer:
+        class: MMC\User\Bundle\ResourceFormBundle\Services\SenderProcessor\MailerSenderProcessor
+        arguments:
+            - '@mailer'
+            - '%mmc_user.mailer.resource_form.sender%'
+        tags:
+            - { name: 'mmc_user.resource_form.chain_processor.sender' }
 
 parameters:
     mmc_user.main.authenticator_block.email: false

@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new MMC\User\Bundle\ResourceOwnersBundle\MMCResourceOwnersBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new MMC\User\Bundle\ResourceFormBundle\MMCResourceFormBundle(),
+            new Mmc\Processor\Bridge\Symfony\Bundle\MmcProcessorBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

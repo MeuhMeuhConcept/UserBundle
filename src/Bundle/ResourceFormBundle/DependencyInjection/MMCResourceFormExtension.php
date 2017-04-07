@@ -4,8 +4,10 @@ namespace MMC\User\Bundle\ResourceFormBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -27,11 +29,59 @@ class MMCResourceFormExtension extends Extension implements PrependExtensionInte
 
         $loader->load('services.yml');
 
-        foreach ($config['modes'] as $options => $option) {
-            foreach ($option as $key => $value) {
-                $container->setParameter('mmc_user.resource_form.'.$key, $config['modes'][$options][$key]);
+        $blockDefinition = $container->getDefinition('mmc_user.email.authenticator_block');
+        $controllerCodeDefinition = $container->getDefinition('mmc_user.resource_form.controller');
+        $renderDefinition = $container->getDefinition('mmc_user.resource_form.controller.render');
+
+        foreach ($config['modes'] as $name => $options) {
+            foreach ($options as $key => $value) {
+                // Mode pour le controller
+                $parameters = [
+                    $name,
+                    $options['type'],
+                    $options['form_type'],
+                    $options['message_subject'],
+                    $options['message_template'],
+                    $options['block_template'],
+                ];
+
+                $def = new Definition('MMC\User\Component\ResourceForm\Mode\ModeController', $parameters);
+
+                $mode = $container->setDefinition('mmc_user.resource_form.mode_controller.'.$key, $def);
+
+                $controllerCodeDefinition->addMethodCall('addMode', [$mode]);
+
+                //Mode pour le block
+                $parameters = [
+                    $name,
+                    $options['type'],
+                    $options['form_type'],
+                    $options['block_template'],
+                ];
+
+                $def = new Definition('MMC\User\Component\ResourceForm\Mode\ModeBlock', $parameters);
+
+                $mode = $container->setDefinition('mmc_user.resource_form.mode_block.'.$key, $def);
+
+                $blockDefinition->addMethodCall('addMode', [$mode]);
+
+                //Mode pour le render
+                $parameters = [
+                    $name,
+                    $options['type'],
+                    $options['render_template'],
+                ];
+
+                $def = new Definition('MMC\User\Component\ResourceForm\Mode\ModeRender', $parameters);
+
+                $mode = $container->setDefinition('mmc_user.resource_form.mode_render.'.$key, $def);
+
+                $renderDefinition->addMethodCall('addMode', [$mode]);
             }
         }
+
+        // Création des routes en dynamique
+        //route_name, param_route
 
         //Mailer
         $container->setParameter('mmc_user.mailer.resource_form.sender', $config['mailer']['email_form_code']['sender']);

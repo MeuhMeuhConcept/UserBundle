@@ -7,6 +7,7 @@ use MMC\User\Bundle\UserBundle\Services\AuthenticatorBlock\AuthenticatorBlock;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Templating\EngineInterface;
+use MMC\User\Component\ResourceForm\Mode\ModeBlockInterface;
 
 class ResourceFormAuthenticatorBlock implements AuthenticatorBlock
 {
@@ -22,6 +23,8 @@ class ResourceFormAuthenticatorBlock implements AuthenticatorBlock
 
     protected $resourceForms;
 
+    protected $modes;
+
     public function __construct(
         bool $isMain,
         EngineInterface $templating,
@@ -34,22 +37,48 @@ class ResourceFormAuthenticatorBlock implements AuthenticatorBlock
         $this->formFactory = $formFactory;
         $this->authenticationUtils = $authenticationUtils;
         $this->resourceForms = $resourceForms;
+        $this->modes = [];
+    }
+
+    public function addMode(ModeBlockInterface $mode)
+    {
+        $this->modes[$mode->getName()] = $mode;
     }
 
     public function render()
     {
-        $error = $this->authenticationUtils->getLastAuthenticationError();
-
-        $form = $this->formFactory->create(EmailFormType::class);
+        $resourceForms = $this->renderTemplate();
 
         return $this->templating->render(
             'MMCResourceFormBundle:Security:resource_form_block.html.twig',
             [
-                'form_email' => $form->createView(),
-                'error' => $error,
-                'resourceForms' => $this->resourceForms,
+                'resourceForms' => $resourceForms,
             ]
         );
+    }
+
+    public function renderTemplate()
+    {
+        $contents = [];
+
+        foreach ($this->modes as $mode) {
+            $error = $this->authenticationUtils->getLastAuthenticationError();
+
+            $form = $this->formFactory->create($mode->getFormType());
+
+            $content = $this->templating->render(
+                $mode->getBlockTemplate(),
+                [
+                    'form' => $form->createView(),
+                    'type' => $mode->getType(),
+                    'error' => $error,
+                ]
+            );
+
+            $contents[$mode->getName()] = $content;
+        }
+
+        return $contents;
     }
 
     public function getIsMain()

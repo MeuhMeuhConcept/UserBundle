@@ -5,7 +5,7 @@ namespace MMC\User\Component\Mailer;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\EngineInterface;
 
-class EmailFormMailerProcessor implements CodeSender
+class EmailFormMailerProcessor implements CodeSenderInterface
 {
     protected $templating;
     protected $router;

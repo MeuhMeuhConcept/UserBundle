@@ -1,6 +1,6 @@
 <?php
 
-namespace MMC\User\Bundle\ResourceFormBundle\Entity;
+namespace MMC\User\Component\ResourceForm\Model;
 
 interface ResourceFormAuthenticationInterface
 {

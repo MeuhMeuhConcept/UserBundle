@@ -80,9 +80,19 @@ mmc_user:
 mmc_resource_form:
     modes:
         email_form_code:
-            sender: mmc_user.component.mailer.email_form
-            render_template: 'MMCResourceFormBundle:Security:code_confirmation.html.twig'
             type: email
+            form_type : MMC\User\Bundle\ResourceFormBundle\Form\EmailFormType
+            block_template: MMCResourceFormBundle:Security\Block:email_block.html.twig
+            message_subject: MonSuperMessage
+            message_template: MMCResourceFormBundle:Security:email_code.html.twig
+            render_template: MMCResourceFormBundle:Security:code_confirmation.html.twig
+
+        sms_form:
+            type: sms
+            form_type : MMC\User\Bundle\ResourceFormBundle\Form\SmsFormType
+            block_template: MMCResourceFormBundle:Security\Block:sms_block.html.twig
+            message_subject: ~
+            message_template: MMCResourceFormBundle:Security:email_code.html.twig
 
 hwi_oauth:
     # list of names of the firewalls in which this bundle is active, this setting MUST be set

@@ -2,7 +2,7 @@
 
 namespace MMC\User\Component\Mailer;
 
-interface CodeSender
+interface CodeSenderInterface
 {
     public function sendCode($user, $code);
 }

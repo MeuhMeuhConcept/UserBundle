@@ -6,6 +6,10 @@
                 <source>placeholder.email</source>
                 <target>Email</target>
             </trans-unit>
+            <trans-unit id="placeholder.phone">
+                <source>placeholder.phone</source>
+                <target>N° de téléphone</target>
+            </trans-unit>
             <trans-unit id="placeholder.repeatEmail">
                 <source>placeholder.repeatEmail</source>
                 <target>Répéter l'email</target>
@@ -33,6 +37,10 @@
             <trans-unit id="login.button">
                 <source>login.button</source>
                 <target>Se connecter</target>
+            </trans-unit>
+            <trans-unit id="btn.return">
+                <source>btn.return</source>
+                <target>Retour</target>
             </trans-unit>
         </body>
     </file>
