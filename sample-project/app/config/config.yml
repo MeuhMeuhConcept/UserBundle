@@ -94,6 +94,9 @@ mmc_resource_form:
             message_subject: ~
             message_template: MMCResourceFormBundle:Security:email_code.html.twig
 
+mmc_login_form:
+    registration: true
+
 hwi_oauth:
     # list of names of the firewalls in which this bundle is active, this setting MUST be set
     firewall_names: [main]

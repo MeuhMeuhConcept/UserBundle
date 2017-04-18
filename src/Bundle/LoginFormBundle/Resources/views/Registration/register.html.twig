@@ -1,0 +1,45 @@
+{% extends mmc_user_layout %}
+
+{% trans_default_domain 'MMCLoginFormBundle' %}
+
+{% block title_content %}
+    Register{{ login_title_suffix|default('MMC') }} | Sign in
+{% endblock title_content %}
+
+{% block login_logo %}
+    <div class="login-logo">
+        <a href="{{ path('mmc_user.login') }}"><b>{{ 'register.title'|trans }}</b>MMC</a>
+    </div>
+{% endblock login_logo %}
+
+{% block mmc_user_content %}
+
+    {{ form_start(form) }}
+        <div class="form-group has-feedback">
+            {{ form_widget(form.login, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.login'|trans }}) }}
+            {{ form_errors(form.login) }}
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.password'|trans }}) }}
+            {{ form_errors(form.plainPassword.first) }}
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.repeatPassword'|trans }}) }}
+            {{ form_errors(form.plainPassword.second) }}
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <button type="submit" id="_submit" name="_submit" class="btn btn-primary btn-block btn-flat">{{ 'registration.submit'|trans }}</button>
+            </div>
+            <div class="col-md-6">
+                <a href="{{ path('mmc_user.login') }}" class="btn btn-default btn-block btn-flat">{{ 'login.button'|trans }}</a>
+            </div>
+        </div>
+    {{ form_end(form) }}
+    </div>
+
+{% endblock mmc_user_content %}

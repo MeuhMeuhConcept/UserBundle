@@ -13,6 +13,7 @@
 {% endblock login_logo %}
 
 {% block mmc_user_content %}
+    <div class="login-box-body">
 
     <p class="login-box-msg">{{ 'security.login.sign_in_title'|trans }}</p>
 
@@ -20,4 +21,5 @@
         {{ authenticatorBlock.render|raw }}
     {% endfor %}
 
+    </div>
 {% endblock mmc_user_content %}

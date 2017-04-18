@@ -10,10 +10,16 @@ use Symfony\Component\Routing\RouteCollection;
 class ExtraLoader implements LoaderInterface
 {
     private $loaded = false;
+
     protected $routeName;
+
     protected $pattern;
+
     protected $controllerAction;
+
     protected $condition;
+
+    protected $modes;
 
     public function __construct(
         $routeName,
@@ -25,6 +31,12 @@ class ExtraLoader implements LoaderInterface
         $this->pattern = $pattern;
         $this->controllerAction = $controllerAction;
         $this->condition = $condition;
+        $this->modes = [];
+    }
+
+    public function addMode(ModeRenderInterface $mode)
+    {
+        $this->modes[$mode->getName()] = $mode;
     }
 
     public function load($resource, $type = null)

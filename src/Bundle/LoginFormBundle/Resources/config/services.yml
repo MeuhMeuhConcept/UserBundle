@@ -1,0 +1,69 @@
+services:
+
+    #BLOCK
+    mmc_user.authenticator_block.login:
+        class: MMC\User\Bundle\LoginFormBundle\Services\LoginAuthenticatorBlock
+        arguments:
+            - '%mmc_user.main.authenticator_block.login%'
+            - '@templating'
+            - '@security.authentication_utils'
+            - '@form.factory'
+        tags:
+            - { name: mmc_user.chain.authenticator_block }
+
+    #GUARD
+    mmc_user.login_form.login_form_authenticator:
+        class: MMC\User\Bundle\LoginFormBundle\Services\Guard\LoginFormAuthenticatorGuard
+        arguments:
+            - '@form.factory'
+            - '@mmc_user.repository.login_form_authenticator'
+            - '@router'
+            - '@security.user_password_encoder.generic'
+
+    #CONTROLLER
+    mmc_user.component.controller.registration:
+        class: MMC\User\Bundle\LoginFormBundle\Controller\RegistrationController
+        arguments:
+            - '@router'
+            - '@templating'
+            - '@form.factory'
+            - '@mmc_user.component.doctrine.registration_manager'
+            - '@security.authentication.guard_handler'
+            - '@mmc_user.login_form.login_form_authenticator'
+
+    mmc_user.component.doctrine.registration_manager:
+        class: MMC\User\Component\Doctrine\RegistrationManager
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@mmc_user.component.uuid_code_generator'
+
+    mmc_user.repository.login_form_authenticator:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - MMC\User\Bundle\LoginFormBundle\Entity\LoginFormAuthentication
+
+    mmc_user.component.security.has_password_listener:
+        class: MMC\User\Bundle\LoginFormBundle\Services\HashPasswordListener
+        arguments:
+            - '@security.user_password_encoder.generic'
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    #CODE_GENERATOR
+    mmc_user.component.uuid_code_generator:
+        class: MMC\User\Component\Security\CodeGenerator\UuidCodeGenerator
+
+    mmc_user.command.create_login_form_authenticator:
+        class: MMC\User\Bundle\LoginFormBundle\Command\CreateLoginFormAuthenticatorCommand
+        tags:
+            - { name: console.command }
+
+    mmc_user.component.utils.login_form_authenticator_manipulator:
+        class: MMC\User\Component\Utils\LoginFormAuthenticatorManipulator
+
+
+parameters:
+    mmc_user.template.authenticator_block.login: 'MMCLoginFormBundle:Security:login_block.html.twig'
+    mmc_user.main.authenticator_block.login: false
+

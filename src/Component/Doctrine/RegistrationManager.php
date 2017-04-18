@@ -5,7 +5,7 @@ namespace MMC\User\Component\Doctrine;
 use Doctrine\ORM\EntityManager;
 use MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator;
 use MMC\User\Bundle\UserBundle\Entity\User;
-use MMC\User\Component\Security\TokenGenerator;
+use MMC\User\Component\Security\CodeGenerator\CodeGeneratorInterface;
 
 class RegistrationManager
 {
@@ -15,17 +15,18 @@ class RegistrationManager
 
     public function __construct(
         EntityManager $em,
-        TokenGenerator $tokenGenerator
+        CodeGeneratorInterface $codeGenerator
     ) {
         $this->em = $em;
-        $this->tokenGenerator = $tokenGenerator;
+        $this->codeGenerator = $codeGenerator;
     }
 
     public function create($loginFormAuthenticator)
     {
+        dump($loginFormAuthenticator);
         $user = $this->createUser();
 
-        $token = $this->tokenGenerator->generateUuidToken();
+        $token = $this->codeGenerator->generate();
 
         $loginFormAuthenticator->setUser($user)
             ->setConfirmationToken($token)
