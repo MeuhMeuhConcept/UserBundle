@@ -2,11 +2,11 @@
 
 namespace MMC\User\Bundle\ResourceFormBundle\Services\SenderProcessor;
 
-use MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthentication;
 use Mmc\Processor\Component\Processor;
 use Mmc\Processor\Component\Request;
 use Mmc\Processor\Component\Response;
 use Mmc\Processor\Component\ResponseStatusCode;
+use MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthentication;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,13 +26,13 @@ class MailerSenderProcessor implements Processor
 
         $resolver = new OptionsResolver();
 
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'name' => null,
             'type' => null,
             'resource' => null,
             'subject' => null,
             'content' => null,
-        ));
+        ]);
 
         $resolver->setAllowedTypes('name', ['null', 'string']);
         $resolver->setAllowedTypes('type', ['null', 'string']);

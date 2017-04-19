@@ -2,15 +2,13 @@
 
 namespace MMC\User\Bundle\ResourceFormBundle\Controller;
 
+use Mmc\Processor\Component\Processor;
 use MMC\User\Bundle\ResourceFormBundle\Form\CodeConfirmationFormType;
 use MMC\User\Bundle\ResourceFormBundle\Services\AuthenticationCodeManager;
 use MMC\User\Bundle\ResourceFormBundle\Services\ResourceFormProvider\ResourceFormProviderByResourceInterface;
-use MMC\User\Component\Mailer\CodeSenderInterface;
 use MMC\User\Component\ResourceForm\Mode\ModeRenderInterface;
 use MMC\User\Component\Security\AuthenticationParametersConverter\AuthenticationParametersConverterInterface;
-use Mmc\Processor\Component\Processor;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;

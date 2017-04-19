@@ -2,12 +2,11 @@
 
 namespace MMC\User\Bundle\ResourceFormBundle\Services;
 
-use MMC\User\Bundle\EmailBundle\Form\EmailFormType;
 use MMC\User\Bundle\UserBundle\Services\AuthenticatorBlock\AuthenticatorBlock;
+use MMC\User\Component\ResourceForm\Mode\ModeBlockInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Templating\EngineInterface;
-use MMC\User\Component\ResourceForm\Mode\ModeBlockInterface;
 
 class ResourceFormAuthenticatorBlock implements AuthenticatorBlock
 {

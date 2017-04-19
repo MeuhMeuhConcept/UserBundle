@@ -2,13 +2,12 @@
 
 namespace MMC\User\Bundle\ResourceFormBundle\Controller;
 
-use MMC\User\Bundle\ResourceFormBundle\Services\AuthenticationCodeManager;
-use MMC\User\Bundle\ResourceFormBundle\Services\ResourceFormProvider\ResourceFormProviderByResourceInterface;
-use MMC\User\Component\Mailer\CodeSenderInterface;
-use MMC\User\Component\ResourceForm\Mode\ModeControllerInterface;
-use MMC\User\Component\Security\AuthenticationParametersConverter\AuthenticationParametersConverterInterface;
 use Mmc\Processor\Component\Processor;
 use Mmc\Processor\Component\Request as MmcProcessorRequest;
+use MMC\User\Bundle\ResourceFormBundle\Services\AuthenticationCodeManager;
+use MMC\User\Bundle\ResourceFormBundle\Services\ResourceFormProvider\ResourceFormProviderByResourceInterface;
+use MMC\User\Component\ResourceForm\Mode\ModeControllerInterface;
+use MMC\User\Component\Security\AuthenticationParametersConverter\AuthenticationParametersConverterInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
