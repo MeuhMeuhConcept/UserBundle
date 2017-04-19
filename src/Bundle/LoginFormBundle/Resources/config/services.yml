@@ -27,15 +27,16 @@ services:
             - '@router'
             - '@templating'
             - '@form.factory'
-            - '@mmc_user.component.doctrine.registration_manager'
+            - '@mmc_user.login_form.registration_manager'
             - '@security.authentication.guard_handler'
             - '@mmc_user.login_form.login_form_authenticator'
 
-    mmc_user.component.doctrine.registration_manager:
-        class: MMC\User\Component\Doctrine\RegistrationManager
+    mmc_user.login_form.registration_manager:
+        class: MMC\User\Bundle\LoginFormBundle\Services\Manager\RegistrationManager
         arguments:
             - '@doctrine.orm.default_entity_manager'
             - '@mmc_user.component.uuid_code_generator'
+            - '@mmc_user.manager'
 
     mmc_user.repository.login_form_authenticator:
         class: Doctrine\ORM\EntityRepository

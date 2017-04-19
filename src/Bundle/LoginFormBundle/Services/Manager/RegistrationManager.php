@@ -1,10 +1,10 @@
 <?php
 
-namespace MMC\User\Component\Doctrine;
+namespace MMC\User\Bundle\LoginFormBundle\Services\Manager;
 
 use Doctrine\ORM\EntityManager;
 use MMC\User\Bundle\UserBundle\Entity\LoginFormAuthenticator;
-use MMC\User\Bundle\UserBundle\Entity\User;
+use MMC\User\Bundle\UserBundle\Services\Manager\UserManagerInterface;
 use MMC\User\Component\Security\CodeGenerator\CodeGeneratorInterface;
 
 class RegistrationManager
@@ -13,18 +13,21 @@ class RegistrationManager
 
     protected $tokenGenerator;
 
+    protected $userManager;
+
     public function __construct(
         EntityManager $em,
-        CodeGeneratorInterface $codeGenerator
+        CodeGeneratorInterface $codeGenerator,
+        UserManagerInterface $userManager
     ) {
         $this->em = $em;
         $this->codeGenerator = $codeGenerator;
+        $this->userManager = $userManager;
     }
 
     public function create($loginFormAuthenticator)
     {
-        dump($loginFormAuthenticator);
-        $user = $this->createUser();
+        $user = $this->userManager->create();
 
         $token = $this->codeGenerator->generate();
 
@@ -37,16 +40,6 @@ class RegistrationManager
         $this->em->flush();
 
         return $loginFormAuthenticator;
-    }
-
-    public function createUser()
-    {
-        $user = new User();
-
-        $this->em->persist($user);
-        $this->em->flush();
-
-        return $user;
     }
 
     public function findUserBy(array $criteria)
