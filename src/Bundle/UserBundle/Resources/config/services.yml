@@ -1,5 +1,10 @@
 services:
 
+    mmc_user.manager:
+        class: MMC\User\Bundle\UserBundle\Services\Manager\UserManager
+        arguments:
+             - '@doctrine.orm.default_entity_manager'
+
     mmc_user.component.controller.security:
         class: MMC\User\Bundle\UserBundle\Controller\SecurityController
         arguments:
