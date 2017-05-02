@@ -2,8 +2,8 @@
 
 namespace MMC\User\Bundle\ResourceFormBundle\Controller;
 
-use MMC\User\Bundle\ResourceFormBundle\Services\Manager\RegistrationManager;
 use MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthentication;
+use MMC\User\Bundle\ResourceFormBundle\Services\Manager\RegistrationManager;
 use MMC\User\Component\ResourceForm\Mode\ModeRegistrationInterface;
 use MMC\User\Component\ResourceForm\Model\ResourceFormAuthenticationInterface;
 use Symfony\Component\Form\FormFactoryInterface;

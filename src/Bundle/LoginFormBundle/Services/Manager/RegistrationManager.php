@@ -35,7 +35,6 @@ class RegistrationManager
             ->setEnabled(false)
         ;
 
-
         $this->em->persist($loginFormAuthenticator);
         $this->em->flush();
 

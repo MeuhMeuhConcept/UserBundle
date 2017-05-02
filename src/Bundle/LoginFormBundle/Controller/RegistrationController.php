@@ -47,7 +47,7 @@ class RegistrationController
 
     public function registerAction(Request $request)
     {
-        #USerFactory qui crée les User et le manager les save
+        //USerFactory qui crée les User et le manager les save
         $form = $this->formFactory->create(LoginFormRegistrationFormType::class, $this->loginFormAuthentication);
 
         $form->handleRequest($request);

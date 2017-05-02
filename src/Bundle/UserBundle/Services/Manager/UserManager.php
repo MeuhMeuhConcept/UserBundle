@@ -2,9 +2,9 @@
 
 namespace MMC\User\Bundle\UserBundle\Services\Manager;
 
-use Doctrine\ORM\EntityManager;
-//use MMC\User\Bundle\UserBundle\Entity\User;
 use AppBundle\Entity\User;
+//use MMC\User\Bundle\UserBundle\Entity\User;
+use Doctrine\ORM\EntityManager;
 
 class UserManager implements UserManagerInterface
 {

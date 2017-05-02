@@ -3,7 +3,6 @@
 namespace MMC\User\Bundle\ResourceFormBundle\Services\Manager;
 
 use Doctrine\ORM\EntityManager;
-use MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthentication;
 use MMC\User\Bundle\UserBundle\Services\Manager\UserManagerInterface;
 use MMC\User\Component\Security\CodeGenerator\CodeGeneratorInterface;
 

@@ -2,7 +2,6 @@
 
 namespace MMC\User\Bundle\ResourceFormBundle\Form;
 
-use MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthentication;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
