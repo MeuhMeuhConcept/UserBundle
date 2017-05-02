@@ -1,20 +1,8 @@
-{% extends mmc_user_layout %}
-
 {% trans_default_domain 'MMCLoginFormBundle' %}
-
-{% block title_content %}
-    Register{{ login_title_suffix|default('MMC') }} | Sign in
-{% endblock title_content %}
-
-{% block login_logo %}
-    <div class="login-logo">
-        <a href="{{ path('mmc_user.login') }}"><b>{{ 'register.title'|trans }}</b>MMC</a>
-    </div>
-{% endblock login_logo %}
 
 {% block mmc_user_content %}
 
-    {{ form_start(form) }}
+    <form method="POST" action="{{ path('mmc_user.login_form.registration') }}">
         <div class="form-group has-feedback">
             {{ form_widget(form.login, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.login'|trans }}) }}
             {{ form_errors(form.login) }}

@@ -3,7 +3,8 @@
 namespace MMC\User\Bundle\LoginFormBundle\Controller;
 
 use MMC\User\Bundle\LoginFormBundle\Form\LoginFormRegistrationFormType;
-use MMC\User\Component\Doctrine\RegistrationManager;
+use MMC\User\Bundle\LoginFormBundle\Services\Manager\RegistrationManager;
+use MMC\User\Component\LoginForm\Model\LoginFormAuthenticationInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -32,7 +33,8 @@ class RegistrationController
         FormFactoryInterface $formFactory,
         RegistrationManager $registrationManager,
         GuardAuthenticatorHandler $securityAuthenticationGuardHandler,
-        GuardAuthenticatorInterface $loginFormAuthenticatorGuard
+        GuardAuthenticatorInterface $loginFormAuthenticatorGuard,
+        LoginFormAuthenticationInterface $loginFormAuthentication
     ) {
         $this->router = $router;
         $this->templating = $templating;
@@ -40,11 +42,13 @@ class RegistrationController
         $this->registrationManager = $registrationManager;
         $this->securityAuthenticationGuardHandler = $securityAuthenticationGuardHandler;
         $this->loginFormAuthenticatorGuard = $loginFormAuthenticatorGuard;
+        $this->loginFormAuthentication = $loginFormAuthentication;
     }
 
     public function registerAction(Request $request)
     {
-        $form = $this->formFactory->create(LoginFormRegistrationFormType::class);
+        #USerFactory qui crée les User et le manager les save
+        $form = $this->formFactory->create(LoginFormRegistrationFormType::class, $this->loginFormAuthentication);
 
         $form->handleRequest($request);
 
@@ -61,7 +65,7 @@ class RegistrationController
         }
 
         return $this->templating->renderResponse(
-            'MMCLoginFormBundle:Registration:register.html.twig',
+            'MMCLoginFormBundle:Registration:registration_block.html.twig',
             [
                 'form' => $form->createView(),
             ]

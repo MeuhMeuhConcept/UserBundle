@@ -1,5 +1,9 @@
 services:
 
+    #LOGIN_FORM_CLASS
+    mmc_user.login_form:
+        class: '%mmc_user.login_form.class%'
+
     #BLOCK
     mmc_user.authenticator_block.login:
         class: MMC\User\Bundle\LoginFormBundle\Services\LoginAuthenticatorBlock
@@ -10,6 +14,15 @@ services:
             - '@form.factory'
         tags:
             - { name: mmc_user.chain.authenticator_block }
+
+    mmc_user.registration_block.login_form:
+        class: MMC\User\Bundle\LoginFormBundle\Services\Block\RegistrationBlock
+        arguments:
+            - '@templating'
+            - '@security.authentication_utils'
+            - '@form.factory'
+        tags:
+            - { name: mmc_user.chain.registration_block }
 
     #GUARD
     mmc_user.login_form.login_form_authenticator:
@@ -30,7 +43,9 @@ services:
             - '@mmc_user.login_form.registration_manager'
             - '@security.authentication.guard_handler'
             - '@mmc_user.login_form.login_form_authenticator'
+            - '@mmc_user.login_form'
 
+    #MANAGER
     mmc_user.login_form.registration_manager:
         class: MMC\User\Bundle\LoginFormBundle\Services\Manager\RegistrationManager
         arguments:
@@ -55,14 +70,11 @@ services:
     mmc_user.component.uuid_code_generator:
         class: MMC\User\Component\Security\CodeGenerator\UuidCodeGenerator
 
+    #COMMAND
     mmc_user.command.create_login_form_authenticator:
         class: MMC\User\Bundle\LoginFormBundle\Command\CreateLoginFormAuthenticatorCommand
         tags:
             - { name: console.command }
-
-    mmc_user.component.utils.login_form_authenticator_manipulator:
-        class: MMC\User\Component\Utils\LoginFormAuthenticatorManipulator
-
 
 parameters:
     mmc_user.template.authenticator_block.login: 'MMCLoginFormBundle:Security:login_block.html.twig'

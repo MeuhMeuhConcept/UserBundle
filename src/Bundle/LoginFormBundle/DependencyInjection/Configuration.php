@@ -28,11 +28,9 @@ class Configuration implements ConfigurationInterface
     {
         $rootNode
             ->children()
-                ->scalarNode('registration')
-                    ->defaultValue(false)
-                ->end()
-                ->scalarNode('forgot_password')
-                    ->defaultValue(false)
+                ->scalarNode('login_form_class')
+                    ->isRequired()
+                    ->cannotBeEmpty()
                 ->end()
             ->end()
         ;

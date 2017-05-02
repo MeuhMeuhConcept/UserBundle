@@ -1,4 +1,4 @@
-# LoginBundle
+# LoginFormBundle
 Provides login user management for Symfony3 Project.
 
 ## Configuration
@@ -11,7 +11,7 @@ public function registerBundles()
 
         // ...
 
-        new MMC\User\Bundle\LoginBundle\MMCLoginBundle()
+        new MMC\User\Bundle\LoginFormBundle\MMCLoginFormBundle()
 
         // ...
     ];
@@ -24,17 +24,17 @@ Add mmc user security configuration :
 ```yaml
 # app/config/security.yml
     encoders:
-        MMC\User\Bundle\LoginBundle\Entity\LoginFormAuthenticator: bcrypt
+        MMC\User\Bundle\LoginFormBundle\Entity\LoginFormAuthentication: bcrypt
 
     providers:
-        mmc_user:
-            entity: { class: MMC\User\Bundle\LoginBundle\Entity\LoginFormAuthenticator, property: email }
+        mmc_login_provider:
+            entity: { class: MMC\User\Bundle\LoginFormBundle\Entity\LoginFormAuthentication, property: login }
 
     firewalls:
         main:
             guard:
                 authenticators:
-                    - mmc_user.component.security.login_form_authenticator
+                    - mmc_user.login_form.login_form_authenticator
             
             anonymous: ~
 
@@ -45,22 +45,13 @@ Add mmc user security configuration :
 Add mmc user route :
 ```yaml
 # app/config/routing.yml
-mmc_user:
-    resource: "@MMCUserBundle/Resources/config/routing.yml"
+mmc_user_login_form:
+  resource: "@MMCLoginFormBundle/Resources/config/routing.yml"
 ```
 
-## Customization
-
-For enable registration :
+Add your login form class :
 ```yaml
 # app/config/config.yml
-    mmc_login:
-        registration: true
-```
-
-For enable forgot password :
-```yaml
-# app/config/config.yml
-    mmc_login:
-        forgot_password: true
+mmc_login_form:
+    login_form_class: AppBundle\Entity\LoginFormAuthentication
 ```

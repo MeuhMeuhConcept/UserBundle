@@ -27,8 +27,7 @@ class MMCLoginFormExtension extends Extension implements PrependExtensionInterfa
 
         $loader->load('services.yml');
 
-        $container->setParameter('mmc_login.registration.condition', $config['registration']);
-        $container->setParameter('mmc_login.forgot_password', $config['forgot_password']);
+        $container->setParameter('mmc_user.login_form.class', $config['login_form_class']);
     }
 
     protected function addParameter($group, $key, $config, ContainerBuilder $container)
@@ -44,17 +43,5 @@ class MMCLoginFormExtension extends Extension implements PrependExtensionInterfa
         $config = $this->processConfiguration(new Configuration(), $configs);
 
         $bundles = $container->getParameter('kernel.bundles');
-
-        if (isset($bundles['TwigBundle'])
-        ) {
-            $twig_global = [
-                'globals' => [
-                    'registration' => $config['registration'],
-                    'forgot_password' => $config['forgot_password'],
-                ],
-            ];
-
-            $container->prependExtensionConfig('twig', $twig_global);
-        }
     }
 }
