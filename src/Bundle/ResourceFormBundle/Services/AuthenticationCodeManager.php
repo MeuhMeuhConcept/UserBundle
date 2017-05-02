@@ -30,14 +30,14 @@ class AuthenticationCodeManager implements AuthenticationCodeManagerInterface
         return $code;
     }
 
-    public function check(UserInterface $user, $code, $test = false)
+    public function check(UserInterface $resource, $code, $test = false)
     {
-        if ($this->em->getRepository(ResourceFormAuthentication::class)->findOneBy(['user' => $user, 'code' => $code])) {
-            $user->getResourceFormAuthenticator()->setIsChecked(true)
+        if ($this->em->getRepository(ResourceFormAuthentication::class)->findOneBy(['id' => $resource, 'code' => $code])) {
+            $resource->setIsChecked(true)
                 ->setCode(null)
             ;
 
-            $this->em->persist($user);
+            $this->em->persist($resource);
             $this->em->flush();
 
             return true;

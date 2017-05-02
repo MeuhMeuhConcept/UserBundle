@@ -12,13 +12,13 @@
             </div>
         {% endfor %}
 
-        {% if error %}
+{#      {% if error %}
             <div class="alert alert-danger">
                 {{ error.messageKey|trans(error.messageData, 'security') }}
             </div>
         {% endif %}
-
-        <form action="{{ path('mmc_user.resource_form.code', { 'type': type }) }}" method="POST">
+ #}
+        <form action="{{ path('mmc_user.resource_form.registration', { 'type': type }) }}" method="POST">
             {{ form_widget(form._token) }}
             <div class="form-group has-feedback">
                 {{ form_widget(form.resource, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.resource'|trans }}) }}
@@ -27,7 +27,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <button type="submit" id="_submit_email" name="_submit_email" class="btn btn-primary btn-block btn-flat">{{ 'security.email.submit'|trans }}</button>
+                    <button type="submit" id="_submit_email" name="_submit_email" class="btn btn-primary btn-block btn-flat">{{ 'security.email.registration'|trans }}</button>
                 </div>
 
                 {% if back is defined %}

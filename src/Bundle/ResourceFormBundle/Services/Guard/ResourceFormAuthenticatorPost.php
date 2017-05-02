@@ -4,7 +4,7 @@ namespace MMC\User\Bundle\ResourceFormBundle\Services\Guard;
 
 use MMC\User\Bundle\ResourceFormBundle\Form\CodeConfirmationFormType;
 use MMC\User\Bundle\ResourceFormBundle\Services\AuthenticationCodeManager;
-use MMC\User\Bundle\UserBundle\Services\UserProvider\UserProvider;
+use MMC\User\Bundle\ResourceFormBundle\Services\ResourceFormProvider\ResourceFormProviderByResourceInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -16,19 +16,19 @@ class ResourceFormAuthenticatorPost extends AbstractResourceFormAuthenticator
 
     protected $router;
 
-    protected $userProvider;
+    protected $resourceFormProvider;
 
     protected $authenticationCodeManager;
 
     public function __construct(
         FormFactoryInterface $formFactory,
         RouterInterface $router,
-        UserProvider $userProvider,
+        ResourceFormProviderByResourceInterface $resourceFormProvider,
         AuthenticationCodeManager $authenticationCodeManager
     ) {
         $this->formFactory = $formFactory;
         $this->router = $router;
-        $this->userProvider = $userProvider;
+        $this->resourceFormProvider = $resourceFormProvider;
         $this->authenticationCodeManager = $authenticationCodeManager;
     }
 

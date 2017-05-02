@@ -28,9 +28,13 @@ class MMCResourceFormExtension extends Extension implements PrependExtensionInte
 
         $loader->load('services.yml');
 
+        $container->setParameter('mmc_user.resource_form.class', $config['resource_form_class']);
+
         $blockDefinition = $container->getDefinition('mmc_user.email.authenticator_block');
         $controllerCodeDefinition = $container->getDefinition('mmc_user.resource_form.controller');
         $renderDefinition = $container->getDefinition('mmc_user.resource_form.controller.render');
+        $registrationBlockDefinition = $container->getDefinition('mmc_user.resource_form.registration_block');
+        $registrationControllerDefinition = $container->getDefinition('mmc_user.resource_form.controller.registration');
 
         foreach ($config['modes'] as $name => $options) {
             foreach ($options as $key => $value) {
@@ -76,6 +80,21 @@ class MMCResourceFormExtension extends Extension implements PrependExtensionInte
                 $mode = $container->setDefinition('mmc_user.resource_form.mode_render.'.$key, $def);
 
                 $renderDefinition->addMethodCall('addMode', [$mode]);
+
+                //Mode pour la registration
+                $parameters = [
+                    $name,
+                    $options['type'],
+                    $options['form_type'],
+                    $options['registration_template'],
+                ];
+
+                $def = new Definition('MMC\User\Component\ResourceForm\Mode\ModeRegistration', $parameters);
+
+                $mode = $container->setDefinition('mmc_user.resource_form.mode_registration.'.$key, $def);
+
+                $registrationBlockDefinition->addMethodCall('addMode', [$mode]);
+                $registrationControllerDefinition->addMethodCall('addMode', [$mode]);
             }
         }
 

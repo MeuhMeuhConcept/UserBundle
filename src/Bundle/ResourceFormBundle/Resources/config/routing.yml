@@ -13,3 +13,7 @@ mmc_user.resource_form.authenticator:
 mmc_user.resource_form.form:
     path:     /confirm
     defaults: { _controller: mmc_user.component.controller.security:loginAction }
+
+mmc_user.resource_form.registration:
+    path:     /registration/{type}
+    defaults: { _controller: mmc_user.resource_form.controller.registration:registerAction }

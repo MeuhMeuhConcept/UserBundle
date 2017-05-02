@@ -90,7 +90,7 @@ class ResourceFormController
             $data = $form->getData();
 
             $resourceForm = $this->resourceFormProvider->findResourceByType(
-                $data[$mode->getType()],
+                $data['resource'],
                 array_merge(['type' => $mode->getType()])
             );
 

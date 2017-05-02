@@ -29,6 +29,10 @@ class Configuration implements ConfigurationInterface
     {
         $rootNode
             ->children()
+                ->scalarNode('resource_form_class')
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                ->end()
                 ->arrayNode('modes')
                     ->isRequired()
                     ->useAttributeAsKey('name')
@@ -51,6 +55,9 @@ class Configuration implements ConfigurationInterface
                                 ->defaultValue('MMCResourceFormBundle:Security:email_code.html.twig')
                             ->end()
                             ->scalarNode('render_template')
+                                ->defaultValue('MMCResourceFormBundle:Security:check_email.html.twig')
+                            ->end()
+                            ->scalarNode('registration_template')
                                 ->defaultValue('MMCResourceFormBundle:Security:check_email.html.twig')
                             ->end()
                         ->end()

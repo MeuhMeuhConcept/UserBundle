@@ -3,7 +3,7 @@
 namespace MMC\User\Bundle\ResourceFormBundle\Services\Guard;
 
 use MMC\User\Bundle\EmailBundle\Services\AuthenticationCodeManager;
-use MMC\User\Bundle\UserBundle\Services\UserProvider\UserProvider;
+use MMC\User\Bundle\ResourceFormBundle\Services\ResourceFormProvider\ResourceFormProviderByResourceInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -17,19 +17,19 @@ abstract class AbstractResourceFormAuthenticator extends AbstractFormLoginAuthen
 
     protected $router;
 
-    protected $userProvider;
+    protected $resourceFormProvider;
 
     protected $authenticationCodeManager;
 
     public function __construct(
         FormFactoryInterface $formFactory,
         RouterInterface $router,
-        UserProvider $userProvider,
+        ResourceFormProviderByResourceInterface $resourceFormProvider,
         AuthenticationCodeManager $authenticationCodeManager
     ) {
         $this->formFactory = $formFactory;
         $this->router = $router;
-        $this->userProvider = $userProvider;
+        $this->resourceFormProvider = $resourceFormProvider;
         $this->authenticationCodeManager = $authenticationCodeManager;
     }
 
@@ -37,20 +37,20 @@ abstract class AbstractResourceFormAuthenticator extends AbstractFormLoginAuthen
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $user = $credentials['user'];
+        $resourceId = $credentials['user'];
 
-        return $this->userProvider->findUserById(
+        return $this->resourceFormProvider->findUserById(
             [
-                'user' => $user,
+                'id' => $resourceId,
             ]
         );
     }
 
-    public function checkCredentials($credentials, UserInterface $user)
+    public function checkCredentials($credentials, UserInterface $resourceForm)
     {
         $code = $credentials['code'];
 
-        if ($this->authenticationCodeManager->check($user, $code)) {
+        if ($this->authenticationCodeManager->check($resourceForm, $code)) {
             return true;
         }
 

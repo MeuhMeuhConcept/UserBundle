@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @UniqueEntity(fields=["resource", "type"], message="Cette ressource est déjà utilisée.")
+ * @UniqueEntity(fields="resource", message="Cette ressource est déjà utilisée.")
  */
 class ResourceFormAuthentication implements UserInterface, ResourceFormAuthenticationInterface
 {

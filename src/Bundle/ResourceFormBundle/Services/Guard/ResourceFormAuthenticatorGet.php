@@ -3,7 +3,7 @@
 namespace MMC\User\Bundle\ResourceFormBundle\Services\Guard;
 
 use MMC\User\Bundle\ResourceFormBundle\Services\AuthenticationCodeManager;
-use MMC\User\Bundle\UserBundle\Services\UserProvider\UserProvider;
+use MMC\User\Bundle\ResourceFormBundle\Services\ResourceFormProvider\ResourceFormProviderByResourceInterface;
 use MMC\User\Component\Security\AuthenticationParametersConverter\AuthenticationParametersConverterInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +15,7 @@ class ResourceFormAuthenticatorGet extends AbstractResourceFormAuthenticator
 
     protected $router;
 
-    protected $userProvider;
+    protected $resourceFormProvider;
 
     protected $authenticationCodeManager;
 
@@ -24,13 +24,13 @@ class ResourceFormAuthenticatorGet extends AbstractResourceFormAuthenticator
     public function __construct(
         FormFactoryInterface $formFactory,
         RouterInterface $router,
-        UserProvider $userProvider,
+        ResourceFormProviderByResourceInterface $resourceFormProvider,
         AuthenticationCodeManager $authenticationCodeManager,
         AuthenticationParametersConverterInterface $authenticationParametersConverter
     ) {
         $this->formFactory = $formFactory;
         $this->router = $router;
-        $this->userProvider = $userProvider;
+        $this->resourceFormProvider = $resourceFormProvider;
         $this->authenticationCodeManager = $authenticationCodeManager;
         $this->authenticationParametersConverter = $authenticationParametersConverter;
     }

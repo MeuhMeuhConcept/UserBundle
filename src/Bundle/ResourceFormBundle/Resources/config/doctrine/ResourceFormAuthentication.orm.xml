@@ -18,10 +18,6 @@
 
         <field name="code" column="code" type="string" nullable="true" />
 
-        <one-to-one field="user" target-entity="MMC\User\Bundle\UserBundle\Entity\User">
-            <join-column name="user_id" referenced-column-name="id" />
-        </one-to-one>
-
     </mapped-superclass> 
                                                                                                    
 </doctrine-mapping>

@@ -20,6 +20,11 @@ class ResourceFormProvider implements ResourceFormProviderByResourceInterface
         return $this->em->getRepository(ResourceFormAuthentication::class)->findOneByResource($resource);
     }
 
+    public function findUserById($id)
+    {
+        return $this->em->getRepository(ResourceFormAuthentication::class)->findOneById($id);
+    }
+
     public function findResourceByType($resource, $type)
     {
         return $this->em->getRepository(ResourceFormAuthentication::class)->findOneBy(['resource' => $resource, 'type' => $type]);
