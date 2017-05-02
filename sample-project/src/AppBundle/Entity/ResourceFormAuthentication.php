@@ -10,5 +10,8 @@ use MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthentication as Base
  */
 class ResourceFormAuthentication extends BaseResourceFormAuthentication
 {
-
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="resourceForms")
+     */
+    protected $user;
 }

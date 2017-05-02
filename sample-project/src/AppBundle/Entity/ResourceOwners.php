@@ -10,5 +10,8 @@ use MMC\User\Bundle\ResourceOwnersBundle\Entity\ResourceOwners as BaseResourceOw
  */
 class ResourceOwners extends BaseResourceOwners
 {
-
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="resourceOwners")
+     */
+    protected $user;
 }

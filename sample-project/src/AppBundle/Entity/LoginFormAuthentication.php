@@ -10,5 +10,9 @@ use MMC\User\Bundle\LoginFormBundle\Entity\LoginFormAuthentication as BaseLoginF
  */
 class LoginFormAuthentication extends BaseLoginFormAuthentication
 {
-
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="loginForms")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
 }

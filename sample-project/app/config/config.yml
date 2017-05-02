@@ -78,24 +78,31 @@ mmc_user:
         layout: MMCUserBundle:Default:layout.html.twig
 
 mmc_resource_form:
+    resource_form_class: AppBundle\Entity\ResourceFormAuthentication
     modes:
-        email_form_code:
+        #email_form_code:
+        #    type: email
+        #    form_type : MMC\User\Bundle\ResourceFormBundle\Form\EmailFormType
+        #    block_template: MMCResourceFormBundle:Security\Block:email_block.html.twig
+        #    message_subject: MonSuperMessage
+        #    message_template: MMCResourceFormBundle:Security:email_code.html.twig
+        #    render_template: MMCResourceFormBundle:Security:code_confirmation.html.twig
+
+        email_form_url:
             type: email
             form_type : MMC\User\Bundle\ResourceFormBundle\Form\EmailFormType
             block_template: MMCResourceFormBundle:Security\Block:email_block.html.twig
             message_subject: MonSuperMessage
-            message_template: MMCResourceFormBundle:Security:email_code.html.twig
-            render_template: MMCResourceFormBundle:Security:code_confirmation.html.twig
-
-        sms_form:
-            type: sms
-            form_type : MMC\User\Bundle\ResourceFormBundle\Form\SmsFormType
-            block_template: MMCResourceFormBundle:Security\Block:sms_block.html.twig
-            message_subject: ~
-            message_template: MMCResourceFormBundle:Security:email_code.html.twig
+            message_template: MMCResourceFormBundle:Security:resource_url.html.twig
+            render_template: MMCResourceFormBundle:Security:check_email.html.twig
+            registration_template: MMCResourceFormBundle:Security\Block:email_registration_block.html.twig
 
 mmc_login_form:
-    registration: true
+    login_form_class: AppBundle\Entity\LoginFormAuthentication
+
+mmc_resource_owners:
+    resource_owners_class: AppBundle\Entity\ResourceOwners
+
 
 hwi_oauth:
     # list of names of the firewalls in which this bundle is active, this setting MUST be set

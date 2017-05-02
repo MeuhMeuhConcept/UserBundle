@@ -11,6 +11,8 @@ security:
             entity: { class: MMC\User\Bundle\UserBundle\Entity\User }
         mmc_login_provider:
             entity: { class: MMC\User\Bundle\LoginFormBundle\Entity\LoginFormAuthentication, property: login }
+        mmc_resource_form_provider:
+            entity: { class: MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthentication }
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -35,12 +37,8 @@ security:
 
             oauth:
                 resource_owners:
-                    trello: "/login/check-trello"
+                    trello: "/connect/check-trello"
                 oauth_user_provider:
                     service: mmc_ro_user_provider
                 failure_path: /login
                 login_path: /login
-
-
-    access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
