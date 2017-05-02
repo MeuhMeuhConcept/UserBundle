@@ -9,11 +9,11 @@ class User implements UserInterface
      */
     protected $id;
 
-    protected $loginFormAuthenticator;
+    protected $loginForms;
 
-    protected $resourceFormAuthenticator;
+    protected $resourceForms;
 
-    protected $resourceOwnerAuthenticator;
+    protected $resourceOwners;
 
     /**
      * {@inheritdoc}
@@ -47,35 +47,35 @@ class User implements UserInterface
     /**
      * @return LoginFormAuthenticator
      */
-    public function getLoginFormAuthenticator()
+    public function getLoginForms()
     {
-        return $this->loginFormAuthenticator;
+        return $this->loginForms;
     }
 
     /**
-     * @param LoginFormAuthenticator $loginFormAuthenticator
+     * @param LoginFormAuthentication $loginForms
      */
-    public function setLoginFormAuthenticator($loginFormAuthenticator)
+    public function setLoginForms($loginForms)
     {
-        $this->loginFormAuthenticator = $loginFormAuthenticator;
+        $this->loginForms = $loginForms;
 
         return $this;
     }
 
     /**
-     * @return resourceFormAuthenticator
+     * @return ResourceFormAuthentication
      */
-    public function getResourceFormAuthenticator()
+    public function getResourceForms()
     {
-        return $this->resourceFormAuthenticator;
+        return $this->resourceForms;
     }
 
     /**
-     * @param resourceFormAuthenticator $resourceFormAuthenticator
+     * @param ResourceFormAuthentication $resourceForms
      */
-    public function setResourceFormAuthenticator($resourceFormAuthenticator)
+    public function setResourceForms($resourceForms)
     {
-        $this->resourceFormAuthenticator = $resourceFormAuthenticator;
+        $this->resourceForms = $resourceForms;
 
         return $this;
     }
@@ -83,17 +83,17 @@ class User implements UserInterface
     /**
      * @return LoginFormAuthenticator
      */
-    public function getResourceOwnerAuthenticator()
+    public function getResourceOwners()
     {
-        return $this->resourceOwnerAuthenticator;
+        return $this->resourceOwners;
     }
 
     /**
-     * @param ResourceOwnerAuthenticator $resourceOwnerAuthenticator
+     * @param ResourceOwners $resourceOwners
      */
-    public function setResourceOwnerAuthenticator($resourceOwnerAuthenticator)
+    public function setResourceOwners($resourceOwners)
     {
-        $this->resourceOwnerAuthenticator = $resourceOwnerAuthenticator;
+        $this->resourceOwners = $resourceOwners;
 
         return $this;
     }

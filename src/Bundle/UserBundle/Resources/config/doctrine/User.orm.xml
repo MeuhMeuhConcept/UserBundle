@@ -8,10 +8,6 @@
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
         </id>
-
-        <one-to-one field="resourceFormAuthenticator" target-entity="MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthentication">
-            <join-column name="resource_form_authentication_id" referenced-column-name="id" />
-        </one-to-one>
     </mapped-superclass>
 
 </doctrine-mapping>

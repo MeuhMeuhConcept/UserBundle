@@ -48,6 +48,9 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('main_firewall')
                     ->defaultValue('main')
                 ->end()
+                ->scalarNode('registration')
+                   ->defaultValue(true)
+                ->end()
             ->end()
         ;
     }

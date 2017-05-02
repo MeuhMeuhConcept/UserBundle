@@ -58,6 +58,10 @@
                 <source>resetting.forgot.link</source>
                 <target>Mot de passe oublié ?</target>
             </trans-unit>
+            <trans-unit id="btn.registration">
+                <source>btn.registration</source>
+                <target>S'enregistrer</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -29,6 +29,7 @@ class MMCUserExtension extends Extension implements PrependExtensionInterface
 
         $container->setParameter('mmc_user.templates.layout', $config['templates']['layout']);
         $container->setParameter('mmc_user.main_firewall', $config['main_firewall']);
+        $container->setParameter('mmc_user.registration.condition', $config['registration']);
     }
 
     protected function addParameter($group, $key, $config, ContainerBuilder $container)
@@ -56,26 +57,11 @@ class MMCUserExtension extends Extension implements PrependExtensionInterface
             $container->prependExtensionConfig('twig', $twig_global);
         }
 
-        //MMCLoginBundle
-        if (isset($bundles['MMCLoginBundle'])
-            && isset($bundles['TwigBundle'])
+        if (isset($bundles['TwigBundle'])
         ) {
             $twig_global = [
                 'globals' => [
-                    'login_form' => true,
-                ],
-            ];
-
-            $container->prependExtensionConfig('twig', $twig_global);
-        }
-
-        //MMCResourceOwnersBundle
-        if (isset($bundles['MMCResourceOwnersBundle'])
-            && isset($bundles['TwigBundle'])
-        ) {
-            $twig_global = [
-                'globals' => [
-                    'resource_owners' => true,
+                    'registration' => $config['registration'],
                 ],
             ];
 
