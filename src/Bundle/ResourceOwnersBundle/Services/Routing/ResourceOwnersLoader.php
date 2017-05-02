@@ -27,7 +27,8 @@ class ResourceOwnersLoader implements LoaderInterface
         $routes = new RouteCollection();
 
         foreach ($this->resourceOwners as $key) {
-            $route = new Route('/login/check-'.$key, []);
+            $route = new Route('/connect/'.$key, []);
+            //$route = new Route('/login/check-'.$key, []);
             $routes->add('mmc_ro.'.$key, $route);
         }
 

@@ -26,6 +26,8 @@ class MMCResourceOwnersExtension extends Extension implements PrependExtensionIn
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
         $loader->load('services.yml');
+
+        $container->setParameter('mmc_user.resource_owners.class', $config['resource_owners_class']);
     }
 
     public function prepend(ContainerBuilder $container)

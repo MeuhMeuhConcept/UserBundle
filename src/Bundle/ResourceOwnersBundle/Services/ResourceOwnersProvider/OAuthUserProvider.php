@@ -1,6 +1,6 @@
 <?php
 
-namespace MMC\User\Bundle\ResourceOwnersBundle\Services;
+namespace MMC\User\Bundle\ResourceOwnersBundle\Services\ResourceOwnersProvider;
 
 use Doctrine\ORM\EntityManager;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;

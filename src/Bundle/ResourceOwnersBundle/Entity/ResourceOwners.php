@@ -2,7 +2,9 @@
 
 namespace MMC\User\Bundle\ResourceOwnersBundle\Entity;
 
-class ResourceOwners
+use MMC\User\Component\ResourceOwners\Model\ResourceOwnersInterface;
+
+class ResourceOwners implements ResourceOwnersInterface
 {
     /**
      * @var int

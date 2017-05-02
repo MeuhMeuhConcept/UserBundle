@@ -1,26 +1,31 @@
 <?php
 
-namespace MMC\User\Bundle\ResourceOwnersBundle\Services;
+namespace MMC\User\Bundle\ResourceOwnersBundle\Services\Manager;
 
 use Doctrine\ORM\EntityManager;
 use MMC\User\Bundle\ResourceOwnersBundle\Entity\ResourceOwners;
-use MMC\User\Bundle\UserBundle\Entity\User;
+use MMC\User\Bundle\UserBundle\Services\Manager\UserManagerInterface;
+use MMC\User\Component\ResourceOwners\Model\ResourceOwnersInterface;
 
 class ResourceOwnersManager
 {
     protected $em;
 
     public function __construct(
-        EntityManager $em
+        EntityManager $em,
+        ResourceOwnersInterface $resourceOwners,
+        UserManagerInterface $userManager
     ) {
         $this->em = $em;
+        $this->resourceOwners = $resourceOwners;
+        $this->userManager = $userManager;
     }
 
     public function create($response)
     {
-        $user = $this->createUser();
+        $user = $this->userManager->create();
 
-        $resourceOwner = new ResourceOwners();
+        $resourceOwner = $this->resourceOwners;
 
         $resourceOwner->setUser($user)
             ->setResourceOwnerId($response->getUsername())
@@ -32,15 +37,5 @@ class ResourceOwnersManager
         $this->em->flush();
 
         return $resourceOwner;
-    }
-
-    public function createUser()
-    {
-        $user = new User();
-
-        $this->em->persist($user);
-        $this->em->flush();
-
-        return $user;
     }
 }

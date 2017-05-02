@@ -13,12 +13,26 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('mmc_login');
+        $rootNode = $treeBuilder->root('mmc_resource_owners');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
 
+        $this->addBaseConfiguration($rootNode);
+
         return $treeBuilder;
+    }
+
+    protected function addBaseConfiguration($rootNode)
+    {
+        $rootNode
+            ->children()
+                ->scalarNode('resource_owners_class')
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                ->end()
+            ->end()
+        ;
     }
 }

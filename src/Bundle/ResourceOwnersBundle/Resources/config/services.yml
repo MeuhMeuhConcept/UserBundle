@@ -1,9 +1,10 @@
 services:
-    mmc_ro_user_provider:
-        class: MMC\User\Bundle\ResourceOwnersBundle\Services\OAuthUserProvider
-        arguments: ['@doctrine.orm.default_entity_manager', {trello: resourceOwnerId}, '@mmc_resource_owners.manager']
 
+    #RESOURCE_OWNERS_CLASS
+    mmc_user.resource_owners:
+        class: '%mmc_user.resource_owners.class%'
 
+    #BLOCK
     mmc_user.authenticator_block.resource_owners:
         class: MMC\User\Bundle\ResourceOwnersBundle\Services\ResourceOwnersAuthenticatorBlock
         arguments:
@@ -14,11 +15,20 @@ services:
         tags:
             - { name: mmc_user.chain.authenticator_block }
 
+    #PROVIDER
+    mmc_ro_user_provider:
+        class: MMC\User\Bundle\ResourceOwnersBundle\Services\ResourceOwnersProvider\OAuthUserProvider
+        arguments: ['@doctrine.orm.default_entity_manager', {trello: resourceOwnerId}, '@mmc_resource_owners.manager']
+
+    #MANAGER
     mmc_resource_owners.manager:
-        class: MMC\User\Bundle\ResourceOwnersBundle\Services\ResourceOwnersManager
+        class: MMC\User\Bundle\ResourceOwnersBundle\Services\Manager\ResourceOwnersManager
         arguments:
             - '@doctrine.orm.default_entity_manager'
+            - '@mmc_user.resource_owners'
+            - '@mmc_user.manager'
 
+    #ROUTING
     mmc_resource_owners.routing.loader:
         class: MMC\User\Bundle\ResourceOwnersBundle\Services\Routing\ResourceOwnersLoader
         arguments:
