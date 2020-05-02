@@ -1,0 +1,28 @@
+{% extends mmc_user_layout %}
+
+{% trans_default_domain 'MMCUserBundle' %}
+
+{% block title_content %}
+    Login{{ login_title_suffix|default('MMC') }} | Log in
+{% endblock title_content %}
+
+{% block login_logo %}
+    <div class="login-logo">
+        <a href="{{ path('mmc_user.login') }}"><b>{{ 'registration.title'|trans }}</b>MMC</a>
+    </div>
+{% endblock login_logo %}
+
+{% block mmc_user_content %}
+    <div class="login-box-body">
+
+    <p class="login-box-msg">{{ 'security.login.sign_in_title'|trans }}</p>
+
+    {% for registrationBlock in chainRegistrationBlocks.registrationBlocks %}
+        {{ registrationBlock.render|raw }}
+    {% endfor %}
+
+    <hr>
+
+
+    </div>
+{% endblock mmc_user_content %}

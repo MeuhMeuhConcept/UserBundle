@@ -1,0 +1,3 @@
+mmc_user.login_form.registration:
+    path:     /login_form/registration
+    defaults: { _controller: mmc_user.component.controller.registration:registerAction }

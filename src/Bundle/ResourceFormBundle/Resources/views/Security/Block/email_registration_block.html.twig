@@ -1,0 +1,41 @@
+{% extends mmc_user_layout %}
+
+{% block mmc_user_content %}
+
+{% trans_default_domain 'MMCResourceFormBundle' %}
+
+        <br>
+
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+{#      {% if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
+ #}
+        <form action="{{ path('mmc_user.resource_form.registration', { 'type': type }) }}" method="POST">
+            {{ form_widget(form._token) }}
+            <div class="form-group has-feedback">
+                {{ form_widget(form.resource, {'attr': {'class': 'form-control' , 'placeholder' : 'placeholder.resource'|trans }}) }}
+                {{ form_errors(form.resource) }}
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="submit" id="_submit_email" name="_submit_email" class="btn btn-primary btn-block btn-flat">{{ 'security.email.registration'|trans }}</button>
+                </div>
+
+                {% if back is defined %}
+                    <div class="col-md-6">
+                        <a href={{ path('mmc_user.login') }} class="btn btn-default btn-block btn-flat">{{ 'btn.return'|trans }}</a>
+                    </div>
+                {% endif %}
+            </div>
+        </form>
+
+{% endblock mmc_user_content %}

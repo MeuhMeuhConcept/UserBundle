@@ -1,12 +1,18 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/security.html
 security:
+    encoders:
+        MMC\User\Bundle\LoginFormBundle\Entity\LoginFormAuthentication: bcrypt
+        Symfony\Component\Security\Core\User\User: bcrypt
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
-
+        mmc_user_provider:
+            entity: { class: MMC\User\Bundle\UserBundle\Entity\User }
+        mmc_login_provider:
+            entity: { class: MMC\User\Bundle\LoginFormBundle\Entity\LoginFormAuthentication, property: login }
+        mmc_resource_form_provider:
+            entity: { class: MMC\User\Bundle\ResourceFormBundle\Entity\ResourceFormAuthentication }
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -15,10 +21,24 @@ security:
 
         main:
             anonymous: ~
-            # activate different ways to authenticate
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+            guard:
+                authenticators:
+                    - mmc_user.login_form.login_form_authenticator
+                    - mmc_user.email.guard.resource_form_authenticator.post
+                    - mmc_user.email.guard.resource_form_authenticator.get
+                entry_point: mmc_user.component.security.login_form_authenticator
+            logout:
+                path: /logout
 
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 604800 # 1 week in seconds
+
+            oauth:
+                resource_owners:
+                    trello: "/connect/check-trello"
+                oauth_user_provider:
+                    service: mmc_ro_user_provider
+                failure_path: /login
+                login_path: /login

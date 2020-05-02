@@ -1,0 +1,13 @@
+{% for resourceOwner in resourceOwners %}
+    <br>
+    <form action="{{ path("mmc_ro." ~ resourceOwner) }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        <div class="row">
+            <div class="col-xs-12">
+                <button type="submit" id="_submit" name="_submit" class="btn btn-success btn-block btn-flat btn-ro-{{resourceOwner}}">
+                    Connexion avec {{ resourceOwner|capitalize }}
+                </button>
+            </div>
+        </div>
+    </form>
+{% endfor %}

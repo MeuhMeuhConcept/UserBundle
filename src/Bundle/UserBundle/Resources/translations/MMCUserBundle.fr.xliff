@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="security.login.sign_in_title">
+                <source>security.login.sign_in_title</source>
+                <target>Connectez-vous pour démarrer votre session</target>
+            </trans-unit>
+            <trans-unit id="security.login.remember_me">
+                <source>security.login.remember_me</source>
+                <target>Se souvenir de moi</target>
+            </trans-unit>
+            <trans-unit id="security.login.submit">
+                <source>security.login.submit</source>
+                <target>Connexion</target>
+            </trans-unit>
+            <trans-unit id="security.login.title">
+                <source>security.login.title</source>
+                <target>Connexion</target>
+            </trans-unit>
+            <trans-unit id="security.login.register">
+                <source>security.login.register</source>
+                <target>S'enregistrer</target>
+            </trans-unit>
+            <trans-unit id="placeholder.login">
+                <source>placeholder.login</source>
+                <target>Identifiant</target>
+            </trans-unit>
+            <trans-unit id="placeholder.password">
+                <source>placeholder.password</source>
+                <target>Mot de passe</target>
+            </trans-unit>
+            <trans-unit id="placeholder.repeatPassword">
+                <source>placeholder.repeatPassword</source>
+                <target>Répéter le mot de passe</target>
+            </trans-unit>
+            <trans-unit id="registration.submit">
+                <source>registration.submit</source>
+                <target>S'enregistrer</target>
+            </trans-unit>
+            <trans-unit id="register.title">
+                <source>register.title</source>
+                <target>Enregistrement</target>
+            </trans-unit>
+            <trans-unit id="login.button">
+                <source>login.button</source>
+                <target>Se connecter</target>
+            </trans-unit>
+            <trans-unit id="resetting.forgot.submit">
+                <source>resetting.forgot.submit</source>
+                <target>Envoyer</target>
+            </trans-unit>
+            <trans-unit id="resetting.forgot.title">
+                <source>resetting.forgot.title</source>
+                <target>MotDePasseOublié</target>
+            </trans-unit>
+            <trans-unit id="resetting.forgot.link">
+                <source>resetting.forgot.link</source>
+                <target>Mot de passe oublié ?</target>
+            </trans-unit>
+            <trans-unit id="btn.registration">
+                <source>btn.registration</source>
+                <target>S'enregistrer</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

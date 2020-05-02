@@ -1,0 +1,41 @@
+services:
+
+    #RESOURCE_OWNERS_CLASS
+    mmc_user.resource_owners:
+        class: '%mmc_user.resource_owners.class%'
+
+    #BLOCK
+    mmc_user.authenticator_block.resource_owners:
+        class: MMC\User\Bundle\ResourceOwnersBundle\Services\ResourceOwnersAuthenticatorBlock
+        arguments:
+            - '%mmc_user.main.authenticator_block.resource_owners%'
+            - '@templating'
+            - '@security.csrf.token_manager'
+            - '%mmc_ro.resource_owners%'
+        tags:
+            - { name: mmc_user.chain.authenticator_block }
+
+    #PROVIDER
+    mmc_ro_user_provider:
+        class: MMC\User\Bundle\ResourceOwnersBundle\Services\ResourceOwnersProvider\OAuthUserProvider
+        arguments: ['@doctrine.orm.default_entity_manager', {trello: resourceOwnerId}, '@mmc_resource_owners.manager']
+
+    #MANAGER
+    mmc_resource_owners.manager:
+        class: MMC\User\Bundle\ResourceOwnersBundle\Services\Manager\ResourceOwnersManager
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@mmc_user.resource_owners'
+            - '@mmc_user.manager'
+
+    #ROUTING
+    mmc_resource_owners.routing.loader:
+        class: MMC\User\Bundle\ResourceOwnersBundle\Services\Routing\ResourceOwnersLoader
+        arguments:
+            - '%mmc_ro.resource_owners%'
+        tags:
+            - { name: routing.loader }
+
+parameters:
+    mmc_user.template.authenticator_block.resource_owners: 'MMCResourceOwnersBundle:Security:resource_owners_block.html.twig'
+    mmc_user.main.authenticator_block.resource_owners: false

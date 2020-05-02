@@ -1,3 +1,15 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+mmc_user_login:
+   resource: "@MMCUserBundle/Resources/config/routing.yml"
+
+mmc_user_resources_owners:
+   resource: "@MMCResourceOwnersBundle/Resources/config/routing.yml"
+
+mmc_user_resource_form:
+   resource: "@MMCResourceFormBundle/Resources/config/routing.yml"
+
+mmc_user_login_form:
+  resource: "@MMCLoginFormBundle/Resources/config/routing.yml"

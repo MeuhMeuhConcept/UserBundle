@@ -6,11 +6,11 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -42,13 +42,16 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   pdo_mysql
+        driver:   "%database_driver%"
         host:     "%database_host%"
         port:     "%database_port%"
         dbname:   "%database_name%"
         user:     "%database_user%"
         password: "%database_password%"
+        server_version: "%database_server_version%"
         charset:  UTF8
+        types:
+            uuid:  Ramsey\Uuid\Doctrine\UuidType
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -65,6 +68,55 @@ doctrine:
 swiftmailer:
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
+    port:      "%mailer_port%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+mmc_user:
+    templates:
+        layout: MMCUserBundle:Default:layout.html.twig
+
+mmc_resource_form:
+    resource_form_class: AppBundle\Entity\ResourceFormAuthentication
+    modes:
+        #email_form_code:
+        #    type: email
+        #    form_type : MMC\User\Bundle\ResourceFormBundle\Form\EmailFormType
+        #    block_template: MMCResourceFormBundle:Security\Block:email_block.html.twig
+        #    message_subject: MonSuperMessage
+        #    message_template: MMCResourceFormBundle:Security:email_code.html.twig
+        #    render_template: MMCResourceFormBundle:Security:code_confirmation.html.twig
+
+        email_form_url:
+            type: email
+            form_type : MMC\User\Bundle\ResourceFormBundle\Form\EmailFormType
+            block_template: MMCResourceFormBundle:Security\Block:email_block.html.twig
+            message_subject: MonSuperMessage
+            message_template: MMCResourceFormBundle:Security:resource_url.html.twig
+            render_template: MMCResourceFormBundle:Security:check_email.html.twig
+            registration_template: MMCResourceFormBundle:Security\Block:email_registration_block.html.twig
+
+mmc_login_form:
+    login_form_class: AppBundle\Entity\LoginFormAuthentication
+
+mmc_resource_owners:
+    resource_owners_class: AppBundle\Entity\ResourceOwners
+
+
+hwi_oauth:
+    # list of names of the firewalls in which this bundle is active, this setting MUST be set
+    firewall_names: [main]
+
+    connect:
+        confirmation: true
+        #account_connector: hwi_oauth.user.provider.fosub_bridge
+        #registration_form_handler: hwi_oauth.registration.form.handler.fosub_bridge
+        #registration_form: fos_user.registration.form
+
+    resource_owners:
+        trello:
+            type:                trello
+            client_id:           bb951d1b2d1813329c6e77e7d6cbeebd
+            client_secret:       202b1ceb0cbc5a61ecd7b53935a7d8ed5f897197470ba3eb12c6125be6ba5326
+            scope:               "read"

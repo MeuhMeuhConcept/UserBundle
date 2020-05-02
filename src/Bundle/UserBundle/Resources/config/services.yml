@@ -1,0 +1,44 @@
+services:
+
+    mmc_user.manager:
+        class: MMC\User\Bundle\UserBundle\Services\Manager\UserManager
+        arguments:
+             - '@doctrine.orm.default_entity_manager'
+
+    mmc_user.component.controller.security:
+        class: MMC\User\Bundle\UserBundle\Controller\SecurityController
+        arguments:
+            - '@templating'
+            - '@mmc_user.chain.authenticator_block'
+
+    mmc_user.controller.registration:
+        class: MMC\User\Bundle\UserBundle\Controller\RegistrationController
+        arguments:
+            - '@templating'
+            - '@mmc_user.chain.registration_block'
+
+    mmc_user.component.routing.extra_loader.registration:
+        class: MMC\User\Component\Routing\ExtraLoader
+        arguments:
+            - '%mmc_user.routing.routeName.registration%'
+            - '%mmc_user.routing.pattern.registration%'
+            - '%mmc_user.routing.controllerAction.registration%'
+            - '%mmc_user.registration.condition%'
+        tags:
+            - { name: routing.loader }
+
+    mmc_user.chain.authenticator_block:
+        class: MMC\User\Bundle\UserBundle\Services\AuthenticatorBlock\ChainAuthenticatorBlock
+
+    mmc_user.chain.registration_block:
+        class: MMC\User\Bundle\UserBundle\Services\RegistrationBlock\ChainRegistrationBlock
+
+    mmc_user.provider:
+        class: MMC\User\Bundle\UserBundle\Services\UserProvider\UserProvider
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+
+parameters:
+    mmc_user.routing.routeName.registration: 'mmc_user.registration'
+    mmc_user.routing.pattern.registration: '/register'
+    mmc_user.routing.controllerAction.registration: 'mmc_user.controller.registration:registerAction'

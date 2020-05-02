@@ -1,0 +1,19 @@
+mmc_user.resource_form.code:
+    path:     /resource_code/{type}
+    defaults: { _controller: mmc_user.resource_form.controller:sendAction }
+
+mmc_user.resource_form.render:
+    path:     /redirect/{type}/{id}
+    defaults: { _controller: mmc_user.resource_form.controller.render:renderAction }
+
+mmc_user.resource_form.authenticator:
+    path:     /resource_check
+    defaults: { _controller: mmc_user.component.controller.security:loginAction }
+
+mmc_user.resource_form.form:
+    path:     /confirm
+    defaults: { _controller: mmc_user.component.controller.security:loginAction }
+
+mmc_user.resource_form.registration:
+    path:     /registration/{type}
+    defaults: { _controller: mmc_user.resource_form.controller.registration:registerAction }

@@ -28,7 +28,11 @@
         }
     },
     "require": {
-        "php": "~7.0"
+        "php": "~7.0",
+        "hwi/oauth-bundle": "^0.5.3",
+        "ramsey/uuid": "3.5.2",
+        "ramsey/uuid-doctrine": "1.2.0",
+        "symfony/swiftmailer-bundle": "^2.3"
     },
     "require-dev": {
         "doctrine/annotations": "^1.2",
